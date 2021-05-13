@@ -1,0 +1,21 @@
+{
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "description": "\"Ecommerce Application\"",
+  "main": "server.js",
+  "scripts": {
+    "back": "nodemon Backend/server.js",
+    "prod": "node Backend/server.js",
+    "client": "npm start --prefix front_end",
+    "dev": "concurrently \"npm run back\" \"npm run client\""
+  },
+  "author": "AStream26",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^6.1.0",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.7"
+  }
+}
