@@ -11,8 +11,8 @@ const HomeScreen = () => {
 useEffect(()=>{
     const fetchProduct = async ()=>{
         const {data} = await axios.get('/api/v1/product');
-        
-        Setproduct(data);
+           
+        Setproduct(data.products);
         setTimeout(()=>{
             setLoading(false)
         },100);

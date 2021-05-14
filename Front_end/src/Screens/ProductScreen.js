@@ -16,7 +16,7 @@ const ProductScreen = props => {
       useEffect(()=>{
           let fetchProduct = async ()=>{
              let {data} = await axios.get(`/api/v1/product/${props.match.params.id}`);
-             setProduct(data.product);
+             setProduct(data.products);
              setLoading(false);
           } 
           fetchProduct();
@@ -37,16 +37,16 @@ const ProductScreen = props => {
               </Col>
               <Col  lg={3} >
                   <ListGroup variant='flush' >
-                      <ListGroup.Item className="my-4">
+                      <ListGroup.Item className="my-4" style={{borderBottom:'1px solid #D5D3DA'}}>
                           <h2>{product.name}</h2>
                       </ListGroup.Item>
-                      <ListGroup.Item>
-                         <Rating rating={product.rating} text={`${product.numReviews} Reviews`} />
+                      <ListGroup.Item  style={{borderBottom:'1px solid #D5D3DA'}}>
+                         <Rating rating={product.rating} text={`${product.numReviews} Reviews`}  />
                       </ListGroup.Item>
-                      <ListGroup.Item > 
-                         Price: ₹ {product.price}
+                      <ListGroup.Item  style={{borderBottom:'1px solid #D5D3DA'}} > 
+                        <p> <strong>Price: ₹ {product.price}</strong></p>
                       </ListGroup.Item>
-                      <ListGroup.Item>
+                      <ListGroup.Item style={{borderBottom:'1px solid #D5D3DA'}}>
                           <strong>Description:</strong> 
                           {product.description}
                       </ListGroup.Item>
