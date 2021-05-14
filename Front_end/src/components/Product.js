@@ -2,9 +2,11 @@ import React from 'react'
 import { Card,Badge, Button } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import Rating from './Rating.js';
+import Loader from './utilities_/myloader';
 
-const Product = ({product}) => {
-    return (
+const Product = ({product,isloading}) => {
+    return isloading ?(<><Loader /></>):
+    (
         <>
         <Card className='my-3 p-3 rounded'>
          <Link to={`/product/${product._id}`} >
@@ -25,7 +27,7 @@ const Product = ({product}) => {
 
         <Card.Text as='h3'>
             
-             $ {product.price}
+        ₹ {product.price}
               
            
         </Card.Text>

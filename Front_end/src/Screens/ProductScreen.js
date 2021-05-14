@@ -6,15 +6,18 @@ import Rating from '../components/Rating';
 import MyButton from '../components/Button';
 import {Row ,Col,ListGroup , Card ,Image , Button, ListGroupItem} from 'react-bootstrap';
 import axios from 'axios';
+import Loader from '../components/utilities_/myloader';
 
 const ProductScreen = props => {
     
       const [product,setProduct] =  useState({});
+      const [loading,setLoading] = useState(true);
 
       useEffect(()=>{
           let fetchProduct = async ()=>{
              let {data} = await axios.get(`/api/v1/product/${props.match.params.id}`);
              setProduct(data.product);
+             setLoading(false);
           } 
           fetchProduct();
       },[props.match])
@@ -22,7 +25,7 @@ const ProductScreen = props => {
   let active =product.countInStock>0?true:false;
 
     //nsole.log(product);
-    return (
+    return loading?<Loader center={true} />:(
         <>
           <Link to ='/'>
           <Button variant='outline-dark' size='sm'>Go Back</Button>
