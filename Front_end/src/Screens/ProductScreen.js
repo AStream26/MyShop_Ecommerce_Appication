@@ -1,26 +1,23 @@
 import React,{useState,useEffect} from 'react'
 import PropTypes from 'prop-types';
-
+import {useDispatch,useSelector} from 'react-redux';
 import {Link } from 'react-router-dom';
 import Rating from '../components/Rating';
 import MyButton from '../components/Button';
 import {Row ,Col,ListGroup , Card ,Image , Button, ListGroupItem} from 'react-bootstrap';
-import axios from 'axios';
 import Loader from '../components/utilities_/myloader';
+import {GetProduct} from '../actions/productAction';
 
 const ProductScreen = props => {
     
-      const [product,setProduct] =  useState({});
-      const [loading,setLoading] = useState(true);
+    const dispatch = useDispatch();
+    const {loading,product,error} = useSelector(state=>state.productItem)
 
       useEffect(()=>{
-          let fetchProduct = async ()=>{
-             let {data} = await axios.get(`/api/v1/product/${props.match.params.id}`);
-             setProduct(data.products);
-             setLoading(false);
-          } 
-          fetchProduct();
-      },[props.match])
+          console.log(props.match.params.id);
+        dispatch(GetProduct(props.match.params.id)); 
+        
+      },[dispatch,props.match])
     
   let active =product.countInStock>0?true:false;
 
