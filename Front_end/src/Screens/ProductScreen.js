@@ -1,23 +1,26 @@
 import React,{useState,useEffect} from 'react'
-import PropTypes from 'prop-types';
 import {useDispatch,useSelector} from 'react-redux';
 import {Link } from 'react-router-dom';
 import Rating from '../components/Rating';
 import MyButton from '../components/Button';
-import {Row ,Col,ListGroup , Card ,Image , Button, ListGroupItem} from 'react-bootstrap';
+import {Row ,Col,ListGroup , Card ,Image ,Form, Button, ListGroupItem} from 'react-bootstrap';
 import Loader from '../components/utilities_/myloader';
 import {GetProduct} from '../actions/productAction';
 
 const ProductScreen = props => {
-    
+    const [qty,setQty] = useState(1);
     const dispatch = useDispatch();
     const {loading,product,error} = useSelector(state=>state.productItem)
 
       useEffect(()=>{
-          console.log(props.match.params.id);
+         
         dispatch(GetProduct(props.match.params.id)); 
         
       },[dispatch,props.match])
+
+      let AddtocardHandler = ()=>{
+          props.history.push(`/cart/${props.match.params.id}?qty=${qty}`)
+      }
     
   let active =product.countInStock>0?true:false;
 
@@ -56,9 +59,9 @@ const ProductScreen = props => {
                   <Card>
                       <ListGroup variant='flush'>
                        <ListGroupItem>
-                           <Row>
+                           <Row >
                                <Col>
-                               Price
+                              <strong> Price</strong>
                                </Col>
                                <Col>
                               <strong> ₹ {product.price}</strong>
@@ -66,7 +69,7 @@ const ProductScreen = props => {
                            </Row>
                        </ListGroupItem>
                        <ListGroupItem>
-                           <Row>
+                           <Row style={{borderTop:'1px solid #D5D3DA'}}>
                                <Col >
                                Stock
                                </Col>
@@ -75,9 +78,50 @@ const ProductScreen = props => {
                                </Col>
                            </Row>
                        </ListGroupItem>
-                      </ListGroup>
+
+
+                     {
+                         active?(<>
+                            <ListGroupItem style={{borderTop:'1px solid #D5D3DA',borderBottom:'1px solid #D5D3DA'}} >
+                     
+                            <Row>
+                            <Col>
+                            <strong>Quantity</strong>
+                            </Col>
+                           
+                            <Col>
+                            <Form.Group >
+                               
+                               <Form.Control as="select" value={qty} onChange={(e)=>setQty(e.target.value)} style={{transform:"scale(0.8)"}} >
+                               
+                              {
+                                  [...new Array(product.countInStock).keys()].map(el=>(
+                                 <option key={el+1} value={el+1}>{el+1}</option>
+                                  )
+                                  )
+                              }
+                               </Form.Control>
+                           </Form.Group>
+                            </Col>
+                        </Row>
+                         
+                    
+                      </ListGroupItem>
+                      <MyButton handler={AddtocardHandler} color='#ffbf00' text='Add to Cart' active />
                       <MyButton color='#ff8000' text='But Now' active />
-                    <MyButton color='#ffbf00' text='Add to Cart' active />
+
+         </>
+                         ):(<>
+                          <MyButton color='#ffbf00' text='Out Of Stock' />
+                         </>)
+                     } 
+                      
+                      
+                      </ListGroup>
+
+                     
+                      
+                   
                   </Card>
                  
               </Col>
