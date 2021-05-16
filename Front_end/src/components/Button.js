@@ -6,7 +6,7 @@ const Button1 = props => {
      
     if(!props.active){
         return (
-            <Button className='btn btn-dark btn-block my-2' 
+            <Button className='btn btn-dark btn-block my-2' block
          disabled={!props.active}
         style={{borderRadius:0} }  >
         {props.text}
@@ -15,10 +15,10 @@ const Button1 = props => {
     }
 
     return (
-        <Button className='btn btn-primary btn-block my-2' 
+        <Button className="mb-2"   block
          disabled={!props.active}
          onClick={props.handler}
-        style={{color:'black',borderRadius:0,backgroundColor:`${props.color}`} }  >
+        style={{color:'black',borderRadius:0,backgroundColor:`${props.color}`} } >
         {props.text}
        </Button>
     )

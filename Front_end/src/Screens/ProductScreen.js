@@ -108,7 +108,7 @@ const ProductScreen = props => {
                     
                       </ListGroupItem>
                       <MyButton handler={AddtocardHandler} color='#ffbf00' text='Add to Cart' active />
-                      <MyButton color='#ff8000' text='But Now' active />
+                      <MyButton color='#ff8000' text='Order Now' active />
 
          </>
                          ):(<>

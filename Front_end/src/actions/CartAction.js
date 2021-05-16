@@ -1,9 +1,9 @@
 import axios from 'axios';
-import {ADD_CART_ITEM} from '../Reducer/constants';
+import {ADD_CART_ITEM,REMOVE_CART_ITEM} from '../Reducer/constants';
 
 export const AddItem = (id,qty)=>async (dispatch,getState)=>{
     try{
-       
+         
         const {data} = await axios.get(`/api/v1/product/${id}`);
         const item = data.products;
         
@@ -24,4 +24,13 @@ export const AddItem = (id,qty)=>async (dispatch,getState)=>{
     }catch(error){
        
     }
+}
+
+export const DeleteItem = (id)=> async (dispatch,getState) =>{
+    dispatch({
+        type:REMOVE_CART_ITEM,
+        payload:id
+    });
+
+    localStorage.setItem('cartItem',JSON.stringify(getState().cart.cartItem));
 }
