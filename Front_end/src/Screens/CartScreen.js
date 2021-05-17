@@ -1,9 +1,9 @@
-import React,{useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {useDispatch,useSelector} from 'react-redux';
 import {AddItem,DeleteItem} from '../actions/CartAction';
 import EmptyCart from '../components/Cart/Emptycart';
 import CartList from '../components/Cart/CartList';
-import { ListGroup,Container,Row,Col,Button,Card, ListGroupItem, Alert } from 'react-bootstrap';
+import { ListGroup,Container,Row,Col,Card, ListGroupItem, } from 'react-bootstrap';
 import Mybutton from '../components/Button';
 const CartScreen = ({match,location,history}) => {
     
@@ -51,7 +51,7 @@ const CartScreen = ({match,location,history}) => {
                              <ListGroup variant="flush"  >
                                  <Card.Header className="m-2 mb-4"><h2>{'my shopping cart'.toLocaleUpperCase()}</h2> </Card.Header>
                                  {
-                                     cartItem.map(item =><CartList product = {item} changeHandler = {dispatch} deleteHandler = {deleteItem} />)
+                                     cartItem.map((item,i) =><CartList key={i+1} product = {item} changeHandler = {dispatch} deleteHandler = {deleteItem} />)
                                  }
                              </ListGroup>
                                )    

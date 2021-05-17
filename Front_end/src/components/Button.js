@@ -1,6 +1,6 @@
+// eslint-disable-next-line
 import React from 'react'
 import {Button} from 'react-bootstrap';
-import PropTypes from 'prop-types'
 
 const Button1 = props => {
      

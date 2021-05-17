@@ -1,9 +1,8 @@
-
-import React,{useEffect, useState} from 'react'
-import {useDispatch,useSelector} from 'react-redux';
+// eslint-disable-next-line
+import React from 'react'
 import {Link} from 'react-router-dom';
 import {AddItem} from '../../actions/CartAction';
-import {Jumbotron,Badge,Alert,Button,Card, Container,Form, Col,Row, ListGroupItem,Image} from 'react-bootstrap';
+import {Button,Card,Form, Col,Row, ListGroupItem,Image} from 'react-bootstrap';
 import Mybutton from '../Button';
 
 const CartList = ({product,changeHandler,deleteHandler}) => {

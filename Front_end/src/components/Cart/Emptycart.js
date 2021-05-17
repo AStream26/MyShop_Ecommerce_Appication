@@ -8,7 +8,7 @@ const Quantity = props => {
                                <Container>
                                    <Row>
                                        <Col sm={12}md={4}>
-                                       <i class="fas fa-shopping-cart fa-10x"></i>
+                                       <i className="fas fa-shopping-cart fa-10x"></i>
                                        </Col>
                                        <Col sm={12} md={8}>
                                        <h1>Your MyShop Cart is Empty</h1>

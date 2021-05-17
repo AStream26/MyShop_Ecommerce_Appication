@@ -10,7 +10,7 @@ import {GetProduct} from '../actions/productAction';
 const ProductScreen = props => {
     const [qty,setQty] = useState(1);
     const dispatch = useDispatch();
-    const {loading,product,error} = useSelector(state=>state.productItem)
+    const {loading,product} = useSelector(state=>state.productItem)
 
       useEffect(()=>{
          
