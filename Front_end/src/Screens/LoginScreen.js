@@ -19,6 +19,7 @@ const LoginScreen = ({location,history}) => {
        const {userInfo,loading,error} = UserInfo;
      useEffect(()=>{
        if(userInfo){
+           history.state = {messageFrom:"You have successfully logined in !!"}
            history.push(redirect);
        }
      },[history,userInfo,redirect])
@@ -33,7 +34,11 @@ const LoginScreen = ({location,history}) => {
     return (
         <FormContainer>
 
-            <h3  style={{color:"black"}}>Please Login To continue</h3>
+           {
+               !error?( <h3  style={{color:"black"}}>Please Login To continue</h3>):(
+                <h3 className="text-danger">{error}</h3>
+               )
+           }
             <Form>
                   <Form.Group  className="m-2"controlId="formBasicEmail">
                     <Form.Label style={{color:"black"}}>Email address</Form.Label>
@@ -48,8 +53,8 @@ const LoginScreen = ({location,history}) => {
                   
             
           <Row className="m-2">
-          <Button style={{ backgroundColor: "#ffbf00", color:"black"}} className={classes.join(' ')} block onClick={Submithandler}>
-                Submit
+          <Button style={{ backgroundColor: "#ffbf00", color:"black"}} disabled={loading} className={classes.join(' ')} block onClick={Submithandler}>
+               {loading?'Logining....':'Log in'}
                </Button>
           </Row>
             </Form>

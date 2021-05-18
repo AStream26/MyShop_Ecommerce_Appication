@@ -6,6 +6,16 @@ const AppError = require('../util/Errorhandler');
 
 function sendResponse(res,message,statusCode,token,data){
 
+     const options = {
+          expires:new Date(Date.now() + (process.env.EXPIRES)*24*60*60*1000),
+          httpOnly:true,
+         
+     }
+     if(process.env.NODE_ENV=='PRODUCTION')
+     options.secure = true;
+  // console.log(options);
+     res.cookie('jwt',token,options);
+
      res.status(statusCode).json({
           status:"success",
           message,
@@ -28,7 +38,7 @@ function sendToken(user,req,res,statusCode){
  
         const token = generatetoken(user._id);
         user.password = undefined;
-
+        
         sendResponse(res,"successfully signed in",200,token,user);
 }
 
@@ -67,14 +77,20 @@ exports.login = catchAsync(async(req,res,next)=>{
 exports.protect = catchAsync(async (req,res,next)=>{
      let token;
      //checking for token from the reqest header
-     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer'))
+
+     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
      token = req.headers.authorization.split(' ')[1];
-     
+     console.log(token);}
+     else if(req.cookies.jwt){
+          token = req.cookies.jwt;
+          
+     }
+   
           if(!token)
             return next(new AppError('Failed to Logined !!',401));
      
      const decoded = await promisify(jwt.verify)(token,process.env.JWT_SECRET);
-
+    
     const currentuser = await userModal.findById(decoded.id);
 
     if(!currentuser)

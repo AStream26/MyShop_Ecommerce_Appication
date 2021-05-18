@@ -3,15 +3,19 @@ const ProductRouter = require('./Route/ProductRoute');
 const userRouter = require('./Route/userRouter');
 const Error_MiddleWare = require('./Controllers/ErrorController');
 const AppError = require('./util/Errorhandler');
+const cookieParser = require('cookie-parser');
 const app = express();
 
 
 
 app.use(express.json({limit:'10kb'}));//for post request to get data parses the data from body
 // app.use(express.urlencoded({extended:true,limit:'10kb'}));
+app.use(cookieParser());
 
-
-
+// app.use((req,res,next)=>{
+//     console.log(req.cookies.jwt);
+//     next();
+// })
 
 
 app.use('/api/v1/product/',ProductRouter);

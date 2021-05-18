@@ -1,26 +1,41 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import {useDispatch,useSelector} from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import Product from '../components/Product';
 import Loader from '../components/utilities_/myloader';
 import {listProduct} from '../actions/productAction';
+import Indicator from '../components/Indicator/indicator';
 
-const HomeScreen = () => {
+const HomeScreen = ({history}) => {
    
   
    const dispatch = useDispatch();
    const productlist = useSelector(state=>state.productList );
    const {loading,product,error} = productlist;
-
+   const [message1,setMessage] = useState(null);
 useEffect(()=>{
+     if(history.state){
+         setMessage(history.state.messageFrom);
+     }
      dispatch(listProduct());
-},[dispatch]);
+},[dispatch,setMessage,history]);
+
+
+let closehandler = ()=>{
+    setMessage(null);
+    history.state = null;
+}
 
     return(
 
 
      <>
      <h1>Latest Products</h1>
+     {
+         message1?(<>
+         <Indicator  handler = {closehandler}message={message1} alert="alert-primary" />
+         </>):null
+     }
 
      {
          loading?<Loader center={true}/>:error?(<h1>Error</h1>):
