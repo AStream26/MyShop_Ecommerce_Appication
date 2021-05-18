@@ -83,8 +83,17 @@ exports.protect = catchAsync(async (req,res,next)=>{
     if(currentuser.DoesPasswordChangedAfter(decoded.iat)){
          return next(new AppError('Invalid Login , User has Recently changed the password , Please  Login Again'));
     }
-   console.log(currentuser);
+ //  console.log(currentuser);
    req.user = currentuser;
    next();
 
 })
+
+
+exports.validateRole = (...roles) =>{
+     return (req,res,next)=>{
+          if(!roles.includes(req.user.role))
+            return next(new AppError("You Don't have permission to perform this action !!",403));
+          return next();
+     }
+}

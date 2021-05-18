@@ -8,7 +8,7 @@ const Button1 = props => {
         return (
             <Button className='btn btn-dark btn-block my-2' block
          disabled={!props.active}
-        style={{borderRadius:0} }  >
+        style={{borderRadius:0, zIndex:"-1"} }  >
         {props.text}
        </Button>
         )
@@ -18,7 +18,7 @@ const Button1 = props => {
         <Button className="mb-2"   block
          disabled={!props.active}
          onClick={props.handler}
-        style={{color:'black',borderRadius:0,backgroundColor:`${props.color}`} } >
+        style={{color:'black', zIndex:"2",borderRadius:"10px",backgroundColor:`${props.color}`} } >
         {props.text}
        </Button>
     )

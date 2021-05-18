@@ -10,7 +10,7 @@ import {GetProduct} from '../actions/productAction';
 const ProductScreen = props => {
     const [qty,setQty] = useState(1);
     const dispatch = useDispatch();
-    const {loading,product} = useSelector(state=>state.productItem)
+    const {loading,product,error} = useSelector(state=>state.productItem)
 
       useEffect(()=>{
          
@@ -25,7 +25,8 @@ const ProductScreen = props => {
   let active =product.countInStock>0?true:false;
 
     //nsole.log(product);
-    return loading?<Loader center={true} />:(
+    return loading?<Loader center={true} />:
+       error?(error.message): (
         <>
           <Link to ='/'>
           <Button variant='outline-dark' size='sm'>Go Back</Button>

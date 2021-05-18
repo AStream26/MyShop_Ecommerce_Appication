@@ -5,7 +5,7 @@ const Header = () => {
     return (
       
           <header>
-<Navbar bg="light" variant='light' expand="lg"  collapseOnSelect>
+<Navbar bg="dark" variant='dark' expand="md"  collapseOnSelect >
     
     <Container>
    <LinkContainer to='/'>
@@ -19,7 +19,10 @@ const Header = () => {
         <Nav.Link ><i className='fas fa-shopping-cart mx-3'></i><strong>Cart</strong></Nav.Link>
         </LinkContainer>
        <LinkContainer to='/login'>
-       <Nav.Link ><i className='fas fa-user mx-3'></i><strong>sign in</strong></Nav.Link>
+       <Nav.Link ><i className='fas fa-user mx-3'></i><strong>login</strong></Nav.Link>
+       </LinkContainer>
+       <LinkContainer to='/signup'>
+       <Nav.Link ><i className='fas fa-user mx-3'></i><strong>sign up</strong></Nav.Link>
        </LinkContainer>
       </Nav>
     

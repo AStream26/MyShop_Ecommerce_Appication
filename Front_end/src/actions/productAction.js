@@ -4,7 +4,12 @@ import axios from 'axios';
 export const listProduct = ()=> async (dispatch)=>{
     try{
         dispatch({type:PRODUCT_LIST_REQUEST});
-        const {data} = await axios.get('/api/v1/product');
+        const config = {
+            headers:{
+                'authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYTI4MDNlNTgwZjFlM2EzY2VhMzA0OCIsImlhdCI6MTYyMTI5Njk5OSwiZXhwIjoxNjIyMTYwOTk5fQ.FByqL9AiQDZd-S7wurEjtcsk0mYMuxEAmvyiGAu6IYA'
+            }
+        }
+        const {data} = await axios.get('/api/v1/product',config);
         dispatch({type:PRODUCT_LIST_SUCCESS,payload:data.products});  
  
     }catch(error){
