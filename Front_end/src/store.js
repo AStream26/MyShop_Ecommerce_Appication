@@ -9,16 +9,16 @@ const reducer = combineReducers({
     productList:productListReducer,
     productItem:productItemReducer,
     cart:CartReducer,
-    userInfo:UserLoginReducer
+    userLogin:UserLoginReducer
 });
 const cartItem = localStorage.getItem('cartItem')?JSON.parse(localStorage.getItem('cartItem')):[]; ;
-const userInfo = localStorage.getItem('userInfo')?JSON.parse(localStorage.getItem('userInfo')):{};
+const userInfo = localStorage.getItem('userInfo')?JSON.parse(localStorage.getItem('userInfo')):null;
                                                     
 
 
 const intialstate = {
     cart:{cartItem:cartItem},
-    userInfo:{userInfo:userInfo}
+    userLogin:{userInfo:userInfo}
    
 };
 const middleware = [thunk];

@@ -6,19 +6,21 @@ import Loader from '../components/utilities_/myloader';
 import {listProduct} from '../actions/productAction';
 import Indicator from '../components/Indicator/indicator';
 
-const HomeScreen = ({history}) => {
+const HomeScreen = ({history,location}) => {
    
   
    const dispatch = useDispatch();
    const productlist = useSelector(state=>state.productList );
+   const {userLogin} = useSelector(state=>state.userLogin)
    const {loading,product,error} = productlist;
    const [message1,setMessage] = useState(null);
+
 useEffect(()=>{
      if(history.state){
          setMessage(history.state.messageFrom);
      }
      dispatch(listProduct());
-},[dispatch,setMessage,history]);
+},[dispatch,setMessage,history,userLogin]);
 
 
 let closehandler = ()=>{
@@ -38,7 +40,7 @@ let closehandler = ()=>{
      }
 
      {
-         loading?<Loader center={true}/>:error?(<h1>Error</h1>):
+         loading?<Loader center={true}/>:error?(<h1>{error}</h1>):
         (
             <Row>
          {

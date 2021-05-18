@@ -15,14 +15,16 @@ const LoginScreen = ({location,history}) => {
      let redirect = location.search ? location.search.split('=')[0]:'/';
     
      const dispatch = useDispatch();
-     const UserInfo = useSelector(state=>state.userInfo);
-       const {userInfo,loading,error} = UserInfo;
+     const UserInfo = useSelector(state=>state.userLogin);
+     //console.log(UserInfo)
+       const {userData,loading,error} = UserInfo;
      useEffect(()=>{
-       if(userInfo){
+       if(userData){
+           
            history.state = {messageFrom:"You have successfully logined in !!"}
            history.push(redirect);
        }
-     },[history,userInfo,redirect])
+     },[history,userData,redirect])
 
      let Submithandler = (e)=>{
          e.preventDefault();

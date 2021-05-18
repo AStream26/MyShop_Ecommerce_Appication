@@ -5,7 +5,7 @@ export const AddItem = (id,qty)=>async (dispatch,getState)=>{
     try{
          
         const {data} = await axios.get(`/api/v1/product/${id}`);
-        const item = data.products;
+        const item = data.doc;
         
          dispatch({
              type:ADD_CART_ITEM,

@@ -5,14 +5,15 @@ export const UserLoginReducer = (state={ },action)=>{
     switch(action.type){
         
         case LOGIN_USER_REQUEST:
-        return {loading:true}
+        return {loading:true,
+             isLogin:false}
 
         
         case LOGIN_USER_SUCCESS:
         return {
             loading:false,
             isLogin:true,
-            userInfo:action.payload
+            userData:action.payload.data
         }
         
         case LOGIN_USER_FAIL:
@@ -23,7 +24,9 @@ export const UserLoginReducer = (state={ },action)=>{
         }
         
         case USER_LOGOUT:
-            return{}
+            return{
+                
+            }
         
             default:
         return state;
