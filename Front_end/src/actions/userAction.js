@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {USER_FAIL, USER_LOGOUT, USER_REQUEST, USER_SUCCESS, USER_UPDATE_FAIL,USER_UPDATE_REQUEST,USER_UPDATE_SUCCESS} from '../Reducer/constants';
+import {SETBACK, UPDATE_PASSWORD_FAIL, UPDATE_PASSWORD_REQUEST, UPDATE_PASSWORD_SUCCESS, USER_FAIL, USER_LOGOUT, USER_REQUEST, USER_SUCCESS, USER_UPDATE_FAIL,USER_UPDATE_REQUEST,USER_UPDATE_SUCCESS} from '../Reducer/constants';
 
 export const getuserData  = ()=>async(dispatch)=>{
 
@@ -52,3 +52,29 @@ export const upadteuserData  = (data1)=>async(dispatch)=>{
 
 
 
+
+ export const updatePassword = ({password,newPassword,confirmPassword}) => async(dispatch)=>{
+    try{
+        dispatch({type:UPDATE_PASSWORD_REQUEST});
+
+        const {data} = await axios.patch('/api/v1/user/updatepassword',{
+            password,newPassword,confirmPassword
+        })
+
+        dispatch({
+            type:UPDATE_PASSWORD_SUCCESS
+        })
+
+    }catch(error){
+        dispatch({type:UPDATE_PASSWORD_FAIL,
+            payload:error.response && error.response.data.message
+            ?error.response.data.message
+            :error.response })
+    }
+ }
+
+ export const setback = ()=>(dispatch)=>{
+     dispatch({
+         type:SETBACK
+     })
+ }
