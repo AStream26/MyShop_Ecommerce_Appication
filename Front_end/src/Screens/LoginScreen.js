@@ -13,6 +13,7 @@ const LoginScreen = ({location,history}) => {
      let [email,SetEmail] = useState('');
      let [password,SetPassword] = useState('');
      let redirect = location.search ? location.search.split('=')[0]:'/';
+     
     
      const dispatch = useDispatch();
      const UserInfo = useSelector(state=>state.userLogin);
@@ -62,7 +63,7 @@ const LoginScreen = ({location,history}) => {
             </Form>
             <Row className="p-3">
                 <Col>
-               <Link to={redirect?`register/?redirect=${redirect}`:'/register'} > <strong>New Customer ?</strong></Link>
+                <strong>New Customer ?</strong> <Link to={redirect?`register/?redirect=${redirect}`:'/register'} > Register </Link>
                 </Col>
             </Row>
         </FormContainer>

@@ -4,21 +4,21 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import {productListReducer,productItemReducer} from './Reducer/ProductReducer';
 import {CartReducer} from './Reducer/CartReducer';
 import {UserLoginReducer} from './Reducer/AuthReducer';
-
+import {UserReducer} from './Reducer/userReducer';
 const reducer = combineReducers({
+
     productList:productListReducer,
     productItem:productItemReducer,
     cart:CartReducer,
-    userLogin:UserLoginReducer
+    userLogin:UserLoginReducer,
+    userDetail:UserReducer
 });
-const cartItem = localStorage.getItem('cartItem')?JSON.parse(localStorage.getItem('cartItem')):[]; ;
-const userInfo = localStorage.getItem('userInfo')?JSON.parse(localStorage.getItem('userInfo')):null;
+const cartItem = localStorage.getItem('cartItem')?JSON.parse(localStorage.getItem('cartItem')):[];
                                                     
 
 
 const intialstate = {
-    cart:{cartItem:cartItem},
-    userLogin:{userInfo:userInfo}
+    cart:{cartItem:cartItem}
    
 };
 const middleware = [thunk];

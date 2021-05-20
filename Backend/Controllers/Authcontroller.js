@@ -8,8 +8,7 @@ function sendResponse(res,message,statusCode,token,data){
 
      const options = {
           expires:new Date(Date.now() + (process.env.EXPIRES)*24*60*60*1000),
-          httpOnly:true,
-         
+          httpOnly:true
      }
      if(process.env.NODE_ENV=='PRODUCTION')
      options.secure = true;
@@ -79,10 +78,11 @@ exports.protect = catchAsync(async (req,res,next)=>{
 
      if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
      token = req.headers.authorization.split(' ')[1];
-     console.log(token);}
+     //console.log(token);
+}
      else if(req.cookies.jwt){
           token = req.cookies.jwt;
-          
+          //console.log(token);
      }
    
           if(!token)
@@ -96,7 +96,7 @@ exports.protect = catchAsync(async (req,res,next)=>{
     return next(new AppError('Invalid Token either expired or user does not exists !!',401));
 
     if(currentuser.DoesPasswordChangedAfter(decoded.iat)){
-         return next(new AppError('Invalid Login , User has Recently changed the password , Please  Login Again'));
+         return next(new AppError('Invalid Login , User has Recently changed the password , Please  Login Again',401));
     }
  //  console.log(currentuser);
    req.user = currentuser;
@@ -168,13 +168,15 @@ exports.isLogined=     async (req,res,next)=>{
 next();
 };
 
-exports.logout = (req,res)=>{
-     //console.log("ajjsjs");
-     res.cookie('jwt','loggedout',{
-      
-         expires:new Date(Date.now()+(10*1000)),
-         httpOnly:true
-     });
- 
-     res.status(200).json({status:'success'});
- }
+exports.logout =(req,res)=>{
+     
+          //console.log("ajjsjs");
+          res.cookie('jwt','loggedout',{
+           
+              expires:new Date(Date.now()+(10)),
+              httpOnly:true
+          });
+         
+          res.status(200).json({status:'success'});
+     
+}

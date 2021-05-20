@@ -1,17 +1,28 @@
 import React from 'react'
 
 
-const indicator = props => {
+const indicator = (props)=> {
+   
+    let indicate =["alert alert-dismissible"];
 
-    let indicate =["alert alert-dismissibl"];
 
-  
+
+    if(!props.color)
     return (
-        <div className={indicate.join(' ')} style={{backgroundColor:"#ffbf00",color:"black",opacity:"0.7"}} >
+        <div className={indicate.join(' ')} style={{backgroundColor:"#ffbf00",color:"black",opacity:"0.4"}} >
         <button onClick={props.handler} type="button" className="btn-close mx-3" data-bs-dismiss="alert"></button>
         <strong>{props.message}</strong>
       </div>
     )
+
+    else{
+      return(
+        <div className={["alert alert-dismissible",props.color].join(' ')} style={{transition:"0.4s"}} >
+        <button onClick={props.handler}  className="btn-close mx-3" data-bs-dismiss="alert"></button>
+        <strong>{props.message}</strong>
+      </div>
+      )
+    }
 }
 
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {Container,Nav,Navbar, NavDropdown} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {LinkContainer} from 'react-router-bootstrap';
@@ -6,19 +6,22 @@ import {logout} from '../actions/Authuseraction';
 
 const Header = (props) => {
     const dispatch = useDispatch();
-    const userInfo= useSelector(state=>state.userLogin);
-    const {userData,loading,error} = userInfo;
-
+    const userInfo= useSelector(state=>state.userDetail);
+    //console.log(userInfo);
+        let userData = null;
+    userData = userInfo?.userData;
+    
+  
 
     let logouthandler = ()=>{
         dispatch(logout());
-        window.location.reload(true);
+        //window.location.reload(true);
     }
    // console.log(userInfo)
     return (
       
           <header>
-<Navbar bg="dark" variant='dark' expand="md"  collapseOnSelect >
+<Navbar className="navbar-dark bg-primary" expand="md"  collapseOnSelect >
     
     <Container>
    <LinkContainer to='/'>
@@ -38,7 +41,7 @@ const Header = (props) => {
             <Nav.Link ><i className='fas fa-user mx-3'></i><strong>login</strong></Nav.Link>
             </LinkContainer>
            
-            <LinkContainer to='/signup'>
+            <LinkContainer to='/register'>
             <Nav.Link ><i className='fas fa-user mx-3'></i><strong>sign up</strong></Nav.Link>
             </LinkContainer>
             </>

@@ -6,6 +6,11 @@ const mongoose = require('mongoose');
 
 dotenv.config();
 
+process.on('uncaughtException',err=>{
+  //console.log(err.name,err.message);
+  process.exit(1);//unhadled exception
+  
+});
 //console.log(process.env.PORT);
 mongoose.connect(process.env.URL,{
   useNewUrlParser:true,
@@ -20,6 +25,14 @@ mongoose.connect(process.env.URL,{
 if(process.env.NODE_ENV === 'DEVELOPMENT')
 app.use(morgan('dev'));
 
+process.on('unhandledRejection',err=>{
+  //console.log(err);
+  console.log(err.name,err.message);
+  server.close(()=>{
+      console.log("Shutting Down the server......");
+      process.exit(1);//unhadled exception
+  });
+});
 
 
 //console.log(process.env.PORT);

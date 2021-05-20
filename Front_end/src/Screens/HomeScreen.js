@@ -5,7 +5,6 @@ import Product from '../components/Product';
 import Loader from '../components/utilities_/myloader';
 import {listProduct} from '../actions/productAction';
 import Indicator from '../components/Indicator/indicator';
-
 const HomeScreen = ({history,location}) => {
    
   
@@ -19,7 +18,10 @@ useEffect(()=>{
      if(history.state){
          setMessage(history.state.messageFrom);
      }
+    
      dispatch(listProduct());
+     
+
 },[dispatch,setMessage,history,userLogin]);
 
 
