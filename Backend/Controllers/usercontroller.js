@@ -15,27 +15,30 @@ function filterObject(obj,allowed){
 }
 
 exports.getMe = catchAsync(async (req,res,next)=>{
-    req.params.id= req.user.id;
+  //  console.log(`from getMe ${req.user}`)
+    req.params.id= req.user._id;
+   // console.log(req.params);
     next();
 });
 
 
 exports.updateMe = catchAsync(async (req,res,next)=>{
-      
+   // console.log(req.params);
     let allowedupdate = ['name','email','shippingAddress'];
     if(req.body.password || req.body.confirmPassword)
     next(new AppError('Password cannot be updated using this route',400));
      const obj = filterObject(req.body,allowedupdate);
-      
-     const user = await User.findByIdAndUpdate(req.params.id,obj,{
+     // console.log(obj);
+    
+     const doc = await User.findByIdAndUpdate(req.user._id,obj,{
          runValidators:true,
          new:true
      });
-
+   //  console.log(doc);
      res.status(200).json({
          status:"success",
          message:"Data updated successfully ",
-         user
+         doc
      })
      
          

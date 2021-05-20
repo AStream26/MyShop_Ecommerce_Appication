@@ -18,7 +18,8 @@ function sendResponse(res,message,statusCode,token,data){
      res.status(statusCode).json({
           status:"success",
           message,
-          data
+          data,
+          token
      });
 }
 
@@ -113,12 +114,6 @@ exports.validateRole = (...roles) =>{
      }
 }
 
-exports.updatePassword = catchAsync(async(req,res,next)=>{
-     res.status(404).json({
-          status:"Will be Implemented"
-     });
-})
-
 exports.resetPassword = catchAsync(async(req,res,next)=>{
      res.status(404).json({
           status:"Will be Implemented"
@@ -167,6 +162,31 @@ exports.isLogined=     async (req,res,next)=>{
  }
 next();
 };
+
+
+exports.updatePassword = catchAsync(async (req,res,next)=>{
+  
+     const id = req.user._id;
+     //console.log(id);
+     const user = await userModal.findById(id).select('+password');
+     
+     const {password,newPassword,confirmPassword} = req.body;
+     //console.log(user.password);
+     if(await (!user.checkPassword(password,user.password)))
+     return next(new AppError('Incorrect Password !!!',403));
+     
+     
+     
+     user.password = newPassword;
+     user.confirmPassword = confirmPassword;
+     await user.save();
+     
+     const token = generatetoken(user._id);
+     sendResponse(res,"Password Updated Successfully",200,token);
+     
+     });
+
+
 
 exports.logout =(req,res)=>{
      

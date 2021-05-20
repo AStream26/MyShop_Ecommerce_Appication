@@ -33,15 +33,16 @@ export const login = (email,password)=> async(dispatch)=>
         try{
             localStorage.removeItem("userInfo");
             dispatch({type:USER_LOGOUT});
+    
             const res = await axios({
                 method:'GET',
                 url:'/api/v1/user/logout'
             });
           //  console.log("akaka");
-    
-            if(res.data.status==='success'){
-            window.location.assign('/'); //reload from server side not from browser side
-            }
+           
+            // if(res.data.status==='success'){
+            // window.location.assign('/'); //reload from server side not from browser side
+            // }
     
         }catch(err){
             alert(err.response.data.message);
@@ -49,7 +50,7 @@ export const login = (email,password)=> async(dispatch)=>
     }
 
 
-    export const Register = (name,email,password,confirmPassword)=>async(dispatch)=>{
+    export const Register = (name,email,password,confirmPassword)=>async(dispatch,getState)=>{
 
         try{
             const config = {
@@ -62,8 +63,10 @@ export const login = (email,password)=> async(dispatch)=>
             const {data} = await axios.post('/api/v1/user/signup',{name, email,password,confirmPassword },config);
             dispatch({type:LOGIN_USER_SUCCESS,
                 payload:data});
-      
-                localStorage.setItem("userInfo",JSON.stringify(data));
+            dispatch({type:USER_SUCCESS,
+                      payload:data.data});
+
+                // localStorage.setItem("userInfo",JSON.stringify(data));
 
         }catch(error){
             dispatch({ type:LOGIN_USER_FAIL,

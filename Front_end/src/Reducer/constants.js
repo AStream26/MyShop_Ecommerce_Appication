@@ -18,4 +18,9 @@ export const USER_LOGOUT = 'USER_LOGOUT';
 export const USER_SUCCESS = 'USER_SUCCESS';
 export const USER_REQUEST = 'USER_REQUEST';
 export const USER_FAIL = 'USER_FAIL';
+
+
+
+export const USER_UPDATE_REQUEST = 'USER_UPDATE_REQUEST';
 export const USER_UPDATE_FAIL = 'USER_UPDATE_FAIL';
+export const USER_UPDATE_SUCCESS = 'USER_UPDATE_SUCCESS';

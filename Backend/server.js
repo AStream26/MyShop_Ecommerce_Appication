@@ -14,7 +14,7 @@ process.on('uncaughtException',err=>{
 //console.log(process.env.PORT);
 mongoose.connect(process.env.URL,{
   useNewUrlParser:true,
-  useFindAndModify:true,
+  useFindAndModify:false,
   useCreateIndex:true,
   useUnifiedTopology:true
 }).then(con=>{

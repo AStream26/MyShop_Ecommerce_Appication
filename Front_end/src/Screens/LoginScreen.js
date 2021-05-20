@@ -3,11 +3,13 @@ import {Form,Button, Col,Row} from 'react-bootstrap'
 import FormContainer from '../components/Form/formcontainer';
 import Classes from './style.module.css';
 import validator from 'validator';
-import { Link } from 'react-router-dom';
+import { Link,useHistory ,useLocation} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {login} from '../actions/Authuseraction';
 
-const LoginScreen = ({location,history}) => {
+const LoginScreen = () => {
+    const location = useLocation();
+    const history = useHistory();
     const classes = [Classes.btncolor,'btn-block mt-3'];
    
      let [email,SetEmail] = useState('');
@@ -22,7 +24,7 @@ const LoginScreen = ({location,history}) => {
      useEffect(()=>{
        if(userData){
            
-           history.state = {messageFrom:"You have successfully logined in !!"}
+           history.hash = "#Logined In Successfully !!";
            history.push(redirect);
        }
      },[history,userData,redirect])

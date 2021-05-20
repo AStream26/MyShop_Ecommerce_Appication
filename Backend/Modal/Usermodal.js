@@ -52,14 +52,32 @@ const UserSchema = mongoose.Schema({
 });
 
 
-UserSchema.pre('save',async function(next){
-    if(!this.isModified('password')) return next();
-    this.password = await bcrypt.hash(this.password,12);
 
+
+
+UserSchema.pre('save',async function(next){
+      
+    if(!this.isModified('password'))
+    return next();
+
+    this.password = await bcrypt.hash(this.password,12);
     this.confirmPassword = undefined;
     next();
+});
+UserSchema.pre('save',function(next){
+    if(!this.isModified('password')||(this.isNew))
+    return next();
+    //console.log("ab");
+    this.passwordChangeAt = Date.now();
+    next();
+});
 
-})
+UserSchema.pre(/^find/,function(next){
+    //this point to current query not document
+    this.find({active:{$ne:false}});
+    next();
+
+});
 
 
 UserSchema.methods.checkPassword = function(candidatePassword,userPassword){

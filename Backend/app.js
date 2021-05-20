@@ -6,7 +6,7 @@ const Error_MiddleWare = require('./Controllers/ErrorController');
 const AppError = require('./util/Errorhandler');
 const app = express();
 
-
+app.set('view engine', 'ejs');
 
 app.use(express.json({limit:'10kb'}));//for post request to get data parses the data from body
 // app.use(express.urlencoded({extended:true,limit:'10kb'}));

@@ -3,10 +3,12 @@ import {Container,Nav,Navbar, NavDropdown} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {LinkContainer} from 'react-router-bootstrap';
 import {logout} from '../actions/Authuseraction';
-
+import {useHistory} from 'react-router-dom'
 const Header = (props) => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const userInfo= useSelector(state=>state.userDetail);
+    
     //console.log(userInfo);
         let userData = null;
     userData = userInfo?.userData;
@@ -14,7 +16,9 @@ const Header = (props) => {
   
 
     let logouthandler = ()=>{
+    
         dispatch(logout());
+      history.push('/login');
         //window.location.reload(true);
     }
    // console.log(userInfo)
@@ -47,7 +51,7 @@ const Header = (props) => {
             </>
            ):(
                <NavDropdown title={userData.name} id="name">
-                   <LinkContainer to="/profile">
+                   <LinkContainer to="/profile/setting">
                       <NavDropdown.Item>
                           Profile
                       </NavDropdown.Item>

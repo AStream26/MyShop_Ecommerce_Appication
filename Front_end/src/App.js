@@ -22,7 +22,7 @@ useEffect(()=>{
 dispatch(getuserData());
 },[dispatch])
   return (
-   <Router> 
+ <>
    <Header />
    
     <main className='py-3'>
@@ -48,7 +48,8 @@ dispatch(getuserData());
     </main>
    
     <Footer/>
-   </Router>
+    </>
+   
   );
 }
 

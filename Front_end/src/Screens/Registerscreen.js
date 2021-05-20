@@ -26,6 +26,7 @@ const RegisterScreen = ({location,history}) => {
        if(userData){
            
            history.state = {messageFrom:"Successfully created Account !!"}
+           
            history.push(redirect);
        }
        SetMessage(error);

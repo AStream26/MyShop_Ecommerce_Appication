@@ -8,25 +8,25 @@ import {upadteuserData} from '../../actions/userAction';
 import { useDispatch, useSelector } from 'react-redux';
 
  const Basicinfo = (props) => {
-  const {userData,loading,error} = useSelector(state=>state.userDetail);
-  let  x = userData.name;
-  let y = userData.email;
-    let [name,Setname] = useState(x);
-     let [email,SetEmail] = useState(y);
+  const {userData,loading,error,success} = useSelector(state=>state.userDetail);
+
+    let [name,Setname] = useState(userData?.name);
+     let [email,SetEmail] = useState(userData?.email);
      let [message,setMessage] = useState(null);
+     
  const dispatch = useDispatch();
 
  useEffect(()=>{
-   if(error||message){
-       setMessage(error)
-   }
- },[error]);
-
+    if(error){
+        setMessage(error);
+    }
+   
+ },[error,success,message]);
 
      let Submithandler = (e)=>{
         e.preventDefault();
         if(!validator.isEmail(email)){
-          setMessage('Invalid Email ,Failed to update !!')
+          setMessage('Enter Valid Email !!')
         }
         else{
          dispatch(upadteuserData({
@@ -45,10 +45,14 @@ let handler = ()=>{
     return (
 
         <>
-     {
-          message?(
-            <Indicator message={message} handler={handler} color="alert-danger" />
-            ):null
+     {   
+         
+         message?(<Indicator message="Data updated successfully" handler={handler} color ="alert-success"/>):
+         message?(
+                <Indicator message={message} handler={handler} color="alert-danger" />
+                ):error?(<Indicator message={error} handler={handler} color="alert-danger" />):null
+         
+
      }
 
        <FormContainer active={true} className="border-top" styel={{  transition: "0.7s ease-out"}}>

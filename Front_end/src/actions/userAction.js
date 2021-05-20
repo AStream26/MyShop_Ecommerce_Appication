@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {USER_FAIL, USER_REQUEST, USER_SUCCESS, USER_UPDATE_FAIL} from '../Reducer/constants';
+import {USER_FAIL, USER_LOGOUT, USER_REQUEST, USER_SUCCESS, USER_UPDATE_FAIL,USER_UPDATE_REQUEST,USER_UPDATE_SUCCESS} from '../Reducer/constants';
 
 export const getuserData  = ()=>async(dispatch)=>{
 
@@ -24,19 +24,24 @@ export const getuserData  = ()=>async(dispatch)=>{
 export const upadteuserData  = (data1)=>async(dispatch)=>{
 
     try{
-         console.log(data1.name);
-         console.log(data1.email);
-     dispatch({type:USER_REQUEST});
-     
+        
+     dispatch({type:USER_UPDATE_REQUEST});
+     const config = {
+        headers:{
+            'Content-Type':'application/json'
+        }
+    }
      const {data} = await axios.patch('/api/v1/user/updateuser',{
         name:data1.name,
         email:data1.email
-     });
-     dispatch({type:USER_SUCCESS,
+     },config);
+    // console.log(data);
+     dispatch({type:USER_UPDATE_SUCCESS,
               payload:data.doc})
-     
- 
+    
+    localStorage.setItem('userData',JSON.stringify(data.doc));
     }catch(error){
+        //console.log(error.response);
         dispatch({type:USER_UPDATE_FAIL,
                  payload:error.response && error.response.data.message
                  ?error.response.data.message
@@ -44,5 +49,6 @@ export const upadteuserData  = (data1)=>async(dispatch)=>{
  
     }
  }
- 
+
+
 

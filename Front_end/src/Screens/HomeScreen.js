@@ -5,8 +5,10 @@ import Product from '../components/Product';
 import Loader from '../components/utilities_/myloader';
 import {listProduct} from '../actions/productAction';
 import Indicator from '../components/Indicator/indicator';
-const HomeScreen = ({history,location}) => {
-   
+import { useHistory, useLocation } from 'react-router';
+const HomeScreen = (props)=>{
+    const history = useHistory();
+    const location = useLocation();
   
    const dispatch = useDispatch();
    const productlist = useSelector(state=>state.productList );
@@ -15,9 +17,11 @@ const HomeScreen = ({history,location}) => {
    const [message1,setMessage] = useState(null);
 
 useEffect(()=>{
-     if(history.state){
-         setMessage(history.state.messageFrom);
-     }
+     if(history.hash){
+         setMessage(history.hash);
+         setInterval(() => {
+             history.hash = '';
+         }, 1000);    }
     
      dispatch(listProduct());
      
