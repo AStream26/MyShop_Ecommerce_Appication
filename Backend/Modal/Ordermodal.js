@@ -28,10 +28,12 @@ const OrderSchema = ({
     ],
     shippingAddress:{
         Address:{type:String,required:true},
-        city:{type:String,required:true},
+        City:{type:String,required:true},
+        State:{type:String,required:true},
         Pincode:{type:String,required:true},
-        country:{type:String,required:true}
-    },
+        Country:{type:String,required:true},
+        ModileNo: {type:String,required:true}
+},
     PaymentMethod:{
         type:String,
         required:true

@@ -41,7 +41,7 @@ import Indicator from '../Indicator/indicator';
     return (
 
         <>
-        {
+        {   
             success ? (<Indicator message="Password updated successfully" handler = {close} color="alert-success" />):null
         }
         <FormContainer active={true} className="border-top">

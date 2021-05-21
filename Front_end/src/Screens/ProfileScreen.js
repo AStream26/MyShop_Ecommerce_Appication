@@ -7,19 +7,22 @@ import Review from '../components/profile/myReviews';
 import Orders from '../components/profile/mybooking';
 import Classes from './style.module.css';
 const ProfileScreen = props => {
+    console.log(props);
     return (
         <>
-       <Row className="mt-4" >
-           <Col lg={4} style={{borderRight:"1px solid gray"}}>
+       <Row className="mt-4" style={{
+           height:"75vh"
+       }} >
+           <Col lg={3} style={{borderRight:"1px solid gray"}}>
               <ListGroup className="p-1" >
                   
-                  <NavLink activeClassName={Classes.active} to={props.match.url+'/setting'}className={Classes.remove}>
+                  <NavLink activeClassName={Classes.active} to={props.match.url+'/setting'} className={Classes.remove}>
                   <ListGroupItem  >    Basic Info    </ListGroupItem>
                   </NavLink>
                 
 
                   
-                  <NavLink activeClassName={Classes.active} to={props.match.url+'/changepassword'} className={Classes.remove}>
+                  <NavLink  activeClassName={Classes.active} to={props.match.url+'/changepassword'} className={Classes.remove}>
                   <ListGroupItem  >    Change Password    </ListGroupItem>
                   </NavLink>
                
@@ -38,7 +41,7 @@ const ProfileScreen = props => {
               </ListGroup>
            </Col>
            <Col lg={8}>
-           <Route path='/profile/setting' exact component={Basicinfo} />
+           <Route path='/profile/setting'  component={Basicinfo} />
            <Route path='/profile/changepassword'  exact component={ChangePassword} />
            <Route path='/profile/myorders' exact component={Review} />
            <Route path='/profile/myreviws' exact component={Orders} />

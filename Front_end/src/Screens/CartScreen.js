@@ -5,16 +5,23 @@ import EmptyCart from '../components/Cart/Emptycart';
 import CartList from '../components/Cart/CartList';
 import { ListGroup,Container,Row,Col,Card, ListGroupItem, } from 'react-bootstrap';
 import Mybutton from '../components/Button';
-const CartScreen = ({match,location,history}) => {
-    
+import { useHistory, useLocation, useParams } from 'react-router';
+
+const CartScreen = () => {
+     let history = useHistory();
+     let params = useParams();
+     let location = useLocation();
+
     let [totalprice,setPrice] = useState(0);
-
-    let id = match.params.id;
-    let qty = location.search?Number(location.search.split('=')[1]):1;
-
+    let id = params.id;
+    let qty = location.search?Number((new URLSearchParams(location.search)).get('qty')):1;
+    
+ 
     const dispatch = useDispatch();
     const {cartItem} = useSelector(state=>state.cart);
-    
+    const {userData} = useSelector(state=>state.userDetail);
+    let redirect = userData?'/shipping':'/login?redirect=shipping';
+
     useEffect(()=>{
      if(id){
         dispatch(AddItem(id,qty));
@@ -35,7 +42,7 @@ const CartScreen = ({match,location,history}) => {
        dispatch(DeleteItem(id));
    }
    let CheckouHandler = ()=>{
-       history.push('/login?redirect=shipping')
+       history.push(redirect);
    }
 
 

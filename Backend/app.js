@@ -5,11 +5,16 @@ const userRouter = require('./Route/userRouter');
 const Error_MiddleWare = require('./Controllers/ErrorController');
 const AppError = require('./util/Errorhandler');
 const app = express();
+const cors = require('cors');
 
 app.set('view engine', 'ejs');
+app.enable('trust proxy');
 
 app.use(express.json({limit:'10kb'}));//for post request to get data parses the data from body
 // app.use(express.urlencoded({extended:true,limit:'10kb'}));
+
+app.use(cors());
+app.options('*',cors());
 app.use(cookieParser());
 
 // app.use((req,res,next)=>{

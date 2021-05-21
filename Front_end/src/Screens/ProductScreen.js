@@ -20,6 +20,7 @@ const ProductScreen = props => {
       },[dispatch,props.match])
 
       let AddtocardHandler = ()=>{
+          
           props.history.push(`/cart/${props.match.params.id}?qty=${qty}`)
       }
     

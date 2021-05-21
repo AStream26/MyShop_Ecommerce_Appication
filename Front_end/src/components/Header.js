@@ -7,11 +7,10 @@ import {useHistory} from 'react-router-dom'
 const Header = (props) => {
     const history = useHistory();
     const dispatch = useDispatch();
-    const userInfo= useSelector(state=>state.userDetail);
+    const {userData}= useSelector(state=>state.userDetail);
     
     //console.log(userInfo);
-        let userData = null;
-    userData = userInfo?.userData;
+ 
     
   
 
@@ -21,15 +20,18 @@ const Header = (props) => {
       history.push('/login');
         //window.location.reload(true);
     }
-   // console.log(userInfo)
+  //  console.log(props.toggle)
     return (
       
-          <header>
-<Navbar className="navbar-dark bg-primary" expand="md"  collapseOnSelect >
+          <header >
+<Navbar   className="navbar-dark bg-primary" expand="md"  collapseOnSelect >
     
     <Container>
+    <Navbar.Brand onClick={props.toggler} ><strong>MyShop</strong></Navbar.Brand>
+   
    <LinkContainer to='/'>
    <Navbar.Brand ><strong>MyShop</strong></Navbar.Brand>
+   
    </LinkContainer>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
@@ -49,17 +51,19 @@ const Header = (props) => {
             <Nav.Link ><i className='fas fa-user mx-3'></i><strong>sign up</strong></Nav.Link>
             </LinkContainer>
             </>
-           ):(
-               <NavDropdown title={userData.name} id="name">
+           ):( <>
+                 
+               <NavDropdown title={`${userData.name}`.split(' ')[0]} id="profile">
                    <LinkContainer to="/profile/setting">
                       <NavDropdown.Item>
-                          Profile
+                       Profile
                       </NavDropdown.Item>
                    </LinkContainer>
                    <NavDropdown.Item onClick={logouthandler}>
                        Logout
                    </NavDropdown.Item>
                </NavDropdown>
+               </>
            )
        }
        
