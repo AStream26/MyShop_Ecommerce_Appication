@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import Header from './components/Header';
 import Footer from './components/Footer';
-
+import {AnimatePresence} from 'framer-motion';
 import {BrowserRouter  as Router ,Redirect,Route,Switch} from 'react-router-dom';
 import { TransitionGroup,CSSTransition } from 'react-transition-group'
 import {Button, Container, NavItem} from 'react-bootstrap';
@@ -44,8 +44,9 @@ let toggle = ()=>{
      <Container>
  
         
-          
-        <Route path='/' exact  component={HomeScreen}/>
+          <AnimatePresence exitBeforeEnter>
+         <Switch loaction = {location} key={location.pathname}>
+                  <Route path='/' exact  component={HomeScreen}/>
         <Route path='/product/:id' exact  component={ProductScreen}/>
         <Route path='/cart/:id?' exact component={CartScreen}/>
         <Route path='/login'   exact  component={LoginScreen}/>
@@ -65,9 +66,10 @@ let toggle = ()=>{
 
        
        
+    </Switch>
+ 
         
-        
-
+    </AnimatePresence>
      
    
      </Container>

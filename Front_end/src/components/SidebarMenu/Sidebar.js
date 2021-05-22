@@ -39,7 +39,7 @@ const Nav = forwardRef(({width,children,height},ref) => {
             
             width:`${width}px`,
             transform:`translatex(${xwidth}px)`,
-            transition:`1s`
+            transition:`0.5s`
 
         }}
         >

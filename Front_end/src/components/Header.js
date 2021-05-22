@@ -24,20 +24,34 @@ const Header = (props) => {
     return (
       
           <header >
+              
+              <>
+              
 <Navbar   className="navbar-dark bg-primary" expand="md"  collapseOnSelect >
     
-    <Container>
-    <Navbar.Brand onClick={props.toggler} ><strong>MyShop</strong></Navbar.Brand>
+  
    
+  
+   
+   
+   
+   <i style={{ color:"white",Zindex:"200",marginLeft:"0.2em",position:"absolute"} } onClick={props.toggler} className="fas fa-bars fa-3x"></i>
+   <Container>
    <LinkContainer to='/'>
-   <Navbar.Brand ><strong>MyShop</strong></Navbar.Brand>
-   
+   <Navbar.Brand  ><strong  className="d-none d-xl-block">MyShop</strong></Navbar.Brand>
+    
    </LinkContainer>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+      <Navbar.Toggle style={{opacity:"0"}} />
+      <LinkContainer to='/'>
+   <Navbar.Brand  ><strong style={{opacity:"1"}} className="d-sm-block d-md-none">MyShop</strong></Navbar.Brand>
+    
+   </LinkContainer>
+      <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end d-none d-xl-block">
+          
        <Nav >
-       
+     
         <LinkContainer to='/cart'>
+        
         <Nav.Link ><i className='fas fa-shopping-cart mx-3'></i><strong>Cart</strong></Nav.Link>
         </LinkContainer>
        {
@@ -70,9 +84,10 @@ const Header = (props) => {
       </Nav>
     
       </Navbar.Collapse>
-  </Container>
-
+  
+      </Container>
 </Navbar>
+</>
         </header>
        
     )

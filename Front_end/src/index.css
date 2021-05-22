@@ -2,6 +2,11 @@ main{
     min-height: 80vh;
 }
 
+body{
+  background-color:whitesmoke;
+  font-family:serif;
+}
+
 
 
 .example::-webkit-scrollbar {
@@ -13,4 +18,6 @@ main{
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+
 

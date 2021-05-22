@@ -4,7 +4,8 @@ import { Form,Row,Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {updatePassword,setback} from '../../actions/userAction';
 import Indicator from '../Indicator/indicator';
-
+import {motion} from 'framer-motion'
+import {NestedAnimation,PageTransition} from '../../Screens/Animation'
  const ChangePassword = (props) => {
     const dispatch = useDispatch();
     const {success,loading}  = useSelector(state=>state.userDetail);
@@ -40,7 +41,14 @@ import Indicator from '../Indicator/indicator';
 
     return (
 
-        <>
+        <motion.div
+        
+        initial="initial"
+        animate="in"
+        exit="out"
+        variants={NestedAnimation}
+        transition={PageTransition}
+        >
         {   
             success ? (<Indicator message="Password updated successfully" handler = {close} color="alert-success" />):null
         }
@@ -73,7 +81,7 @@ import Indicator from '../Indicator/indicator';
           </Row>
             </Form>
     </FormContainer>
-    </>
+    </motion.div>
     )
 }
 export default ChangePassword;

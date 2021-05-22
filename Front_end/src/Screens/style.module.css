@@ -6,12 +6,25 @@
     
 }
 
+.rowup{
+    margin:2em;
+    background-color:whitesmoke;
+    border-radius: 1em;
+    
+}
+
 .remove{
    
     text-decoration: none;
     padding: 0.4em;
-    font-size:medium;
+    font-size:larger;
+    color:black;
+    font-weight: 300;
+    
+    
+}
 
+.remove :hover{
     transition: 0.4s ease-out;
 }
 
@@ -19,6 +32,7 @@
     margin-right: 2em;
     border-left: 4px solid black;
     background-color: #ffbf00;
-    transition: 0.7s ease-out;
+    transition: 0.3s ease-out;
+   color:black;
 }
 

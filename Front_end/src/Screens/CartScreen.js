@@ -6,7 +6,8 @@ import CartList from '../components/Cart/CartList';
 import { ListGroup,Container,Row,Col,Card, ListGroupItem, } from 'react-bootstrap';
 import Mybutton from '../components/Button';
 import { useHistory, useLocation, useParams } from 'react-router';
-
+import {motion} from 'framer-motion'
+import {ScreenAnimation,PageTransition1} from '../Screens/Animation'
 const CartScreen = () => {
      let history = useHistory();
      let params = useParams();
@@ -49,6 +50,11 @@ const CartScreen = () => {
 
 
     return (
+        <motion.div
+        initial="out" animate="in" exit="out" variants={ScreenAnimation} 
+        transition={PageTransition1}
+        
+        >
         <Container>
         <Row>
             <Col  md={12} lg={9}>
@@ -89,6 +95,7 @@ const CartScreen = () => {
         </Row>
        
         </Container>
+        </motion.div>
     )
 }
 

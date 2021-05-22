@@ -6,6 +6,9 @@ import Loader from '../components/utilities_/myloader';
 import {listProduct} from '../actions/productAction';
 import Indicator from '../components/Indicator/indicator';
 import { useHistory, useLocation } from 'react-router';
+import {ScreenAnimation} from './Animation';
+import {motion} from 'framer-motion';
+
 const HomeScreen = (props)=>{
     const history = useHistory();
     const location = useLocation();

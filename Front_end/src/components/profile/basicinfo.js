@@ -3,10 +3,10 @@ import FormContainer from '../Form/formcontainer';
 import { Form,Row,Col,Button } from 'react-bootstrap';
 import validator from 'validator';
 import Indicator from '../Indicator/indicator';
-
+import {motion} from 'framer-motion'
 import {upadteuserData} from '../../actions/userAction';
 import { useDispatch, useSelector } from 'react-redux';
-
+import {NestedAnimation,PageTransition} from '../../Screens/Animation'
  const Basicinfo = (props) => {
   const {userData,loading,error,success} = useSelector(state=>state.userDetail);
 
@@ -44,7 +44,13 @@ let handler = ()=>{
 
     return (
 
-        <>
+        <motion.div
+        initial="initial"
+        animate="in"
+        exit="out"
+        variants={NestedAnimation}
+        transition={PageTransition}
+        >
      {   
          
          message?(<Indicator message="Data updated successfully" handler={handler} color ="alert-success"/>):
@@ -55,7 +61,7 @@ let handler = ()=>{
 
      }
 
-       <FormContainer active={true} className="border-top" styel={{  transition: "0.7s ease-out"}}>
+       <FormContainer active={true} className="border-top" >
 
            <h3 className="d-flex  text text-dark justify-content-center">Your Profile</h3>
         
@@ -80,7 +86,7 @@ let handler = ()=>{
             </Form>
 
        </FormContainer>
-       </>
+       </motion.div>
     )
 }
 
