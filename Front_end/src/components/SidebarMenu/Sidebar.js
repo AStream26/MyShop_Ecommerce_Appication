@@ -29,35 +29,28 @@ const Nav = forwardRef(({width,children,height},ref) => {
         <>
         
         <div className="SideBarMenu"
-        
+        onClick={closebar}
         style = {{
             height :`${height}`,
-            zIndex: 200,
-            position:"absolute",
-            backgroundColor: "#000000",
-            backgroundImage: `linear-gradient(315deg, #485461 0%, #28313b 74%)`,
-            
+            zIndex: "300",
+            position:"fixed",
+            backgroundColor: `#ffffff`,
+            backgroundImage: `linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%)`,
+            overflowY:"auto",
             width:`${width}px`,
             transform:`translatex(${xwidth}px)`,
-            transition:`0.5s`
+            transition:`0.3s`,
+            top:"0"
 
         }}
         >
-             <div style={{
-              position: "absolute",
-              top: "0",
-              right: "25px",
-              color:"white",
-              fontSize: "50px",
-              marginLeft: "50px"
-            
-            }} onClick={closebar}  >&times;</div>
-            <>       
+                 
             {
                 children
             }
            
-            </>
+          
+          
         </div>
         
         </>

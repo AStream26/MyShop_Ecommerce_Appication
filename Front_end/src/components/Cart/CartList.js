@@ -3,33 +3,33 @@ import React from 'react'
 import {Link} from 'react-router-dom';
 import {AddItem} from '../../actions/CartAction';
 import {Button,Card,Form, Col,Row, ListGroupItem,Image} from 'react-bootstrap';
-import Mybutton from '../Button';
+
 
 const CartList = ({product,changeHandler,deleteHandler}) => {
 
         let active = product.countInStock>0?true:false;
     return (
-        <ListGroupItem >
-          < Card >
+        <ListGroupItem className="rounded" >
+          < Card className="border-0">
            
-            <Card.Body>
+            <Card.Body >
                <Row>
 
-                   <Col lg={4} style={{border:"1px solid #D5D3DA"}}>
+                   <Col lg={4}  >
                   <Link to={`/product/${product.product_id}`}>
                   <Image style={{height:"100%",width:"100%"}}src={product.image} alt={product.name} fluid  />
                   </Link>
                    </Col>
-                   <Col lg={8} style={{border:"1px solid #D5D3DA"}}>
+                   <Col lg={8} >
 
-                  <Row>
-                        <Col style={{borderBottom:"1px solid #D5D3DA",borderRight:"1px solid #D5D3DA"}}  md={4}  >
+                  <Row >
+                        <Col  md={4}  >
                            <Row >
                            <p  ><strong>{product.name}</strong></p>
                            </Row>
 
-                           <Row className="p-3" >
-                           <Col  style={{borderRight:"1px solid #D5D3DA"}}>
+                           <Row className="p-1" >
+                           <Col  >
                            <strong>In Stock</strong>
                            </Col>
                            <Col >
@@ -42,8 +42,8 @@ const CartList = ({product,changeHandler,deleteHandler}) => {
                         
                         <Col md={8}>
                              
-                             <Row  style={{borderBottom:"1px solid #D5D3DA"}} className="p-3">
-                                 <Col style={{borderRight:"1px solid #D5D3DA"}}>
+                             <Row  className="p-1" >
+                                 <Col >
                                  <strong>Price</strong>
                                  </Col>
                                  <Col>
@@ -51,8 +51,8 @@ const CartList = ({product,changeHandler,deleteHandler}) => {
                                  </Col>
                              </Row>
 
-                             <Row style={{borderBottom:"1px solid #D5D3DA"}} className="p-3"> 
-                                 <Col style={{borderRight:"1px solid #D5D3DA"}}>
+                             <Row  className="p-1"> 
+                                 <Col >
                                  <strong>Quantity</strong>
                                  </Col>
                                  <Col >
@@ -75,17 +75,18 @@ const CartList = ({product,changeHandler,deleteHandler}) => {
         
                   </Row>
 
-                  <Row className="p-2">
-                 <Col sm={2} className="p-2">
-                 <Button onClick ={()=>deleteHandler(product.product_id)}><i className="fa fa-trash"></i></Button>
+                  <Row >
+                 <Col xs={4} >
+                 <Button className="btn btn-outline-dark" style={{backgroundColor:"white"}} onClick ={()=>deleteHandler(product.product_id)}>Delete</Button>
                  </Col>
-                 <Col sm={6}></Col>
-                 <Col sm={4}>
+               
+                 <Col xs={8} md={6} className="d-grid gap-2">
                  {
                           active?(
-                            <Mybutton text="Order Now"  active color="#ffbf00"/>
+                            <Button className="btn btn-lg " style={{backgroundColor:"#ffbf00"}}>Order Now</Button>
+                            
                           ):(
-                            <Mybutton text="Out Of Stock" />
+                            <Button className="btn btn-lg " >Out Of Stock</Button>
                           )
                       }
                  </Col>

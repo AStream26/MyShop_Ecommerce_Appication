@@ -3,24 +3,20 @@ import React from 'react'
 import {Button} from 'react-bootstrap';
 
 const Button1 = props => {
-     
-    if(!props.active){
-        return (
-            <Button className='btn btn-dark btn-block my-2' block
-         disabled={!props.active}
-        style={{borderRadius:0, zIndex:"-1"} }  >
-        {props.text}
-       </Button>
-        )
-    }
-
-    return (
-        <Button className="mb-2"   block
-         disabled={!props.active}
-         onClick={props.handler}
-        style={{color:'black', zIndex:"2",borderRadius:"10px",backgroundColor:`${props.color}`} } >
-        {props.text}
-       </Button>
+    
+    return(
+        <Button className="btn btn-lg"
+        disabled={!props.active}
+        onClick = { props.handler } style={{
+            backgroundImage: `linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%)`,
+            backgroundColor: `#89d8d3`,
+            fontWeight:'500',
+            fontSize:"1.2em",
+            border:'none'
+           
+        }}>
+    {props.children}
+        </Button>
     )
 }
 

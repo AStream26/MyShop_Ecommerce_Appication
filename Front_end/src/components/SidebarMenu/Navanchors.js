@@ -6,10 +6,10 @@ export const Navanchors = ({link,text}) => {
         <>
            <NavLink  style={{
          display:"block",
-         borderBottom:"2px solid white",
+         borderBottom:"1px solid #D5D3DA",
          textDecoration:"none",
-         fontSize: "25px",
-         color: "#818181",
+      textAlign:"center",
+         color: "#000",
          padding: "8px 8px 8px 32px"
      }} activeClassName="active" to={link}>{text}</NavLink>
 

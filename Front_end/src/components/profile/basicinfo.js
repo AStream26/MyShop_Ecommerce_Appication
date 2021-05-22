@@ -7,6 +7,7 @@ import {motion} from 'framer-motion'
 import {upadteuserData} from '../../actions/userAction';
 import { useDispatch, useSelector } from 'react-redux';
 import {NestedAnimation,PageTransition} from '../../Screens/Animation'
+import MyButton from '../Button';
  const Basicinfo = (props) => {
   const {userData,loading,error,success} = useSelector(state=>state.userDetail);
 
@@ -79,9 +80,10 @@ let handler = ()=>{
             </Form.Group>
 
             <Row className="m-2">
-          <Button style={{ backgroundColor: "#ffbf00", color:"black"}} block onClick={Submithandler}>
+          <MyButton  onClick={Submithandler}   active={!loading}>
+            
                {loading?'updating....':'Update'}
-               </Button>
+               </MyButton>
           </Row>
             </Form>
 

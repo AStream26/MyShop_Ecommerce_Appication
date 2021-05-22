@@ -3,7 +3,7 @@ import {useDispatch,useSelector} from 'react-redux';
 import {AddItem,DeleteItem} from '../actions/CartAction';
 import EmptyCart from '../components/Cart/Emptycart';
 import CartList from '../components/Cart/CartList';
-import { ListGroup,Container,Row,Col,Card, ListGroupItem, } from 'react-bootstrap';
+import { ListGroup,Container,Button,Row,Col,Card, ListGroupItem, } from 'react-bootstrap';
 import Mybutton from '../components/Button';
 import { useHistory, useLocation, useParams } from 'react-router';
 import {motion} from 'framer-motion'
@@ -55,9 +55,9 @@ const CartScreen = () => {
         transition={PageTransition1}
         
         >
-        <Container>
-        <Row>
-            <Col  md={12} lg={9}>
+ 
+        <Row className="pt-5">
+            <Col  md={12} lg={8}>
             {
              cartItem.length<=0?( <EmptyCart />)
                                :(
@@ -70,31 +70,37 @@ const CartScreen = () => {
                                )    
          }  
             </Col>
-            <Col md={12} lg={3}>
-                <ListGroup variant="flush">
-                    <ListGroupItem  >
-                   <h3> {`SUBTOTAL (${cartItem.length}) ITEMS `}</h3>
+           {
+               cartItem.length>0?(
+                <Col md={12} className=" mt-4" lg={4}>
+                <ListGroup  >
+                    <ListGroupItem style={{textAlign:"center"}} >
+                   <h5> {`SUBTOTAL (${cartItem.length}) ITEMS `}</h5>
                     </ListGroupItem>
-                    <ListGroupItem style={{border:"2px solid #D5D3DA"}}>
+                    <ListGroupItem style={{textAlign:"center"}} >
                         <Row>
-                            <Col style={{borderRight:"2px solid #D5D3DA"}}><strong>TOTALPRICE</strong></Col>
+                            <Col ><strong>TOTALPRICE</strong></Col>
                             <Col><strong> ₹ {totalprice}</strong></Col>
                         </Row>
                     </ListGroupItem>
-                    <ListGroupItem>
-                    <Mybutton active = {cartItem.length>0} text ={`Proceed To Buy `} color="#ff8000" handler={CheckouHandler} />
-                    </ListGroupItem>
+                  
                 </ListGroup>
-
+                 <ListGroup variant="flush">
+                 <span  className="d-grid gap-2 m-1" >
+                    <Button class="btn btn-warning  btn-block " style={{backgroundColor:"black",height:"130%"}} handler={CheckouHandler} >Checkout</Button>
+                    </span>
+                 </ListGroup>
                
                
               
                
             </Col>
+               ):null
+           }
            
         </Row>
        
-        </Container>
+        
         </motion.div>
     )
 }

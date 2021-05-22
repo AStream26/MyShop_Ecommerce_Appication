@@ -6,7 +6,7 @@ import validator from 'validator';
 import { Link,useHistory ,useLocation} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {login} from '../actions/Authuseraction';
-
+import MyButton from '../components/Button';
 const LoginScreen = () => {
     const location = useLocation();
     const history = useHistory();
@@ -42,7 +42,8 @@ const LoginScreen = () => {
 
 
     return (
-        <FormContainer>
+        <div style={{transform:"scale(0.9)"}}s>
+        <FormContainer >
 
            {
                !error?( <h3  style={{color:"black"}}>Please Login To continue</h3>):(
@@ -63,9 +64,10 @@ const LoginScreen = () => {
                   
             
           <Row className="m-2">
-          <Button style={{ backgroundColor: "#ffbf00", color:"black"}} disabled={loading} className={classes.join(' ')} block onClick={Submithandler}>
-               {loading?'Logining....':'Log in'}
-               </Button>
+          <MyButton handler={Submithandler} active={!loading}>
+               <strong>{loading?'Logining....':'Log in'}</strong>
+               
+            </MyButton>
           </Row>
             </Form>
             <Row className="p-3">
@@ -74,6 +76,7 @@ const LoginScreen = () => {
                 </Col>
             </Row>
         </FormContainer>
+        </div>
     )
 }
 

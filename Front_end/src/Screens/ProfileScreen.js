@@ -10,23 +10,25 @@ import {motion} from 'framer-motion'
 import {ScreenAnimation,PageTransition1} from '../Screens/Animation'
 const ProfileScreen = props => {
    // console.log(props);
+   let cl = ['shadow-lg p-3 mb-5 bg-body rounded',Classes.rowup]
    const location = useLocation();
     return (
         <motion.div
          animate="in"  variants={ScreenAnimation} 
         transition={PageTransition1}
         >
-       <Row className={Classes.rowup} style={{
-           height:"100vh"
+       <Row className={cl.join(' ')} style={{
+           height:"100vh",
+           marginTop:'100px'
        }} >
-           <Col lg={3} style={{borderRight:"1px solid gray",
-          backgroundColor: `#fbb034`,
-          
-          backgroundImage: `linear-gradient(315deg, #fbb034 0%, #ffdd00 74%)`,
-          
-           opacity:"0.9"
+           <Col className="d-none d-md-block" md={3} style={{
+            backgroundColor: `#abe9cd`,
+            backgroundImage: `linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)`,
+            opacity:"1"
            
         }}>
+      
+        
               <ListGroup className="p-1" >
                   
                   <NavLink activeClassName={Classes.active} to={props.match.url+'/setting'} className={Classes.remove}>
@@ -53,9 +55,7 @@ const ProfileScreen = props => {
                   
               </ListGroup>
            </Col>
-           <Col style={{
-               borderLeftColor:"black"
-           }} lg={9} className="border">
+           <Col md={9} className="m-0">
               
            <Switch loaction={location} key={location.pathname} >
            <Route path='/profile/setting' exact component={Basicinfo} />
@@ -64,7 +64,7 @@ const ProfileScreen = props => {
            <Route path='/profile/myreviws' exact component={Orders} />
            
            </Switch>
-          
+           
            </Col>
        </Row>
         </motion.div>

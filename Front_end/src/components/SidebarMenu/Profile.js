@@ -5,9 +5,10 @@ const Profile = ({text}) => {
    
     return (
         <div style={{
-            backgroundColor: `#485461`,
+            backgroundImage: `linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)`,
+            backgroundColor: `#abe9cd`,
             color:"white",
-            borderBottom:"2px solid white",
+            borderBottom:"1px solid white",
             padding:"1em 0px",
             textAlign:"center"
         }}>

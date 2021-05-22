@@ -23,11 +23,19 @@ const Header = (props) => {
   //  console.log(props.toggle)
     return (
       
-          <header >
+          <header style={{
+              position:"fixed",
+              width:"100%",
+              zIndex:1,
+              
+          }}  >
               
               <>
               
-<Navbar   className="navbar-dark bg-primary" expand="md"  collapseOnSelect >
+<Navbar   style={{
+     backgroundImage: `linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%)`,
+     backgroundColor: `#89d8d3`,
+}} className="navbar-dark bg-primary  " expand="md" collapseOnSelect   >
     
   
    
@@ -35,10 +43,10 @@ const Header = (props) => {
    
    
    
-   <i style={{ color:"white",Zindex:"200",marginLeft:"0.2em",position:"absolute"} } onClick={props.toggler} className="fas fa-bars fa-3x"></i>
-   <Container>
+   <i style={{ color:"white",Zindex:"200",marginLeft:"0.2em",position:"absolute"} } onClick={props.toggler} className="fas fa-bars fa-2x"></i>
+   <Container >
    <LinkContainer to='/'>
-   <Navbar.Brand  ><strong  className="d-none d-xl-block">MyShop</strong></Navbar.Brand>
+   <Navbar.Brand   ><strong  className="d-none d-xl-block">MyShop</strong></Navbar.Brand>
     
    </LinkContainer>
       <Navbar.Toggle style={{opacity:"0"}} />
@@ -48,7 +56,7 @@ const Header = (props) => {
    </LinkContainer>
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end d-none d-xl-block">
           
-       <Nav >
+       <Nav   >
      
         <LinkContainer to='/cart'>
         

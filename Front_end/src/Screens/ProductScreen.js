@@ -24,7 +24,7 @@ const ProductScreen = props => {
           props.history.push(`/cart/${props.match.params.id}?qty=${qty}`)
       }
     
-  let active =product.countInStock>0?true:false;
+  let active =product?.countInStock>0?true:false;
 
     //nsole.log(product);
     return loading?<Loader center={true} />:

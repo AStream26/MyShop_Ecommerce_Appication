@@ -2,8 +2,7 @@
 import Header from './components/Header';
 import Footer from './components/Footer';
 import {AnimatePresence} from 'framer-motion';
-import {BrowserRouter  as Router ,Redirect,Route,Switch} from 'react-router-dom';
-import { TransitionGroup,CSSTransition } from 'react-transition-group'
+import  {Redirect,Route,Switch} from 'react-router-dom';
 import {Button, Container, NavItem} from 'react-bootstrap';
 import HomeScreen from './Screens/HomeScreen';
 import ProductScreen from './Screens/ProductScreen';
@@ -35,12 +34,15 @@ let toggle = ()=>{
 
   return (
  <> 
-   <SideBar ref={ref} style={{position:"absolute"}} width ="300" height="100vh" />
-  
-    <Header toggler = {toggle}  />
    
-    <main className='py-3'>
-    
+  
+  
+    <Header  toggler = {toggle}  />
+    <SideBar ref={ref}  width ="300" height="100vh" /> 
+    <main className='py-3' style={{
+     
+    }}>
+   
      <Container>
  
         

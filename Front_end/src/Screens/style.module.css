@@ -7,32 +7,43 @@
 }
 
 .rowup{
-    margin:2em;
+   
     background-color:whitesmoke;
     border-radius: 1em;
-    
+    padding: 0px;
 }
 
 .remove{
    
     text-decoration: none;
     padding: 0.4em;
-    font-size:larger;
-    color:black;
-    font-weight: 300;
-    
-    
+    font-size:medium;
+    transition: 0.5s ease-Out;
+    color:whitesmoke;
+   
+}
+.remove:hover{
+    margin-right: 2em;
+    border-left: 6px solid white;
+  
+   
+    transition: 0.5s ease-out;
+
+}
+a:hover{
+    color:whitesmoke;
 }
 
-.remove :hover{
-    transition: 0.4s ease-out;
-}
 
 .active{
+   
     margin-right: 2em;
-    border-left: 4px solid black;
-    background-color: #ffbf00;
-    transition: 0.3s ease-out;
-   color:black;
+    border-left: 6px solid white;
+    
+    color:blanchedalmond;
+    transition: 0.4s ease-out;
+  
 }
+
+
 
