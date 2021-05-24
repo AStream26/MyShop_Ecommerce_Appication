@@ -1,46 +1,28 @@
-import React, { useEffect, useState,forwardRef,useImperativeHandle } from 'react'
+import React from 'react'
 
 
 
-const Nav = forwardRef(({width,children,height},ref) => {
-    const [xwidth,setXwidhth] = useState(-(Number(width)));
+const Nav = ({width,children,height,handler,width1}) => {
     
 
-    useEffect(()=>{
-      setXwidhth(-(Number(width)));
-    },[width])
-
-   let closebar = ()=>{
-    setXwidhth(-(Number(width)));
-   }
-
-    let openbar = ()=>{
-        setXwidhth(0);
-    }
-
-    useImperativeHandle(ref,()=>{
-        return {
-         toggler:openbar
-        }
-    })
-    
-
+//console.log(width1);
     return (
         <>
         
         <div className="SideBarMenu"
-        onClick={closebar}
+        onClick={handler}
         style = {{
             height :`${height}`,
-            zIndex: "300",
+            zIndex: "600",
             position:"fixed",
             backgroundColor: `#ffffff`,
             backgroundImage: `linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%)`,
             overflowY:"auto",
             width:`${width}px`,
-            transform:`translatex(${xwidth}px)`,
+            transform:`translatex(${width1}px)`,
             transition:`0.3s`,
-            top:"0"
+            top:"0",
+           
 
         }}
         >
@@ -55,7 +37,7 @@ const Nav = forwardRef(({width,children,height},ref) => {
         
         </>
     )
-});
+}
 
 
 export default Nav

@@ -62,7 +62,8 @@ export const UserReducer = (state={},action)=>{
            case SETBACK:
                return {
                 ...state,
-                success:null
+                success:null,
+                error:null
             }
 
         case USER_LOGOUT:

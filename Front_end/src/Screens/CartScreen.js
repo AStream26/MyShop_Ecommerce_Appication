@@ -56,7 +56,7 @@ const CartScreen = () => {
         
         >
  
-        <Row className="pt-5">
+        <Row >
             <Col  md={12} lg={8}>
             {
              cartItem.length<=0?( <EmptyCart />)
@@ -87,7 +87,7 @@ const CartScreen = () => {
                 </ListGroup>
                  <ListGroup variant="flush">
                  <span  className="d-grid gap-2 m-1" >
-                    <Button class="btn btn-warning  btn-block " style={{backgroundColor:"black",height:"130%"}} handler={CheckouHandler} >Checkout</Button>
+                    <Button className="btn  btn-block " style={{backgroundColor:"black",height:"130%"}} onClick={CheckouHandler} >Checkout</Button>
                     </span>
                  </ListGroup>
                

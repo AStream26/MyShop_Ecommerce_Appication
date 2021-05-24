@@ -1,10 +1,12 @@
 main{
-    min-height: 80vh;
+    min-height: 90vh;
 }
+
 
 body{
  
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  font-family: 'Lato', sans-serif;
+  padding: 0px;;
 }
 
 
@@ -38,3 +40,54 @@ body{
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid rgb(62, 173, 207);
+}
+
+input[type=text]:focus{
+ outline: none;
+}
+
+input[type=email] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid rgb(62, 173, 207);
+}
+
+input[type=email]:focus{
+ outline: none;
+}
+
+input[type=password] {
+  width: 100%;
+  padding: 8px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid rgb(62, 173, 207);
+}
+
+input[type=password]:focus{
+ outline: none;
+}
+
+a{
+  color:black;
+  text-decoration: none;
+
+}
+
+/* a:hover{
+  color:black;
+  background-color: black;
+} */

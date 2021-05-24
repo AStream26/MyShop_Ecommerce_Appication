@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import {Form,Button, Col,Row} from 'react-bootstrap'
+import {Form, Col,Row} from 'react-bootstrap'
 import FormContainer from '../components/Form/formcontainer';
-import Classes from './style.module.css';
+
 import validator from 'validator';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {Register} from '../actions/Authuseraction';
 import Indicator from '../components/Indicator/indicator';
-
+import MyInput from '../components/myInput';
+import MyButton from '../components/Button';
 const RegisterScreen = ({location,history}) => {
-    const classes = [Classes.btncolor,'btn-block mt-3'];
     let [name,Setname] = useState('');
      let [email,SetEmail] = useState('');
      let [password,SetPassword] = useState('');
@@ -52,7 +52,7 @@ const RegisterScreen = ({location,history}) => {
 
 
     return (
-        < div  style={{transform:"scale(0.9)"}}> 
+        < div> 
         {
             message?(
             <Indicator message={message} handler={handler} color="alert-danger" />
@@ -65,31 +65,39 @@ const RegisterScreen = ({location,history}) => {
         
             
             <Form > 
-            <Form.Group  className="m-2"controlId="formBasicEmail">
+            <Form.Group  className="m-2"controlId="formname">
                     <Form.Label style={{color:"black"}}>Name</Form.Label>
-                    <Form.Control size="lg" type="text" onChange={(e)=>Setname(e.target.value)}  placeholder="Enter Name" />
+                    
+                    <MyInput controlId="formname" type="text" value={name} handler = {(e)=>Setname(e.target.value)}  />
+                  
                     
                 </Form.Group>
-                  <Form.Group  className="m-2"controlId="formBasicEmail">
+                  <Form.Group  className="m-2"controlId="formemail">
                     <Form.Label style={{color:"black"}}>Email address</Form.Label>
-                    <Form.Control  size="lg"type="email" onChange={(e)=>SetEmail(e.target.value)}  placeholder="Enter email" />
+                    <MyInput controlId="formemail" type="email" value={email} handler = {(e)=>SetEmail(e.target.value)}  />
+                    
                     
                 </Form.Group>
 
-                <Form.Group   className="m-2" controlId="formBasicPassword">
+                <Form.Group   className="m-2" controlId="formBasicpassword">
                     <Form.Label  style={{color:"black"}}>Password</Form.Label>
-                    <Form.Control  size="lg" type="password" onChange={(e)=>SetPassword(e.target.value)}  placeholder="Password" />
+                    <MyInput controlId="formbasicpassword" type="password" value={password} handler = {(e)=>SetPassword(e.target.value)}  />
+                    
                 </Form.Group>
-                <Form.Group  className="m-2" controlId="formBasicPassword">
+                <Form.Group  className="m-2" controlId="formcBasicPassword">
                     <Form.Label  style={{color:"black"}}>Confirm Password</Form.Label>
-                    <Form.Control size="lg" type="password" onChange={(e)=>SetconformPassword(e.target.value)}  placeholder="confirm Password" />
+                    <MyInput controlId="formcbasicpassword" type="password" value={confirmPassword} handler = {(e)=>SetconformPassword(e.target.value)}  />
+                
                 </Form.Group>
                   
             
           <Row className="m-2">
-          <Button style={{ backgroundColor: "#ffbf00", color:"black"}} disabled={loading} className={classes.join(' ')} block onClick={Submithandler}>
-               {loading?'Registering....':'Register'}
-               </Button>
+
+          <MyButton onClick={Submithandler}  active={!loading}>
+               <strong>{loading?'Registering....':'Register'}</strong>
+               
+            </MyButton>
+         
           </Row>
             </Form>
             <Row className="p-3">

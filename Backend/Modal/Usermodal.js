@@ -80,8 +80,11 @@ UserSchema.pre(/^find/,function(next){
 });
 
 
-UserSchema.methods.checkPassword = function(candidatePassword,userPassword){
-    return bcrypt.compare(candidatePassword,userPassword);
+UserSchema.methods.checkPassword = async function(candidatePassword,userPassword){
+    console.log('checking.....');
+    return await  bcrypt.compare(candidatePassword,userPassword);
+
+
 }
 
 UserSchema.methods.DoesPasswordChangedAfter=function(JWTtime){

@@ -17,7 +17,7 @@ const CartList = ({product,changeHandler,deleteHandler}) => {
 
                    <Col lg={4}  >
                   <Link to={`/product/${product.product_id}`}>
-                  <Image style={{height:"100%",width:"100%"}}src={product.image} alt={product.name} fluid  />
+                  <Image style={{height:"90%",width:"90%"}}src={product.image} alt={product.name} fluid  />
                   </Link>
                    </Col>
                    <Col lg={8} >
@@ -77,7 +77,7 @@ const CartList = ({product,changeHandler,deleteHandler}) => {
 
                   <Row >
                  <Col xs={4} >
-                 <Button className="btn btn-outline-dark" style={{backgroundColor:"white"}} onClick ={()=>deleteHandler(product.product_id)}>Delete</Button>
+                 <Button className="btn  btn-dark"  onClick ={()=>deleteHandler(product.product_id)}>Delete</Button>
                  </Col>
                
                  <Col xs={8} md={6} className="d-grid gap-2">

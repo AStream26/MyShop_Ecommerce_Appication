@@ -25,24 +25,24 @@ export const NestedAnimation= {
     out:{
      opacity:0,
    
-     scale:1.5
+     scale:0.5
     }
 }
 
 
-export const PageTransition1 = {
+export const PageTransition = {
 
     
     type:"spring",
-    stiffness:120,
-    duration:1
+    stiffness:100,
+    duration:0.8
     
 }
 
-export const PageTransition = {
+export const PageTransition1 = {
     
   
     type:"tween",
     ease:"anticipate",
-    duration:1
+    duration:0.8
 }

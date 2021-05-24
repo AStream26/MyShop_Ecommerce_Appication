@@ -6,9 +6,11 @@ import {updatePassword,setback} from '../../actions/userAction';
 import Indicator from '../Indicator/indicator';
 import {motion} from 'framer-motion'
 import {NestedAnimation,PageTransition} from '../../Screens/Animation'
+import MyInput from '../myInput';
+import MyButton from '../Button';
  const ChangePassword = (props) => {
     const dispatch = useDispatch();
-    const {success,loading}  = useSelector(state=>state.userDetail);
+    const {success,loading,error}  = useSelector(state=>state.userDetail);
 
      let [password,setPassword] = useState('');
     let [confirmPassword,setConfirm] = useState('');
@@ -17,6 +19,7 @@ import {NestedAnimation,PageTransition} from '../../Screens/Animation'
     
      let Submithandler = (e)=>{
         e.preventDefault();
+
          if(confirmPassword!==newPassword)
            setMessage('Password and confirm Password must be same')
          else if(newPassword.length<8)
@@ -28,16 +31,28 @@ import {NestedAnimation,PageTransition} from '../../Screens/Animation'
 
      }
      useEffect(()=>{
-      if(success){
-          setPassword(null);
-          setConfirm(null);
-          setCurrent(null);
-      }
-     },[success])
-     let close = ()=>{
-         setMessage(null);
+      
+          setPassword('');
+          setConfirm('');
+          setCurrent('');
+          setMessage(error);
+     
+     },[error])
+
+     let handler = ()=>{
+       setMessage(null); 
          dispatch(setback());
+
      }
+
+     useEffect(()=>{
+
+       return (()=>{
+        setMessage(null);
+        dispatch(setback());
+       })
+
+     },[])
 
     return (
 
@@ -50,34 +65,43 @@ import {NestedAnimation,PageTransition} from '../../Screens/Animation'
         transition={PageTransition}
         >
         {   
-            success ? (<Indicator message="Password updated successfully" handler = {close} color="alert-success" />):null
+            success?(<Indicator message="Pssword updated successfully" handler={handler} color ="alert-success"/>):
+            message?(
+                   <Indicator message={message} handler={handler} color="alert-danger" />
+                   ):null
         }
         <FormContainer active={true} className="border-top">
-          <h3 className="d-flex  text text-dark justify-content-center">Change Password</h3>
+          <h3 className="d-flex  text text-dark justify-content-center mb-5">Change Password</h3>
         
             
         <Form > 
         <Form.Group  className="m-2"controlId="current password">
-                <Form.Label style={{color:"black"}}><strong>Current Password</strong></Form.Label>
-                <Form.Control size="lg" type="password" value={password} onChange={(e)=>setPassword(e.target.value)}  placeholder="**********" />
+                <Form.Label style={{color:"black"}}>Current Password</Form.Label>
+                <MyInput controlId="current password" type="password" value={password} handler = {(e)=>setPassword(e.target.value)} placeholder='••••••••' />
+                
                 
             </Form.Group>
               <Form.Group  className="m-2"controlId="newpassword">
-                <Form.Label style={{color:"black"}}><strong>new password</strong></Form.Label>
-                <Form.Control  size="lg"type="password" value={newPassword} onChange={(e)=>setCurrent(e.target.value)}  placeholder="**********" />
+                <Form.Label style={{color:"black"}}>new password</Form.Label>
+                <MyInput controlId="newpassword" type="password" value={newPassword} handler = {(e)=>setCurrent(e.target.value)} placeholder='••••••••' />
+               
                 
             </Form.Group>
 
-            <Form.Group  className="m-2"controlId="confirmpassword">
-                <Form.Label style={{color:"black"}}><strong>confirm password</strong></Form.Label>
-                <Form.Control  size="lg"type="password" value={confirmPassword} onChange={(e)=>setConfirm(e.target.value)}  placeholder="**********" />
+            <Form.Group  className="m-2"controlId="confirmpassword1">
+                <Form.Label  style={{color:"black"}}>confirm password</Form.Label>
+                <MyInput controlId="confirmpassword1" type="password" value={confirmPassword} handler = {(e)=>setConfirm(e.target.value)} placeholder='••••••••' />
+               
                 
             </Form.Group>
 
             <Row className="m-2">
-          <Button style={{ backgroundColor: "#ffbf00", color:"black"}}  onClick={Submithandler}>
-               {loading?'updating....':'Update'}
-               </Button>
+
+            <MyButton  onClick={Submithandler}   active={!loading}>
+            
+            {loading?'updating....':'Change Password'}
+            </MyButton>
+         
           </Row>
             </Form>
     </FormContainer>

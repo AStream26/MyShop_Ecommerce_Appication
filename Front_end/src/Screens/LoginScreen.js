@@ -7,6 +7,8 @@ import { Link,useHistory ,useLocation} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {login} from '../actions/Authuseraction';
 import MyButton from '../components/Button';
+import MyInput from '../components/myInput';
+import Indicator from './../components/Indicator/indicator'
 const LoginScreen = () => {
     const location = useLocation();
     const history = useHistory();
@@ -42,29 +44,34 @@ const LoginScreen = () => {
 
 
     return (
-        <div style={{transform:"scale(0.9)"}}s>
-        <FormContainer >
+        <div >
+              {
+               !error?( <h1 className="d-flex justify-content-center mb-5" > Login</h1>):(
+                <Indicator message={error}  color="alert-danger" />)
+               }
+           
+        <FormContainer style={{
+           
+        }} >
 
-           {
-               !error?( <h3  style={{color:"black"}}>Please Login To continue</h3>):(
-                <h3 className="text-danger">{error}</h3>
-               )
-           }
+         
             <Form>
-                  <Form.Group  className="m-2"controlId="formBasicEmail">
-                    <Form.Label style={{color:"black"}}>Email address</Form.Label>
-                    <Form.Control type="email" onChange={(e)=>SetEmail(e.target.value)}  placeholder="Enter email" />
+                  <Form.Group  controlId="loginemail">
+                    <Form.Label >Email address</Form.Label>
+                    <MyInput controlId="loginemail" type="email" value={email} handler = {(e)=>SetEmail(e.target.value)}  />
+                    
                     
                 </Form.Group>
 
-                <Form.Group  className="m-2 mt-4" controlId="formBasicPassword">
-                    <Form.Label  style={{color:"black"}}>Password</Form.Label>
-                    <Form.Control type="password" onChange={(e)=>SetPassword(e.target.value)}  placeholder="Password" />
+                <Form.Group  className="mt-4" controlId="loginpassword">
+                    <Form.Label  >Password</Form.Label>
+                    <MyInput controlId="loginpassword" type="password" value={password} handler = {(e)=>SetPassword(e.target.value)} placeholder='••••••••' />
+                   
                 </Form.Group>
                   
             
           <Row className="m-2">
-          <MyButton handler={Submithandler} active={!loading}>
+          <MyButton onClick={Submithandler}  active={!loading}>
                <strong>{loading?'Logining....':'Log in'}</strong>
                
             </MyButton>

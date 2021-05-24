@@ -6,37 +6,48 @@ import MyButton from '../components/Button';
 import {Row ,Col,ListGroup , Card ,Image ,Form, Button, ListGroupItem} from 'react-bootstrap';
 import Loader from '../components/utilities_/myloader';
 import {GetProduct} from '../actions/productAction';
-
+import {AddItem} from '../actions/CartAction';
+import Indicator from './../components/Indicator/indicator'
 const ProductScreen = props => {
     const [qty,setQty] = useState(1);
     const dispatch = useDispatch();
     const {loading,product,error} = useSelector(state=>state.productItem)
-   
+    const [msg,setmsg] = useState('Add To cart');
 
       useEffect(()=>{
-         
-        dispatch(GetProduct(props.match.params.id)); 
-        
-      },[dispatch,props.match])
+       //  console.log("Dispatching.....");
+         dispatch(GetProduct(props.match.params.id)); 
+      },[dispatch,props.match.params.id])
+
+      
+
+      useEffect(()=>{
+        setmsg(msg);
+      },[msg,qty])
+
+      useEffect(()=>{
+        setmsg('Add To Cart');
+      },[])
 
       let AddtocardHandler = ()=>{
-          
-          props.history.push(`/cart/${props.match.params.id}?qty=${qty}`)
+          dispatch(AddItem(props.match.params.id,qty));
+         setmsg('Item Added To Cart')
       }
     
-  let active =product?.countInStock>0?true:false;
+
 
     //nsole.log(product);
     return loading?<Loader center={true} />:
-       error?(error.message): (
+       error?(
+          <h1>{error}</h1>
+       ): (
         <>
           <Link to ='/'>
-          <Button variant='outline-dark' size='sm'>Go Back</Button>
+          <Button className='mt-1'variant='outline-dark' size='md'>Go Back</Button>
           </Link>
-
           <Row className="mt-4">
               <Col  lg={6}>
-              <Image src={product.image} alt={product.name} fluid />    
+              <Image  src={product.image} alt={product.name} fluid />    
               </Col>
               <Col  lg={3} >
                   <ListGroup variant='flush' >
@@ -58,7 +69,7 @@ const ProductScreen = props => {
                   </ListGroup>
               </Col>
 
-              <Col md={3}>
+              <Col md={3} >
                   <Card>
                       <ListGroup variant='flush'>
                        <ListGroupItem>
@@ -72,20 +83,20 @@ const ProductScreen = props => {
                            </Row>
                        </ListGroupItem>
                        <ListGroupItem>
-                           <Row style={{borderTop:'1px solid #D5D3DA'}}>
+                           <Row>
                                <Col >
-                               Stock
-                               </Col>
+                              <strong>Stock</strong>
+                              </Col>
                                <Col>
-                              <strong>{active?'In Stock':'Out Of Stock'}</strong>
+                              <strong>{product?.countInStock>0?'In Stock':'Out Of Stock'}</strong>
                                </Col>
                            </Row>
                        </ListGroupItem>
 
 
                      {
-                         active?(<>
-                            <ListGroupItem style={{borderTop:'1px solid #D5D3DA',borderBottom:'1px solid #D5D3DA'}} >
+                         product?.countInStock>0?(<>
+                            <ListGroupItem className='mb-2'  >
                      
                             <Row>
                             <Col>
@@ -95,7 +106,7 @@ const ProductScreen = props => {
                             <Col>
                             <Form.Group >
                                
-                               <Form.Control as="select" value={qty} onChange={(e)=>setQty(e.target.value)} style={{transform:"scale(0.8)"}} >
+                               <Form.Control as="select" value={qty} onChange={(e)=>setQty(e.target.value)} >
                                
                               {
                                   [...new Array(product.countInStock).keys()].map(el=>(
@@ -110,12 +121,15 @@ const ProductScreen = props => {
                          
                     
                       </ListGroupItem>
-                      <MyButton handler={AddtocardHandler} color='#ffbf00' text='Add to Cart' active />
-                      <MyButton color='#ff8000' text='Order Now' active />
+                      <MyButton  onClick={AddtocardHandler} active={true}> {msg} </MyButton>
+                      <br/>
+                      <br/>
+                      <MyButton  active={true}> Order Now </MyButton>
 
          </>
                          ):(<>
-                          <MyButton color='#ffbf00' text='Out Of Stock' />
+                           <MyButton  active={false}> Out Of Stock </MyButton>
+
                          </>)
                      } 
                       

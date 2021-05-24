@@ -6,7 +6,7 @@ import validator from 'validator';
 import { Link,useHistory ,useLocation, useParams} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {login} from '../actions/Authuseraction';
-
+import MyInput from '../components/myInput';
 
 const Shipping = () => {
     let history  = useHistory();
@@ -14,12 +14,12 @@ const Shipping = () => {
     
 
     let redirect = ''
-    let [Address,SetAddress] = useState(null);
-    let [State,SetState] = useState(null);
-    let [Country,SetCountry] = useState(null);
-    let [MobileNo,SetMobileNo] = useState(null);
-    let [City,SetCity] = useState(null);
-    let [Pincode,SetPincode] = useState(null);
+    let [Address,SetAddress] = useState('');
+    let [State,SetState] = useState('');
+    let [Country,SetCountry] = useState('');
+    let [MobileNo,SetMobileNo] = useState('');
+    let [City,SetCity] = useState('');
+    let [Pincode,SetPincode] = useState('');
      
     let Submithandler = (e)=>{
         e.preventDefault();
@@ -30,34 +30,42 @@ const Shipping = () => {
     return (
        <FormContainer active="true">
            <strong className="d-flex justify-content-center "><h1>Shipping Address</h1></strong>
-             <Form  className=" border rounded p-1" >
-                  <Form.Group  className="m-2"controlId="Address">
+             <Form   >
+                  <Form.Group  controlId="Address">
                     {/* <Form.Label style={{color:"black"}}>Address</Form.Label> */}
-                    <Form.Control type="text" onChange={(e)=>SetAddress(e.target.value)}  placeholder="Address" />
+                    <MyInput controlId="Address" type="text" value={Address} handler = {(e)=>SetAddress(e.target.value)} placeholder='Address'  />
                     
                 </Form.Group>
-
-                <Form.Group  className="m-2 mt-4" controlId="State">
+                 
+                <Form.Group   controlId="City">
+                    {/* <Form.Label  style={{color:"black"}}>City</Form.Label> */}
+                    <MyInput controlId="City" type="text" value={City} handler = {(e)=>SetCity(e.target.value)} placeholder='City'  />
+                    
+                </Form.Group>
+                
+                <Form.Group   controlId="State">
                     {/* <Form.Label  style={{color:"black"}}>State</Form.Label> */}
-                    <Form.Control type="text" onChange={(e)=>SetState(e.target.value)}  placeholder="State" />
+                    <MyInput controlId="state" type="text" value={State} handler = {(e)=>SetState(e.target.value)} placeholder='State'  />
+                    
                 </Form.Group>
                 
     
 
-                <Form.Group  className="m-2 mt-4" controlId="City">
-                    {/* <Form.Label  style={{color:"black"}}>City</Form.Label> */}
-                    <Form.Control  type="text" onChange={(e)=>SetCity(e.target.value)}  placeholder="City" />
-                </Form.Group>
-                <Form.Group  className="m-2 mt-4" controlId="Pincode">
+               
+                <Form.Group   controlId="Pincode">
                     {/* <Form.Label  style={{color:"black"}}>Pincode</Form.Label> */}
-                    <Form.Control type="text" onChange={(e)=>SetPincode(e.target.value)}  placeholder="Pincode" />
+                    <MyInput controlId="pincode" type="text" value={Pincode} handler = {(e)=>SetPincode(e.target.value)} placeholder='Pincode'  />
+                   
                 </Form.Group>
                 <Form.Group  className="m-2 mt-4" controlId="Country">
                     {/* <Form.Label  style={{color:"black"}}>Country</Form.Label> */}
-                    <Form.Control type="text" onChange={(e)=>SetCountry(e.target.value)}  placeholder="Country" />
-                </Form.Group>  <Form.Group  className="m-2 mt-4" controlId="MobileNo">
+                    <MyInput controlId="Country" type="text" value={Country} handler = {(e)=>SetCountry(e.target.value)} placeholder='Country'  />
+                   </Form.Group>
+
+                  <Form.Group  className="m-2 mt-4" controlId="MobileNo">
                     {/* <Form.Label  style={{color:"black"}}>MobileNo</Form.Label> */}
-                    <Form.Control type="text" onChange={(e)=>SetMobileNo(e.target.value)}  placeholder="Mobile Number" />
+                    <MyInput controlId="MobileNO" type="text" value={MobileNo} handler = {(e)=>SetMobileNo(e.target.value)} placeholder='Mobile No'  />
+        
                 </Form.Group>
                   
             

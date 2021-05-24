@@ -4,10 +4,12 @@ import { Form,Row,Col,Button } from 'react-bootstrap';
 import validator from 'validator';
 import Indicator from '../Indicator/indicator';
 import {motion} from 'framer-motion'
-import {upadteuserData} from '../../actions/userAction';
+import {upadteuserData,setback} from '../../actions/userAction';
 import { useDispatch, useSelector } from 'react-redux';
 import {NestedAnimation,PageTransition} from '../../Screens/Animation'
 import MyButton from '../Button';
+import MyInput from '../myInput';
+
  const Basicinfo = (props) => {
   const {userData,loading,error,success} = useSelector(state=>state.userDetail);
 
@@ -21,8 +23,10 @@ import MyButton from '../Button';
     if(error){
         setMessage(error);
     }
-   
- },[error,success,message]);
+   return (()=>{
+       dispatch(setback());
+   })
+ },[]);
 
      let Submithandler = (e)=>{
         e.preventDefault();
@@ -39,6 +43,7 @@ import MyButton from '../Button';
 
 let handler = ()=>{
     setMessage(null);
+    dispatch(setback());
     
 }
 
@@ -54,7 +59,7 @@ let handler = ()=>{
         >
      {   
          
-         message?(<Indicator message="Data updated successfully" handler={handler} color ="alert-success"/>):
+         success?(<Indicator message="Data updated successfully" handler={handler} color ="alert-success"/>):
          message?(
                 <Indicator message={message} handler={handler} color="alert-danger" />
                 ):error?(<Indicator message={error} handler={handler} color="alert-danger" />):null
@@ -64,18 +69,20 @@ let handler = ()=>{
 
        <FormContainer active={true} className="border-top" >
 
-           <h3 className="d-flex  text text-dark justify-content-center">Your Profile</h3>
+           <h3 className="d-flex  text text-dark justify-content-center mb-5">Your Profile</h3>
         
             
         <Form > 
-        <Form.Group  className="m-2"controlId="formBasicEmail">
-                <Form.Label style={{color:"black"}}>Name</Form.Label>
-                <Form.Control size="lg" type="text" value={name} onChange={(e)=>Setname(e.target.value)}  placeholder={`name`} />
+        <Form.Group  className="m-2"controlId="formBasicEmail11">
+                <Form.Label  style={{color:"black"}}>Name</Form.Label>
+                <MyInput controlId="formBasicEmail11" type="text" value={name} handler = {(e)=>Setname(e.target.value)} placeholder={`name`} />
+                
                 
             </Form.Group>
               <Form.Group  className="m-2"controlId="formBasicEmail">
                 <Form.Label style={{color:"black"}}>Email address</Form.Label>
-                <Form.Control  size="lg"type="email" value={email} onChange={(e)=>SetEmail(e.target.value)}  placeholder="Enter email" />
+                <MyInput controlId="formBasicEmail" type="email" value={email} handler = {(e)=>SetEmail(e.target.value)} placeholder='Enter email' />
+      
                 
             </Form.Group>
 

@@ -5,17 +5,23 @@ export const getuserData  = ()=>async(dispatch)=>{
 
    try{
     dispatch({type:USER_REQUEST});
+    const config = {
+        headers:{
+            'Content-Type':'application/json'
+        }
+    }
     
-    const {data} = await axios.get('/api/v1/user/profile');
+    const {data} = await axios.get('/api/v1/user/profile',config);
     dispatch({type:USER_SUCCESS,
-             payload:data.doc})
+             payload:data.doc});
     
 
    }catch(error){
        dispatch({type:USER_FAIL,
                 payload:error.response && error.response.data.message
                 ?error.response.data.message
-                :error.response })
+                :'Server Error'
+            })
 
    }
 }
@@ -57,15 +63,23 @@ export const upadteuserData  = (data1)=>async(dispatch)=>{
     try{
         dispatch({type:UPDATE_PASSWORD_REQUEST});
 
+        const config = {
+            headers:{
+                'Content-Type':'application/json'
+            }
+        }
+
+
         const {data} = await axios.patch('/api/v1/user/updatepassword',{
             password,newPassword,confirmPassword
-        })
+        },config)
 
         dispatch({
             type:UPDATE_PASSWORD_SUCCESS
         })
 
     }catch(error){
+        console.log(error);
         dispatch({type:UPDATE_PASSWORD_FAIL,
             payload:error.response && error.response.data.message
             ?error.response.data.message

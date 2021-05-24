@@ -12,12 +12,14 @@ import Registerscreen from './Screens/Registerscreen';
 import profileScreen from './Screens/ProfileScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import {getuserData} from './actions/userAction';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom'
 import Shipping from './Screens/Shipping';
 import SideBar from './components/SidebarMenu/NavItem';
-
+import Backdrop from './components/Backdrop/backdrop';
 function App() {
+  let [show,setShow] = useState(false);
+
   const location = useLocation();
   const dispatch = useDispatch();
 let {userData} = useSelector(state=>state.userDetail);
@@ -27,9 +29,10 @@ dispatch(getuserData());
 },[dispatch])
 
 const ref = useRef(null);
-
+console.log(ref.current);
 let toggle = ()=>{
   ref.current.toggler();
+  setShow(!show);
 }
 
   return (
@@ -38,10 +41,15 @@ let toggle = ()=>{
   
   
     <Header  toggler = {toggle}  />
-    <SideBar ref={ref}  width ="300" height="100vh" /> 
-    <main className='py-3' style={{
-     
+    
+   <SideBar show1={show} ref={ref}  width ="300" height="100vh" /> 
+   
+  
+ 
+    <main  style={{
+    
     }}>
+  
    
      <Container>
  

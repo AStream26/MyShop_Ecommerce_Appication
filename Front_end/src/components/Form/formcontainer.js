@@ -18,13 +18,13 @@ const formcontainer = ({children,active}) => {
 
 
     return (
-        <Container>
+        <>
             <Row className="justify-content-center ">
-                <Col xs={12} md={6} lg={4} className={Classes.border} >
+                <Col xs={12} md={6} lg={5}  >
                   {children}
                 </Col>
             </Row>
-        </Container>
+        </>
     )
 }
 

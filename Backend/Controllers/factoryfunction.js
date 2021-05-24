@@ -4,6 +4,7 @@ const ErrorHandle = require('./../util/Errorhandler');
 exports.getALL = (Modal)=>catchAsync(async (req,res,next)=>{
     // const filter = new APIFeatures(Modal.find(fi),req.query).filter().sort().limitFeild().pagitaion();
     // console.log(filter);
+    //console.log("reggggg");
     const doc = await Modal.find();
    // console.log(doc);
     res.status(200).json({
@@ -51,6 +52,7 @@ exports.getALL = (Modal)=>catchAsync(async (req,res,next)=>{
   });
   
   exports.getOne = (Modal,popoptions) =>catchAsync(async (req,res,next)=>{
+  //  console.log("request");
     let query =  Modal.findById(req.params.id);
     if(popoptions)
     query = query.populate(popoptions);

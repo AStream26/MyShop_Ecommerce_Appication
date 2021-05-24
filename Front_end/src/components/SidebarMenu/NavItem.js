@@ -6,21 +6,40 @@ import Sidebar from './Sidebar';
 import {Navanchors} from './Navanchors';
 import Profile from './Profile';
 import { useSelector } from 'react-redux';
+import Backdrop from '../Backdrop/backdrop';
 
-const Side = forwardRef(({width,height},ref1) => {
+const Side = forwardRef(({width,height,show1},ref1) => {
+    const [xwidth,setXwidhth] = useState(-(Number(width)));
     const {userData} = useSelector(state=>state.userDetail);
-    const ref = useRef(null);
-    
+    const [show,setshow] = useState(false);
+
+  
+    useEffect(()=>{
+        setXwidhth(-(Number(width)));
+      },[width])
+
+    let closebar = ()=>{
+        setXwidhth(-(Number(width)));
+        setshow(false);
+    }
+    let openbar = ()=>{
+        
+          setXwidhth(0);
+          setshow(true);
+        }
+
     useImperativeHandle(ref1,()=>{
         return {
-            toggler:ref.current.toggler
+            toggler:openbar
         }
     })
+
+
  
     return (
-        <Sidebar ref={ref} width={width} height = {height}
-        borderR
-        >
+        <>
+        <Backdrop show={show} clicked={closebar} />
+        <Sidebar handler = {closebar}  width={width} width1={xwidth} height = {height} >
          <Profile text={userData?`Hello ${(userData.name)?.split(' ')[0]} `:`Hello Guest`} />
 
 
@@ -36,7 +55,7 @@ const Side = forwardRef(({width,height},ref1) => {
                 <Navanchors link="/profile/review" text="My Review" />
                 <Navanchors link="/profile/shipping" text="MY Address" />
                 <Navanchors link="/profile/payment" text="My Payment" />
-                 <Navanchors link="/logout" text="Logout" />
+                 
                
                                 </>
 
@@ -53,6 +72,7 @@ const Side = forwardRef(({width,height},ref1) => {
          
         
         </Sidebar>
+        </>
     )
 });
 

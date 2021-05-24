@@ -18,8 +18,9 @@ const ProfileScreen = props => {
         transition={PageTransition1}
         >
        <Row className={cl.join(' ')} style={{
-           height:"100vh",
-           marginTop:'100px'
+           height:"90vh",
+           marginTop:'1em'
+           
        }} >
            <Col className="d-none d-md-block" md={3} style={{
             backgroundColor: `#abe9cd`,

@@ -9,12 +9,12 @@ const Profile = ({text}) => {
             backgroundColor: `#abe9cd`,
             color:"white",
             borderBottom:"1px solid white",
-            padding:"1em 0px",
+            padding:"0.57em 0px",
             textAlign:"center"
         }}>
-            <h3>
+            <h4>
                 {text}
-            </h3>
+            </h4>
         </div>
     )
 }

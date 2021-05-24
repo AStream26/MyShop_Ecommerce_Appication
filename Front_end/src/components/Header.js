@@ -24,9 +24,10 @@ const Header = (props) => {
     return (
       
           <header style={{
-              position:"fixed",
-              width:"100%",
-              zIndex:1,
+              position:"sticky",
+              top:'0',
+              zIndex:'100',
+              width:'100wh'
               
           }}  >
               
