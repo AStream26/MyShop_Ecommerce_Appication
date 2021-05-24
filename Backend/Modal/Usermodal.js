@@ -40,6 +40,12 @@ const UserSchema = mongoose.Schema({
         enum:['user','admin','seller'],
         default:'user'
     },
+    shippingAddress:[
+        {
+            type:mongoose.Schema.ObjectId,
+            ref:'Shipping'
+        }
+    ],
     passwordChangeAt:Date,
     passwordResetToken:String,
     passwordResetToken_Expires:Date,
@@ -74,10 +80,21 @@ UserSchema.pre('save',function(next){
 
 UserSchema.pre(/^find/,function(next){
     //this point to current query not document
+   
     this.find({active:{$ne:false}});
     next();
 
 });
+
+
+UserSchema.pre(/^find/,function(next){
+    console.log("AABB");
+    this.populate({
+        path:'shippingAddress',
+        select:'-__v -createdAt -updatedAt'
+    })
+    next();
+})
 
 
 UserSchema.methods.checkPassword = async function(candidatePassword,userPassword){

@@ -76,7 +76,7 @@ exports.login = catchAsync(async(req,res,next)=>{
 exports.protect = catchAsync(async (req,res,next)=>{
      let token;
      //checking for token from the reqest header
-
+      
      if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
      token = req.headers.authorization.split(' ')[1];
      //console.log(token);
@@ -107,6 +107,7 @@ exports.protect = catchAsync(async (req,res,next)=>{
 
 
 exports.validateRole = (...roles) =>{
+     console.log("AAAAbAA");
      return (req,res,next)=>{
           if(!roles.includes(req.user.role))
             return next(new AppError("You Don't have permission to perform this action !!",403));
