@@ -37,15 +37,25 @@ export const upadteuserData  = (data1)=>async(dispatch)=>{
             'Content-Type':'application/json'
         }
     }
-     const {data} = await axios.patch('/api/v1/user/updateuser',{
-        name:data1.name,
-        email:data1.email
-     },config);
+    let Data ;
+    if('shippingAddress' in data1){
+        const {data} = await axios.patch('/api/v1/user/updateuser',{
+               shippingAddress:data1.shippingAddress
+        },config)
+        Data = data;
+    }else{
+        const {data} = await axios.patch('/api/v1/user/updateuser',{
+            name:data1.name,
+            email:data1.email
+         },config);
+         Data = data;
+    }
+   
     // console.log(data);
      dispatch({type:USER_UPDATE_SUCCESS,
-              payload:data.doc})
+              payload:Data.doc})
     
-    localStorage.setItem('userData',JSON.stringify(data.doc));
+    localStorage.setItem('userData',JSON.stringify(Data.doc));
     }catch(error){
         //console.log(error.response);
         dispatch({type:USER_UPDATE_FAIL,

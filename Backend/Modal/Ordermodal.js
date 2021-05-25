@@ -8,11 +8,7 @@ const OrderSchema = ({
         ref:'User',
         required:true
     },
-    product:{
-        type:mongoose.Schema.ObjectId,
-        ref:'Product',
-        required:[true,'Order must belong to a Product']
-    },
+   
     OrderItems:[
         {
            name:{type:String,required:true},

@@ -17,7 +17,11 @@ const indicator = (props)=> {
 
     else{
       return(
-        <div className={["alert alert-dismissible",props.color].join(' ')} style={{transition:"0.4s"}} >
+        <div className={["alert alert-dismissible",props.color].join(' ')} style={{transition:"0.4s",zIndex:600,
+        position:'sticky',
+        top:'0',
+        width:"100%"
+        }} >
         <button onClick={props.handler}  className="btn-close mx-3" data-bs-dismiss="alert"></button>
         <strong className="d-flex justify-content-center">{props.message}</strong>
       </div>

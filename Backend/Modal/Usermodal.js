@@ -98,7 +98,7 @@ UserSchema.pre(/^find/,function(next){
 
 
 UserSchema.methods.checkPassword = async function(candidatePassword,userPassword){
-    console.log('checking.....');
+   // console.log('checking.....');
     return await  bcrypt.compare(candidatePassword,userPassword);
 
 

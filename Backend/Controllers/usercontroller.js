@@ -15,7 +15,7 @@ function filterObject(obj,allowed){
 }
 
 exports.getMe = catchAsync(async (req,res,next)=>{
-    console.log(`from getMe ${req.user}`)
+   // console.log(`from getMe ${req.user}`)
     req.params.id= req.user._id;
    // console.log(req.params);
     next();
@@ -24,7 +24,7 @@ exports.getMe = catchAsync(async (req,res,next)=>{
 
 exports.updateMe = catchAsync(async (req,res,next)=>{
    //console.log(req.params);
-   log('Started');
+   //log('Started');
     let allowedupdate = ['name','email','shippingAddress'];
     if(req.body.password || req.body.confirmPassword)
     next(new AppError('Password cannot be updated using this route',400));
@@ -32,7 +32,7 @@ exports.updateMe = catchAsync(async (req,res,next)=>{
      // console.log(obj);
      let doc;
      if('shippingAddress' in obj){
-         log("Found Address");
+        // log("Found Address");
          log(obj.shippingAddress);
         const Address = new Ship(obj.shippingAddress);
         Address.user = req.user._id;

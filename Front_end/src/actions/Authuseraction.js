@@ -18,7 +18,7 @@ export const login = (email,password)=> async(dispatch)=>
                    payload:data});
          dispatch({type:USER_SUCCESS,
                    payload:data.data})
-         
+        localStorage.setItem('userData',JSON.stringify(data.data));
         }catch(error){
          
            dispatch({ type:LOGIN_USER_FAIL,
