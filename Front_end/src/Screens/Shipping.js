@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import {Form,Button, Col,Row} from 'react-bootstrap'
 import FormContainer from '../components/Form/formcontainer';
-import { Link,useHistory ,useLocation, useParams} from 'react-router-dom';
+import { useHistory ,useLocation, useParams} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import MyInput from '../components/myInput';
 import MyAddress from '../components/Address/address';
 import Indicator from '../components/Indicator/indicator';
-import {upadteuserData} from '../actions/userAction';
+import {upadteuserData,setback} from '../actions/userAction';
+import {Addaddress, AddItem, Addproduct} from '../actions/CartAction';
+
 const Shipping = () => {
     let history  = useHistory();
     let location = useLocation();
-    let {userData} = useSelector(state=>state.userDetail);
-    let {shippingAddress,loading,success} = userData;
+    let params = useParams();
+
+    let {userData,loading,success} = useSelector(state=>state.userDetail);
+    let orderDetail = useSelector(state=>state.OrderDetail);
+    let {cartItem}  = useSelector(state=>state.cart);
+    let {shippingAddress} = userData;
     let dispatch = useDispatch();
-    let redirect = ''
+    let orderItems = orderDetail.orderItems;
+    //------------------------------------------------------------------------------
     let [Address,SetAddress] = useState('');
     let [State,SetState] = useState('');
     let [Country,SetCountry] = useState('');
@@ -23,11 +30,60 @@ const Shipping = () => {
     let [ChooseAddress,setChooseAddress] = useState({});
     let [newaddress,SetnewAddress] = useState(shippingAddress.length===0);
     let [message,setMessage] = useState(null);
+    let [redirect,setredirect] = useState('/payment')
+    let id = params?.id;
+
+    let [proceed,setproceed] = useState(false);
+    
+    if(location.search){
+      let query = new URLSearchParams(location.search);
+      if(query.get('ref')==='from cart'){
+        setredirect( `/payment?ref=checkout`);
+      }
+        
+    }
     let clicked = ()=>{
         setChooseAddress({});
         SetnewAddress(!newaddress);
     }
-    
+  
+
+    useEffect(()=>{
+      if(params?.id){
+          console.log(params.id);
+          console.log(orderItems[0]);
+          console.log(orderItems.length)
+          if((orderItems.length===1) && (orderItems[0].product === params.id)){
+              setproceed(true);
+          }
+        else {
+            console.log("going....");
+        history.goBack();
+        }
+      }
+      else{
+          if(cartItem.length === 0)
+             history.goBack();
+       else{
+           dispatch(Addproduct(cartItem));
+           setredirect('/payment?ref=fromcart')
+       }
+      }
+      
+    },[]);
+
+
+    useEffect(()=>{
+        if(success){
+            setTimeout(()=>{
+                dispatch(setback())
+                history.push(redirect);
+                
+               },1000)
+        }
+        
+    },[success])
+   
     let radiohandler = (value)=>{
        // console.log(e.checked);
       ///  e.checked = false;
@@ -61,9 +117,10 @@ const Shipping = () => {
                   Address,State,Country,Pincode,City,MobileNo
               })
               dispatch(upadteuserData( {shippingAddress:{Address,State,City,MobileNo,Pincode,Country}}));
+             
           }
           
-     
+     //history.push('/payment');
      
       
     }
@@ -74,7 +131,9 @@ const Shipping = () => {
      if(Object.keys(ChooseAddress).length===0)
      setMessage('Enter Valid Data !!');
      else{
-           console.log(ChooseAddress);
+          // console.log(id);
+          dispatch(Addaddress(ChooseAddress));
+           history.push(redirect);
      }
 
     }
@@ -84,6 +143,9 @@ const Shipping = () => {
      }
     return (
         <>
+        {  
+            success?(<Indicator message = {message} handler={myhandler} color='alert-danger'/>):null
+        }
         {
             message?(<Indicator message = {message} handler={myhandler} color='alert-danger'/>):null
         }
@@ -105,8 +167,11 @@ const Shipping = () => {
                       
                        
                       </Form>
+                    
+                    
                    ):null
-                 }   
+                 }
+                    
                   </Col>
                 </Row>
             ):null
@@ -116,13 +181,15 @@ const Shipping = () => {
           <Col >
 
          {
-             shippingAddress.length>0?(
+             shippingAddress.length>0 && (Object.keys(ChooseAddress).length===0)?(
                 <Button onClick={clicked} className='btn btn-info btn-lg'>{!newaddress?'Add New Address':'Cancel'}</Button>
              ):null
+
+             
          }
 
         {
-            (newaddress || shippingAddress.length <=0) ? (
+            (newaddress || shippingAddress.length <=0)? (
                 <>
               
                 <FormContainer active={true} >
@@ -166,9 +233,9 @@ const Shipping = () => {
                    </Form.Group>
                    <Row className="m-4">
             <Col  className="d-flex justify-content-center">
-            <button size="lg" className="btn btn-info btn-lg"   onClick={addaddress}>
+            <button size="lg" className="btn btn-info btn-lg" disabled={loading}  onClick={addaddress}>
                 {
-                    loading?'Adding...':'Add Address'
+                    loading?'SAVING....':'SAVE AND PROCEED'
                 }
                   </button>
             </Col>
@@ -187,10 +254,14 @@ const Shipping = () => {
       {
           (Object.keys(ChooseAddress).length===0)?null:(
             <Row className="m-4">
-            <Col  className="d-flex justify-content-end">
-            <button size="lg" className="btn btn-dark btn-lg" disabled={loading}  onClick={Submithandler}>
+            <Col >
+            <div class="d-grid gap-2">
+            <button className="btn btn-dark "
+           
+             disabled={loading}  onClick={Submithandler}>
                   {loading?'Shiping....':'Proceed'}
                   </button>
+                  </div>
             </Col>
              </Row>
           )

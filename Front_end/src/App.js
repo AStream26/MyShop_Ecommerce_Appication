@@ -29,7 +29,7 @@ dispatch(getuserData());
 },[dispatch])
 
 const ref = useRef(null);
-console.log(ref.current);
+//console.log(ref.current);
 let toggle = ()=>{
   ref.current.toggler();
   setShow(!show);
@@ -66,7 +66,8 @@ let toggle = ()=>{
              userData?(
               <>
               <Route path='/profile'  component={profileScreen} />
-              <Route path='/shipping' component={Shipping} />
+              
+              <Route path='/:id?/shipping'  component={Shipping} />
               </>
 
              ):null

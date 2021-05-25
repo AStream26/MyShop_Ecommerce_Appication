@@ -40,12 +40,7 @@ const UserSchema = mongoose.Schema({
         enum:['user','admin','seller'],
         default:'user'
     },
-    shippingAddress:[
-        {
-            type:mongoose.Schema.ObjectId,
-            ref:'Shipping'
-        }
-    ],
+  
     passwordChangeAt:Date,
     passwordResetToken:String,
     passwordResetToken_Expires:Date,
@@ -55,9 +50,16 @@ const UserSchema = mongoose.Schema({
         default:true,
         select:false
     }
+},{
+    toJSON:{virtuals:true},
+        toObject:{virtuals:true}
 });
 
-
+UserSchema.virtual('shippingAddress',{
+    ref:'Shipping',
+    foreignField:'user',
+    localField:'_id'
+})
 
 
 

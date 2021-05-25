@@ -1,19 +1,21 @@
 import React,{useState,useEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux';
-import {Link } from 'react-router-dom';
+import {Link, Redirect, useHistory } from 'react-router-dom';
 import Rating from '../components/Rating';
 import MyButton from '../components/Button';
 import {Row ,Col,ListGroup , Card ,Image ,Form, Button, ListGroupItem} from 'react-bootstrap';
 import Loader from '../components/utilities_/myloader';
 import {GetProduct} from '../actions/productAction';
-import {AddItem} from '../actions/CartAction';
+import {AddItem,Addproduct} from '../actions/CartAction';
 import Indicator from './../components/Indicator/indicator'
+
 const ProductScreen = props => {
     const [qty,setQty] = useState(1);
     const dispatch = useDispatch();
+    const {userData} = useSelector(state=>state.userDetail);
     const {loading,product,error} = useSelector(state=>state.productItem)
     const [msg,setmsg] = useState('Add To cart');
-
+    const history = useHistory();
       useEffect(()=>{
        //  console.log("Dispatching.....");
          dispatch(GetProduct(props.match.params.id)); 
@@ -33,13 +35,27 @@ const ProductScreen = props => {
           dispatch(AddItem(props.match.params.id,qty));
          setmsg('Item Added To Cart')
       }
-    
+      let orderDetailReducer= ()=>{
+           dispatch(Addproduct([{
+            name:product.name,
+            image:product.image,
+            quantity:qty,
+            price:product.price,
+            product:product._id
+      }]));
+
+           if(userData){
+               history.push(`/${product._id}/shipping`);
+           }else{
+               history.push(`/login?redirect=/${product._id}/shipping`);
+           }
+      }
 
 
     //nsole.log(product);
     return loading?<Loader center={true} />:
        error?(
-          <h1>{error}</h1>
+          <Redirect to='/' />
        ): (
         <>
           <Link to ='/'>
@@ -124,7 +140,7 @@ const ProductScreen = props => {
                       <MyButton  onClick={AddtocardHandler} active={true}> {msg} </MyButton>
                       <br/>
                       <br/>
-                      <MyButton  active={true}> Order Now </MyButton>
+                      <MyButton  active={true} onClick={orderDetailReducer}> Order Now </MyButton>
 
          </>
                          ):(<>

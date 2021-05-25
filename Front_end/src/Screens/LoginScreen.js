@@ -13,13 +13,17 @@ const LoginScreen = () => {
     const location = useLocation();
     const history = useHistory();
     const classes = [Classes.btncolor,'btn-block mt-3'];
+    const userDetail = useSelector(state=>state.userDetail);
+    const data = userDetail?.userData;
    
      let [email,SetEmail] = useState('');
      let [password,SetPassword] = useState('');
      let redirect = '/';
+    // let ref = useRe
      if(location.search){
          let query = new URLSearchParams(location.search);
          redirect = query.get('redirect')
+       //  console.log(location.pathname)
      }
      
      
@@ -29,12 +33,17 @@ const LoginScreen = () => {
      //console.log(UserInfo)
        const {userData,loading,error} = UserInfo;
      useEffect(()=>{
+
+        if(data){
+          history.replace(redirect);
+        }
        if(userData){
            
            history.hash = "#Logined In Successfully !!";
-           history.push(redirect);
+           history.replace(redirect);
        }
-     },[history,userData,redirect])
+      
+     },[data,userData])
 
      let Submithandler = (e)=>{
          e.preventDefault();

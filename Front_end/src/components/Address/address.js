@@ -8,7 +8,7 @@ const Address = ({address,i,handler}) => {
     
     return (
         <div className="form-check">
-        <input className="form-check-input" type="radio" onClick={(e)=>handler(address,e)}  name={`flexRadioDefault1`} id={`flexRadioDefault1 ${i}`} />
+        <input className="form-check-input" type="radio"  onClick={(e)=>handler(address,e)}  name={`flexRadioDefault1`} id={`flexRadioDefault1 ${i}`} />
         <FormLabel htmlFor={`flexRadioDefault1 ${i}`}  style={{
             width:'100%'
         }}  >

@@ -33,17 +33,20 @@ exports.updateMe = catchAsync(async (req,res,next)=>{
      let doc;
      if('shippingAddress' in obj){
         // log("Found Address");
-         log(obj.shippingAddress);
+       //  log(obj.shippingAddress);
         const Address = new Ship(obj.shippingAddress);
         Address.user = req.user._id;
         await Address.save();
 
         // doc = await User.findById(req.user._id);
-        req.user.shippingAddress.push(Address._id);
+       // req.user.shippingAddress.push(Address._id);
       //  doc.shippingAddress.push(Address._id);
-      await req.user.save();
-      doc = req.user;
-        log("Done");
+      
+    //  await req.user.save();
+   //  let up=  await User.findById(req.user._id);
+      doc = await User.findById(req.user._id);
+       // log("Done");
+
      }
      else{
           
