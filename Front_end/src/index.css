@@ -86,8 +86,9 @@ a{
   text-decoration: none;
 
 }
+a
 
-/* a:hover{
+a:hover{
   color:black;
-  background-color: black;
-} */
+  
+}

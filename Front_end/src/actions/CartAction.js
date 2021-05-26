@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ADD_CART_ITEM,ADD_SHIPPING_ADDRESS,ADD_TO_ORDER_ITEM,REMOVE_CART_ITEM} from '../Reducer/constants';
+import {ADD_CART_ITEM,ADD_SHIPPING_ADDRESS,ADD_TO_ORDER_ITEM,REMOVE_CART_ITEM,SAVE_PAYMENT_METHOD} from '../Reducer/constants';
 
 export const AddItem = (id,qty)=>async (dispatch,getState)=>{
     try{
@@ -50,4 +50,15 @@ export const Addaddress = (address)=>(dispatch)=>{
         type:ADD_SHIPPING_ADDRESS,
         payload:address
     });
+
+    localStorage.setItem('Address',JSON.stringify(address));
+}
+
+export const PaymentMethod = (method)=>(dispatch)=>{
+    dispatch({
+        type:SAVE_PAYMENT_METHOD,
+        payload:method
+    });
+
+    localStorage.setItem('Method',JSON.stringify(method));
 }

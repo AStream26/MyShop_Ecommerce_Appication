@@ -17,6 +17,10 @@ import { useLocation } from 'react-router-dom'
 import Shipping from './Screens/Shipping';
 import SideBar from './components/SidebarMenu/NavItem';
 import Backdrop from './components/Backdrop/backdrop';
+import PaymentScreen from './Screens/PaymentScreen';
+import Placeorder from './Screens/Placeorder';
+import Checkout from './Screens/checkout';
+
 function App() {
   let [show,setShow] = useState(false);
 
@@ -68,6 +72,9 @@ let toggle = ()=>{
               <Route path='/profile'  component={profileScreen} />
               
               <Route path='/:id?/shipping'  component={Shipping} />
+              <Route path='/payment'  component={PaymentScreen} />
+              <Route path='/placeorder'  component={Placeorder} />
+              <Route path='/checkout/:id'  component={Checkout} />
               </>
 
              ):null

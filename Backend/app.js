@@ -2,6 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const ProductRouter = require('./Route/ProductRoute');
 const userRouter = require('./Route/userRouter');
+const orderRoute = require('./Route/orderRoute')
 const Error_MiddleWare = require('./Controllers/ErrorController');
 const AppError = require('./util/Errorhandler');
 const app = express();
@@ -32,6 +33,7 @@ app.use(cookieParser());
 
 app.use('/api/v1/product/',ProductRouter);
 app.use('/api/v1/user/',userRouter);
+app.use('/api/v1/order/',orderRoute);
 
 
 app.all('*',(req,res,next)=>{

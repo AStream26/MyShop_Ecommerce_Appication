@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const OrderSchema = ({
+const OrderSchema = new mongoose.Schema ({
    
     user:{
         type:mongoose.Schema.ObjectId,
         ref:'User',
-        required:true
+        required:[true,'Order must belong to a user']
     },
    
-    OrderItems:[
+    orderItems:[
         {
            name:{type:String,required:true},
            quantity:{type:Number,required:true},
@@ -28,13 +28,14 @@ const OrderSchema = ({
         State:{type:String,required:true},
         Pincode:{type:String,required:true},
         Country:{type:String,required:true},
-        ModileNo: {type:String,required:true}
+        MobileNo: {type:String,required:true},
+        user:String
 },
-    PaymentMethod:{
+    paymentMethod:{
         type:String,
         required:true
     },
-    PaymentResults:{
+    paymentResults:{
        id:{type:String},
        status:{type:String},
        update_time:{type:String},
@@ -57,14 +58,14 @@ const OrderSchema = ({
         type:Boolean,
         default:false
     },
-    PaidAt:{
+    paidAt:{
         type:Date
     },
     isDeliver:{
         type:Boolean,
         default:false
     },
-    DeliverAt:{
+    deliverAt:{
         type:Date
     }
 
@@ -75,5 +76,5 @@ const OrderSchema = ({
     timestamps:true
 })
 
-const Order = mongoose.modal('Order',OrderSchema);
+const Order = mongoose.model('Order',OrderSchema);
 module.exports = Order;

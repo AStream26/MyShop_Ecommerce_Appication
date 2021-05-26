@@ -28,10 +28,10 @@ const Shipping = () => {
     let [City,SetCity] = useState('');
     let [Pincode,SetPincode] = useState('');
     let [ChooseAddress,setChooseAddress] = useState({});
-    let [newaddress,SetnewAddress] = useState(shippingAddress.length===0);
+    let [newaddress,SetnewAddress] = useState(!('shippingAddress' in userData && shippingAddress?.length!==0));
     let [message,setMessage] = useState(null);
     let [redirect,setredirect] = useState('/payment')
-    let id = params?.id;
+    //let id = params?.id;
 
     let [proceed,setproceed] = useState(false);
     
@@ -50,14 +50,14 @@ const Shipping = () => {
 
     useEffect(()=>{
       if(params?.id){
-          console.log(params.id);
-          console.log(orderItems[0]);
-          console.log(orderItems.length)
+       //   console.log(params.id);
+         // console.log(orderItems[0]);
+          //console.log(orderItems.length)
           if((orderItems.length===1) && (orderItems[0].product === params.id)){
               setproceed(true);
           }
         else {
-            console.log("going....");
+         //   console.log("going....");
         history.goBack();
         }
       }
@@ -75,12 +75,17 @@ const Shipping = () => {
 
     useEffect(()=>{
         if(success){
+            setMessage('Address Added');
             setTimeout(()=>{
+                dispatch(Addaddress({Address,State,City,MobileNo,Pincode,Country}));
                 dispatch(setback())
                 history.push(redirect);
                 
-               },1000)
+               },1500)
         }
+        return (()=>{
+            setMessage(null);
+        })
         
     },[success])
    
@@ -144,10 +149,10 @@ const Shipping = () => {
     return (
         <>
         {  
-            success?(<Indicator message = {message} handler={myhandler} color='alert-danger'/>):null
+            success?(<Indicator message = {message} handler={myhandler} color='alert-success'/>):null
         }
         {
-            message?(<Indicator message = {message} handler={myhandler} color='alert-danger'/>):null
+           !success &&  message?(<Indicator message = {message} handler={myhandler} color='alert-danger'/>):null
         }
         <strong className="d-flex justify-content-start mb-2 border-bottom "><h1>Select Delivery Location</h1></strong>
       <FormContainer bactive={true} >
@@ -158,7 +163,7 @@ const Shipping = () => {
                 <Row style={{transition:'1s'}} >
                 <Col >
                 { 
-                   shippingAddress.length>0?(
+                   shippingAddress?.length>0?(
                       <Form onSubmit={Submithandler} className='m-0'>
                       
                        {
@@ -181,7 +186,7 @@ const Shipping = () => {
           <Col >
 
          {
-             shippingAddress.length>0 && (Object.keys(ChooseAddress).length===0)?(
+             shippingAddress?.length>0 && (Object.keys(ChooseAddress).length===0)?(
                 <Button onClick={clicked} className='btn btn-info btn-lg'>{!newaddress?'Add New Address':'Cancel'}</Button>
              ):null
 
@@ -189,7 +194,7 @@ const Shipping = () => {
          }
 
         {
-            (newaddress || shippingAddress.length <=0)? (
+            (newaddress || shippingAddress?.length <=0)? (
                 <>
               
                 <FormContainer active={true} >

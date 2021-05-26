@@ -11,8 +11,10 @@ const Button1 = props => {
             backgroundImage: `linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%)`,
             backgroundColor: `#89d8d3`,
             fontWeight:'500',
-            fontSize:"1.2em",
+            fontSize:"1.5em",
             border:'none'
+           
+            
            
         }}>
     {props.children}

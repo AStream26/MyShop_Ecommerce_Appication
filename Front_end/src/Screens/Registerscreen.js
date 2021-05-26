@@ -3,19 +3,25 @@ import {Form, Col,Row} from 'react-bootstrap'
 import FormContainer from '../components/Form/formcontainer';
 
 import validator from 'validator';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {Register} from '../actions/Authuseraction';
 import Indicator from '../components/Indicator/indicator';
 import MyInput from '../components/myInput';
 import MyButton from '../components/Button';
-const RegisterScreen = ({location,history}) => {
+const RegisterScreen = () => {
+    let history = useHistory();
+    let location = useLocation();
     let [name,Setname] = useState('');
      let [email,SetEmail] = useState('');
      let [password,SetPassword] = useState('');
      let [confirmPassword,SetconformPassword] = useState('');
      let [message,SetMessage] = useState(null);
-     let redirect = location.search ? location.search.split('=')[0]:'/';
+     let redirect = '/' ;
+     if(location.search){
+         let query = new URLSearchParams(location.search);
+         redirect = query.get('redirect');
+     }
     
     
      const dispatch = useDispatch();
@@ -30,7 +36,7 @@ const RegisterScreen = ({location,history}) => {
            history.push(redirect);
        }
        SetMessage(error);
-     },[history,userData,redirect,error])
+     },[history,userData,error])
 
      let Submithandler = (e)=>{
          e.preventDefault();
@@ -44,6 +50,8 @@ const RegisterScreen = ({location,history}) => {
            SetMessage('Password and Confirm Password must match ')
            else 
         dispatch(Register(name,email,password,confirmPassword));
+        console.log(redirect);
+        history.push(redirect);
      }
      let handler = ()=>{
          SetMessage(null);

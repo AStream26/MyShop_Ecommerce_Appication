@@ -22,9 +22,9 @@ export const login = (email,password)=> async(dispatch)=>
         }catch(error){
          
            dispatch({ type:LOGIN_USER_FAIL,
-                        payload:error.response && error.response.data.message
+                        payload:(error.response && error.response.data.message)
                         ?error.response.data.message
-                        :error.response 
+                        :(error.response)?error.response:JSON.stringify(error) 
                     })
         }
     }
@@ -45,7 +45,7 @@ export const login = (email,password)=> async(dispatch)=>
             // }
     
         }catch(err){
-            alert(err.response.data.message);
+           // alert(err.response.data.message);
         }
     }
 
