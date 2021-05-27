@@ -17,7 +17,7 @@ const Header = (props) => {
     let logouthandler = ()=>{
     
         dispatch(logout());
-      history.push('/login');
+     
         //window.location.reload(true);
     }
   //  console.log(props.toggle)

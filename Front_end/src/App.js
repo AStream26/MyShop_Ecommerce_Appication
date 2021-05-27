@@ -57,8 +57,8 @@ let toggle = ()=>{
  
         
           <AnimatePresence exitBeforeEnter>
-         <Switch loaction = {location} key={location.pathname}>
-                  <Route path='/' exact  component={HomeScreen}/>
+        <Switch loaction = {location} key={location.pathname}>
+        <Route path='/' exact  component={HomeScreen}/>
         <Route path='/product/:id' exact  component={ProductScreen}/>
         <Route path='/cart/:id?' exact component={CartScreen}/>
         <Route path='/login'   exact  component={LoginScreen}/>
@@ -73,6 +73,7 @@ let toggle = ()=>{
               <Route path='/payment'  component={PaymentScreen} />
               <Route path='/placeorder'  component={Placeorder} />
               <Route path='/checkout/:id'  component={Checkout} />
+              
               </>
 
              ):null

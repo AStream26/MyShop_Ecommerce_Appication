@@ -8,6 +8,7 @@ import Mybutton from '../components/Button';
 import { useHistory, useLocation, useParams } from 'react-router';
 import {motion} from 'framer-motion'
 import {ScreenAnimation,PageTransition1} from '../Screens/Animation'
+import {Addproduct} from '../actions/CartAction';
 const CartScreen = () => {
      let history = useHistory();
      let params = useParams();
@@ -32,7 +33,7 @@ const CartScreen = () => {
     useEffect(()=>{
       let price  = 0;
       cartItem.forEach((item)=>{
-          price+=(item.qty * item.price);
+          price+=(item.quantity * item.price);
       });
       setPrice(price.toFixed(2));
 
@@ -43,6 +44,7 @@ const CartScreen = () => {
        dispatch(DeleteItem(id));
    }
    let CheckouHandler = ()=>{
+       dispatch(Addproduct(cartItem));
        history.push(redirect);
    }
 

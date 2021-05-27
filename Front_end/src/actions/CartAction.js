@@ -10,10 +10,10 @@ export const AddItem = (id,qty)=>async (dispatch,getState)=>{
          dispatch({
              type:ADD_CART_ITEM,
              payload:{
-                 product_id:item._id,
+                 product:item._id,
                  name:item.name,
                  countInStock:item.countInStock,
-                 qty,
+                 quantity:qty,
                  image:item.image,
                  price:item.price
              }
@@ -41,7 +41,7 @@ export const Addproduct = (product)=>(dispatch)=>{
         payload:product
     });
    // let a = [product]
-    localStorage.setItem('cartItems',JSON.stringify(product));
+   sessionStorage.setItem('cartItems',JSON.stringify(product));
 }
 
 
@@ -51,7 +51,7 @@ export const Addaddress = (address)=>(dispatch)=>{
         payload:address
     });
 
-    localStorage.setItem('Address',JSON.stringify(address));
+  sessionStorage.setItem('Address',JSON.stringify(address));
 }
 
 export const PaymentMethod = (method)=>(dispatch)=>{
@@ -60,5 +60,5 @@ export const PaymentMethod = (method)=>(dispatch)=>{
         payload:method
     });
 
-    localStorage.setItem('Method',JSON.stringify(method));
+    sessionStorage.setItem('Method',JSON.stringify(method));
 }

@@ -16,7 +16,7 @@ const CartList = ({product,changeHandler,deleteHandler}) => {
                <Row>
 
                    <Col lg={4}  >
-                  <Link to={`/product/${product.product_id}`}>
+                  <Link to={`/product/${product.product}`}>
                   <Image style={{height:"90%",width:"90%"}}src={product.image} alt={product.name} fluid  />
                   </Link>
                    </Col>
@@ -58,7 +58,7 @@ const CartList = ({product,changeHandler,deleteHandler}) => {
                                  <Col >
                                  <Form.Group >
                                
-                               <Form.Control as="select"  value={product.qty} onChange={(e)=>changeHandler(AddItem(product.product_id,Number(e.target.value)))} style={{transform:"scale(0.9)"}} >
+                               <Form.Control as="select"  value={product.quantity} onChange={(e)=>changeHandler(AddItem(product.product,Number(e.target.value)))}  >
                                   {
                                   [...new Array(product.countInStock).keys()].map(el=>(
                                  <option key={el+1} value={el+1}>{el+1}</option>

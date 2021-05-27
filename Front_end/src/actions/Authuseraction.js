@@ -31,18 +31,28 @@ export const login = (email,password)=> async(dispatch)=>
 
     export const logout =()=> async (dispatch)=>{
         try{
-            localStorage.removeItem("userInfo");
+           
             dispatch({type:USER_LOGOUT});
     
             const res = await axios({
                 method:'GET',
                 url:'/api/v1/user/logout'
             });
-          //  console.log("akaka");
+
            
+          //  console.log("akaka");
+           window.location.assign('/register');
             // if(res.data.status==='success'){
             // window.location.assign('/'); //reload from server side not from browser side
             // }
+          
+            localStorage.removeItem("userInfo");
+            localStorage.removeItem("cartItem");
+            localStorage.removeItem("userData");
+            sessionStorage.removeItem('Address');
+            sessionStorage.removeItem('Method')
+            sessionStorage.removeItem('cartItems')
+          
     
         }catch(err){
            // alert(err.response.data.message);

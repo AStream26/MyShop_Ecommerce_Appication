@@ -50,7 +50,7 @@ const Placeorder = props => {
 
   
   const successhandler = (paymentResult)=>{
-      console.log(paymentResult);
+     // console.log(paymentResult);
        dispatch(payorder(params.id,paymentResult))
   }
     
@@ -64,7 +64,7 @@ const Placeorder = props => {
    <Row>
       <ListGroupItem className=' border-0 border-bottom'> <strong><h4>ORDER ID - {params.id}</h4></strong></ListGroupItem>
         
-       <Col md={8}>
+       <Col lg={8}>
                 <ListGroup variant='flush'>
                     <ListGroupItem >
                     <strong> <h2>Shipping Address</h2></strong>
@@ -162,7 +162,7 @@ const Placeorder = props => {
 
 
     
-                <Col  md={4}>
+                <Col  lg={4} >
     
                     <Card className='m-4'>
                         <ListGroup variant='flush'>
@@ -211,7 +211,7 @@ const Placeorder = props => {
 
                            {
                                !currentOrder?.isPaid &&(
-                                   <ListGroupItem>
+                                   <ListGroupItem className='p-0 mt-2'>
                                     {
                                         loadingPay && <Loader />
                                     }
@@ -230,6 +230,7 @@ const Placeorder = props => {
                     </Card>
                     
                 </Col>
+             
             </Row>
    </>
 }

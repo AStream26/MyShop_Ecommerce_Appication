@@ -5,14 +5,15 @@ import Classes from './sidebar.module.css';
 import Sidebar from './Sidebar';
 import {Navanchors} from './Navanchors';
 import Profile from './Profile';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Backdrop from '../Backdrop/backdrop';
-
+import {logout} from '../../actions/Authuseraction'
 const Side = forwardRef(({width,height,show1},ref1) => {
     const [xwidth,setXwidhth] = useState(-(Number(width)));
     const {userData} = useSelector(state=>state.userDetail);
     const [show,setshow] = useState(false);
-
+    
+    let dispatch = useDispatch();
   
     useEffect(()=>{
         setXwidhth(-(Number(width)));
@@ -34,6 +35,11 @@ const Side = forwardRef(({width,height,show1},ref1) => {
         }
     })
 
+    let handler = ()=>{
+        dispatch(logout());
+    }
+
+
 
  
     return (
@@ -44,7 +50,7 @@ const Side = forwardRef(({width,height,show1},ref1) => {
 
 
          <Navanchors link="/" text="Home" />
-         <Navanchors link="/product" text="Product" />
+         
          <Navanchors link="/cart" text="Cart" />
 
          {
@@ -55,6 +61,9 @@ const Side = forwardRef(({width,height,show1},ref1) => {
                 <Navanchors link="/profile/review" text="My Review" />
                 <Navanchors link="/profile/shipping" text="MY Address" />
                 <Navanchors link="/profile/changepassword" text="Change Password" />
+              <div style={{textAlign:'center'}}>
+              <p onClick={handler}>Logout</p>
+              </div>
                  
                
                                 </>

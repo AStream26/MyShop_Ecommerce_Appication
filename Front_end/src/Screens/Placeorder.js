@@ -24,9 +24,15 @@ const Placeorder = props => {
     let Item = OrderDetail.orderItems;
 
 
+   useEffect(()=>{
+    if(Object.keys(OrderDetail?.shippingAddress).length === 0)
+    history.push('/shipping')
+    
     if(OrderDetail.paymentMethod === null){
         history.push('/payment');
     }
+    
+   },[])
   // let itemsPrice = 0;
 
     let itemsPrice = Item.reduce((acc,item)=>acc + ( item.price * item.quantity),0);

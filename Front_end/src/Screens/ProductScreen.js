@@ -18,7 +18,7 @@ const ProductScreen = props => {
     const history = useHistory();
       useEffect(()=>{
        //  console.log("Dispatching.....");
-          if(Object.keys(product).length===0)
+          if(Object.keys(product).length===0|| product?._id !==props. match.params.id )
          dispatch(GetProduct(props.match.params.id)); 
       },[dispatch,props.match.params.id])
 
@@ -88,7 +88,7 @@ const ProductScreen = props => {
                   </ListGroup>
               </Col>
 
-              <Col md={3} >
+              <Col md={12} lg={3} >
                   <Card>
                       <ListGroup variant='flush'>
                        <ListGroupItem>

@@ -14,6 +14,9 @@ export const Navanchors = ({link,text}) => {
      }} activeClassName="active" to={link}>{text}</NavLink>
 
      </>
+
+
+
    
 
 )

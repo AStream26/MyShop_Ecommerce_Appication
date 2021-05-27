@@ -13,7 +13,7 @@ const PaymentScreen = props => {
          history.push('/');
     }
     else if(Object.keys(orderDetail.shippingAddress).length === 0){
-        history.goBack();
+        history.push('/shippingaddress');
     }
 
     let [change,setChange] = useState('Paypal');
