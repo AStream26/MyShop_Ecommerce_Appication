@@ -1,43 +1,68 @@
-import React, { useEffect } from 'react'
-import { Card, Col, ListGroup,ListGroupItem, Row } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react'
+import { Card, Col, ListGroup,ListGroupItem, Row,Container } from 'react-bootstrap';
 import {Link,NavLink} from 'react-router-dom'
+import {PayPalButton} from 'react-paypal-button-v2'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router'
 import MyButton from '../components/Button';
 import {placeorder,getOrderById} from '../actions/orderaction'
 import Indicator from '../components/Indicator/indicator';
 import Loader from '../components/utilities_/myloader';
-
+import axios from 'axios';
+import {payorder} from '../actions/orderaction'
+import {ORDERPAY_RESET} from '../Reducer/constants'
 const Placeorder = props => {
     let params  = useParams();
      let history = useHistory();
      let dispatch = useDispatch();
+     let [sdkReady,SetsdkReady] = useState(false);
      let {userData} = useSelector(state=>state.userDetail);
-    
-    
-     useEffect(()=>{
-         if(!userData){
-             history.push(`/login?redirect=/checkout/${params.id}`);
-         }
-
-       else if(params.id){
-        dispatch(getOrderById(params.id));
-       }
-       else{
-           history.goBack();
-       }
-
-     },[]);
-
-    
+   
      let {loading,currentOrder,error} = useSelector(state=>state?.CurrentPlaceOrder);
+     let {success:succesPay,loading:loadingPay} = useSelector(state=>state.PaymentReducer)
+     useEffect(()=>{
+       
+        const addPaypalscript = async ()=>{
+            const{data :client_ID} = await axios.get('/api/config/paypal');
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = `https://www.paypal.com/sdk/js?client-id=${client_ID}`
+            script.async = true;
+            script.onload = ()=>{
+                SetsdkReady(true);
+            }
+            document.body.appendChild(script);
+        }
+
+       if(!currentOrder || succesPay){
+           dispatch({type:ORDERPAY_RESET});
+        dispatch(getOrderById(params.id));
+       } else if(!currentOrder.isPaid){
+           if(!window.paypal){
+               addPaypalscript();
+           }
+           else{
+               SetsdkReady(true);
+           }
+       }
+     
+     },[dispatch,params.id,succesPay,currentOrder]);
+
+  
+  const successhandler = (paymentResult)=>{
+      console.log(paymentResult);
+       dispatch(payorder(params.id,paymentResult))
+  }
+    
+    
+    
     
     //console.log(Item)
     
    return loading?<Loader />:error?<Indicator message={error} color='alert-danger' />:
    <>
-   <Row className='p-2'>
-      <ListGroupItem className=' border-0 border-bottom'> <h1>ORDER ID - {params.id}</h1></ListGroupItem>
+   <Row>
+      <ListGroupItem className=' border-0 border-bottom'> <strong><h4>ORDER ID - {params.id}</h4></strong></ListGroupItem>
         
        <Col md={8}>
                 <ListGroup variant='flush'>
@@ -54,12 +79,20 @@ const Placeorder = props => {
                        {
                           !currentOrder?.isDeliver?(
                               <>
-                              <div style={{opacity:'0.8'}} className="alert alert-dismissible alert-danger">
+                              <div style={{opacity:'0.66'}} className="alert alert-dismissible alert-danger">
                                 Not Delivered
                                 </div>
                               </>
                           ):
-                          <Indicator text={`Delivered at ${currentOrder?.deliverAt}`} color='alert-success'/>
+                          (
+                            <>
+                            <div style={{opacity:'0.7', backgroundColor:' rgb(62, 173, 207)'}} className="alert alert-dismissible alert-success">
+                              Delivered on -  {
+                                   currentOrder?.deliverAt
+                               }
+                              </div>
+                            </>
+                          )
                       }
                     
                     </ListGroupItem>
@@ -73,20 +106,28 @@ const Placeorder = props => {
                       {
                           !currentOrder?.isPaid?(
                               <>
-                              <div style={{opacity:'0.8'}} className="alert alert-dismissible alert-danger">
+                              <div style={{opacity:'0.6'}} className="alert alert-dismissible alert-danger">
                                 Not Paid
                                 </div>
                               </>
                           ):
-                          <Indicator text='Paid' color='alert-success'/>
+                          ( 
+                            <>
+                            <div style={{opacity:'0.7', backgroundColor:' rgb(62, 173, 207)'}} className="alert alert-dismissible alert-success">
+                              Paid At {
+                                   currentOrder?.paidAt
+                               }
+                              </div>
+                            </>
+
+                          )
                       }
                   </ListGroupItem>
-                 <ListGroupItem>
-    
-                 <table class="table table-hover">
-                    <thead>
+                
+                  <table className="table table-hover " >
+                    <thead >
                         <tr>
-                        <th scope="col">S.NO</th>
+                        <th scope="col" className='d-none d-sm-block' style={{border:'none',height:'100%'}}>S.NO</th>
                         <th scope="col">Product</th>
                         <th scope="col"> Quantity</th>
                         <th scope="col">Price</th>
@@ -97,9 +138,9 @@ const Placeorder = props => {
                       {
                           currentOrder?.orderItems?.map((el,index)=>{
                               return (
-                                <tr>
+                                <tr key={index}>
                                     
-                                <th scope="row">{index+1}</th>
+                                <th scope="row" className='d-none d-sm-block m-0 ' style={{border:'none',height:'100%'}}>{index+1}</th>
                                 <td>{el.name}</td>
                                 <td>{el.quantity}</td>
                                 <td>₹{el.price}</td>
@@ -110,15 +151,21 @@ const Placeorder = props => {
                       }
                     </tbody>
                     </table>
+             
+                
     
-                    </ListGroupItem>
+                   
                 </ListGroup>
+
+                
                 </Col>
+
+
     
                 <Col  md={4}>
     
                     <Card className='m-4'>
-                        <ListGroup >
+                        <ListGroup variant='flush'>
                             <ListGroupItem className='d-flex justify-content-center'><h1>Order Summary</h1></ListGroupItem>
                             <ListGroupItem >
                                 <Row >
@@ -161,6 +208,22 @@ const Placeorder = props => {
                                    </Col>
                                 </Row>
                             </ListGroupItem>
+
+                           {
+                               !currentOrder?.isPaid &&(
+                                   <ListGroupItem>
+                                    {
+                                        loadingPay && <Loader />
+                                    }
+                                    {
+                                        !sdkReady?<Loader />:
+                                        (
+                                            <PayPalButton amount={currentOrder?.totalPrice} onSuccess={successhandler} />
+                                        )
+                                    } 
+                                   </ListGroupItem>
+                               )
+                           }
     
                         </ListGroup>
                       

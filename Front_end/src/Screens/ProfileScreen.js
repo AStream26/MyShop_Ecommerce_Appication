@@ -8,18 +8,21 @@ import Orders from '../components/profile/mybooking';
 import Classes from './style.module.css';
 import {motion} from 'framer-motion'
 import {ScreenAnimation,PageTransition1} from '../Screens/Animation'
+import { useSelector } from 'react-redux';
+
 const ProfileScreen = props => {
+    let {userData} = useSelector(state=>state.userDetail);
    // console.log(props);
-   let cl = ['shadow-lg p-3 mb-5 bg-body rounded',Classes.rowup]
+   let cl = ['shadow-lg bg-body rounded',Classes.rowup]
    const location = useLocation();
     return (
         <motion.div
          animate="in"  variants={ScreenAnimation} 
         transition={PageTransition1}
+        
         >
+          <nav className='m-2' ><h1>Welcome {userData.name}</h1></nav>
        <Row className={cl.join(' ')} style={{
-           height:"90vh",
-           marginTop:'1em'
            
        }} >
            <Col className="d-none d-md-block" md={3} style={{
@@ -56,13 +59,13 @@ const ProfileScreen = props => {
                   
               </ListGroup>
            </Col>
-           <Col md={9} className="m-0">
+           <Col md={9}   className="m-0">
               
            <Switch loaction={location} key={location.pathname} >
            <Route path='/profile/setting' exact component={Basicinfo} />
            <Route path='/profile/changepassword'  exact component={ChangePassword} />
-           <Route path='/profile/myorders' exact component={Review} />
-           <Route path='/profile/myreviws' exact component={Orders} />
+           <Route path='/profile/myorders' exact component={Orders} />
+           <Route path='/profile/myreviws' exact component={Review} />
            
            </Switch>
            

@@ -71,7 +71,7 @@ const Placeorder = props => {
              <table class="table table-hover">
                 <thead>
                     <tr>
-                    <th scope="col">S.NO</th>
+                    <th className='d-none d-md-block' scope="col">S.NO</th>
                     <th scope="col">Product</th>
                     <th scope="col"> Quantity</th>
                     <th scope="col">Price</th>
@@ -84,7 +84,7 @@ const Placeorder = props => {
                           return (
                             <tr>
                                 
-                            <th scope="row">{index+1}</th>
+                            <th className='d-none d-md-block'  scope="row">{index+1}</th>
                             <td>{el.name}</td>
                             <td>{el.quantity}</td>
                             <td>₹{el.price}</td>
@@ -150,7 +150,7 @@ const Placeorder = props => {
                     </ListGroup>
                     <MyButton type='text' onClick={handler} active={Item.length !== 0}>{loading?'Processing....':'PLACEORDER'}</MyButton>
                     {
-                        error && <Indicator text={error} color='alert-danger' />
+                        error && <p style={{color:'red'}}>{error}</p>
                     }
                 </Card>
                 

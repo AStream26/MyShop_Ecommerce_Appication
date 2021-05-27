@@ -50,12 +50,10 @@ let toggle = ()=>{
    
   
  
-    <main  style={{
-    
-    }}>
+    <main  >
   
    
-     <Container>
+     <Container style={{position:'relative'}}>
  
         
           <AnimatePresence exitBeforeEnter>

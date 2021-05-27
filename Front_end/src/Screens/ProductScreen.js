@@ -18,6 +18,7 @@ const ProductScreen = props => {
     const history = useHistory();
       useEffect(()=>{
        //  console.log("Dispatching.....");
+          if(Object.keys(product).length===0)
          dispatch(GetProduct(props.match.params.id)); 
       },[dispatch,props.match.params.id])
 
@@ -32,10 +33,12 @@ const ProductScreen = props => {
       },[])
 
       let AddtocardHandler = ()=>{
+
           dispatch(AddItem(props.match.params.id,qty));
          setmsg('Item Added To Cart')
       }
       let orderDetailReducer= ()=>{
+
            dispatch(Addproduct([{
             name:product.name,
             image:product.image,

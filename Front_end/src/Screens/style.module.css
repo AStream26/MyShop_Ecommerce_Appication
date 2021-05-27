@@ -9,9 +9,16 @@
 .rowup{
    
     background-color:whitesmoke;
-    border-radius: 1em;
-    padding: 0px;
+    border-radius: 0.2em;
+    height:95vh;
+    margin:2px;
+    padding:4px;
+    position: relative;
+    overflow:auto;
+    scrollbar-width: 2px;
 }
+
+
 
 .remove{
    

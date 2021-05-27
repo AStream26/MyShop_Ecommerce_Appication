@@ -12,7 +12,7 @@ body{
 
 
 .example::-webkit-scrollbar {
-
+   overflow: auto;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
@@ -33,7 +33,7 @@ body{
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: rgb(62, 173, 207); 
 }
 
 /* Handle on hover */
