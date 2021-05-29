@@ -6,10 +6,12 @@ const Ordercontroller = require('../Controllers/Ordercontroller');
 
 Router.use(Authcontroller.protect);
 
-
+//console.log('a');
+Router.get('/myorders',Ordercontroller.getOrders);
 Router.post('/placeorder',Ordercontroller.orderrequest);
 Router.get('/:id',Ordercontroller.getorder);
 Router.patch('/:id/pay',Ordercontroller.Pay);
+
 
 
 module.exports = Router;

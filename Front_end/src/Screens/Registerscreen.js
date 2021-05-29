@@ -17,7 +17,7 @@ const RegisterScreen = () => {
      let [password,SetPassword] = useState('');
      let [confirmPassword,SetconformPassword] = useState('');
      let [message,SetMessage] = useState(null);
-     let redirect = '/' ;
+     let redirect  ;
      if(location.search){
          let query = new URLSearchParams(location.search);
          redirect = query.get('redirect');
@@ -50,7 +50,7 @@ const RegisterScreen = () => {
            SetMessage('Password and Confirm Password must match ')
            else 
         dispatch(Register(name,email,password,confirmPassword));
-        console.log(redirect);
+      //  console.log(redirect);
         history.push(redirect);
      }
      let handler = ()=>{
@@ -110,7 +110,7 @@ const RegisterScreen = () => {
             </Form>
             <Row className="p-3">
                 <Col>
-                <strong className="text text-dark">Already a Customer ?</strong> <Link to={redirect?`register/?redirect=${redirect}`:'/login'} >Login</Link>
+                <strong className="text text-dark">Already a Customer ?</strong> <Link to={redirect?`/login?redirect=${redirect}`:'/login'} >Login</Link>
                 </Col>
             </Row>
         </FormContainer>

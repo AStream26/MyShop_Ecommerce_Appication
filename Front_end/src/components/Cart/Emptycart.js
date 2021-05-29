@@ -1,48 +1,65 @@
 import React from 'react'
 import {Jumbotron,Button, Container, Col,Row} from 'react-bootstrap';
-import {Link} from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import {Link, NavLink} from 'react-router-dom'
+import MyButton from '../Button';
+
 const Quantity = props => {
+
+    const {userData}   = useSelector(state=>state.userDetail);
+
     return (
-        <div >
-        <Jumbotron fluid className="bg  pt-5 pb-0" style={{height:"75vh",backgroundColor:"#FFFFFF"}} >
-                               <Container >
-                                   <Row className="d-flex">
-                                       <Col sm={12}md={4}>
-                                       <i className="fas fa-shopping-cart fa-10x"></i>
+        <Container className='d-flex align-items-center my-5'>
+     
+                           <Row className=" d-flex justify-content-center">
+                                     <Row >
+                                       <Col sm={12} className=" d-flex justify-content-center my-5" >
+                                       <i style={{transform:'scale(1.4)',opacity:'0.6'}}className="fas fa-shopping-cart fa-10x"></i>
                                        </Col>
-                                       <Col sm={12} md={8}>
-                                       <h1>Your MyShop Cart is Empty</h1>
-                                          <br/>
-                                          <br/>
-                                       <Row >
-                                           <Col xs={12} md={4} className="d-grid gap-2">
-                                          <Link to="/register">
-                                          <Button  className="btn btn-lg btn-block" >
-                                                Signup
-                                           </Button>
-                                          </Link>
-                                         
-                                           </Col>
-                                           <Col  xs={12} md={4} className="d-grid gap-2" >
-                                               <Link to="/login">
-                                               <Button  className="btn btn-lg" >
-                                                Login
-                                           </Button>
-                                               </Link>
+                                       <Col xs={12} className='d-flex justify-content-center my-5' >
+                                       <h1 >Your MyShop Cart is Empty</h1>
                                           
-                                           </Col>
-                                       </Row>
-                              
-                                       </Col>
+                                    </Col>
+                                    </Row>
+                         
+
+                                   {
+                                       userData?(
+                                        <Row   >
+                                        <Col xs={12} md={6}className='d-flex justify-content-center my-5'>
                                       
-                                   </Row>
+                                    <NavLink to='/login'>
+                                        <MyButton>
+                                        Login
+                                        </MyButton>
+                                    </NavLink>
+                                      
+                                      
+                                        </Col>
+
+                                        <Col  xs={12} md={6} className='d-flex justify-content-center my-5'  >
+                                        <NavLink to='/register'>
+                                            
+                                        <MyButton>
+                                        Signup
+                                        </MyButton>
+                                    </NavLink>
+                                       
+                                       
+                                        </Col>
+                                    </Row>
+                                   
+                                       ):null
+                                   }
+                                
                               
                                 
-                                  
-                               </Container>
+                             </Row>
+           
+                             
                                 
-                              </Jumbotron>
-        </div>
+                             
+        </Container>
     )
 }
 

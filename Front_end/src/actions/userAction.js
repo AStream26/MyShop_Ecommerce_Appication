@@ -12,10 +12,11 @@ export const getuserData  = ()=>async(dispatch)=>{
     }
     
     const {data} = await axios.get('/api/v1/user/profile',config);
+    console.log(data);
     dispatch({type:USER_SUCCESS,
              payload:data.doc});
+   
     
-
    }catch(error){
        dispatch({type:USER_FAIL,
                 payload:error.response && error.response.data.message
@@ -55,7 +56,8 @@ export const upadteuserData  = (data1)=>async(dispatch)=>{
      dispatch({type:USER_UPDATE_SUCCESS,
               payload:Data.doc})
     
-    localStorage.setItem('userData',JSON.stringify(Data.doc));
+  
+   sessionStorage.setItem('USERDATA_',JSON.stringify(Data.doc));
     }catch(error){
         //console.log(error.response);
         dispatch({type:USER_UPDATE_FAIL,

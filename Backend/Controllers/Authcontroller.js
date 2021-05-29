@@ -83,7 +83,7 @@ exports.protect = catchAsync(async (req,res,next)=>{
 }
      else if(req.cookies.jwt){
           token = req.cookies.jwt;
-          //console.log(token);
+        //  console.log(token);
      }
    
           if(!token)
@@ -92,14 +92,14 @@ exports.protect = catchAsync(async (req,res,next)=>{
      const decoded = await promisify(jwt.verify)(token,process.env.JWT_SECRET);
     
     const currentuser = await userModal.findById(decoded.id);
-
+   // console.log(currentuser);
     if(!currentuser)
     return next(new AppError('Invalid Token either expired or user does not exists !!',401));
 
     if(currentuser.DoesPasswordChangedAfter(decoded.iat)){
          return next(new AppError('Invalid Login , User has Recently changed the password , Please  Login Again',401));
     }
- //  console.log(currentuser);
+  // console.log(currentuser);
    req.user = currentuser;
    next();
 
@@ -111,6 +111,7 @@ exports.validateRole = (...roles) =>{
      return (req,res,next)=>{
           if(!roles.includes(req.user.role))
             return next(new AppError("You Don't have permission to perform this action !!",403));
+
           return next();
      }
 }

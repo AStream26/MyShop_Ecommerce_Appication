@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {Container,Nav,Navbar, NavDropdown} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {LinkContainer} from 'react-router-bootstrap';
 import {logout} from '../actions/Authuseraction';
-import {useHistory} from 'react-router-dom'
 const Header = (props) => {
-    const history = useHistory();
+   
     const dispatch = useDispatch();
     const {userData}= useSelector(state=>state.userDetail);
     
@@ -18,7 +17,7 @@ const Header = (props) => {
     
         dispatch(logout());
      
-        //window.location.reload(true);
+     //   window.location.assign('/login');
     }
   //  console.log(props.toggle)
     return (
@@ -26,7 +25,7 @@ const Header = (props) => {
           <header style={{
               position:"sticky",
               top:'0',
-              zIndex:'100',
+              zIndex:'2',
               width:'100wh'
               
           }}  >

@@ -6,16 +6,32 @@ import { useDispatch, useSelector } from 'react-redux'
 import {getALLorder} from '../../actions/orderaction'
 import Loader from '../utilities_/myloader'
 import Indicator from '../Indicator/indicator'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
+import {RESET_ORDER} from '../../Reducer/constants'
 const Mybooking = () => {
     const dispatch = useDispatch();
+    let history = useHistory();
    let {order,loading,error} = useSelector(state=>state.getAllOrderReducer);
-
+   let {userData} = useSelector(state=>state.userDetail);
    useEffect(()=>{
-     if(order?.length==0)
-     dispatch(getALLorder());
-   },[dispatch])
+    if(!userData){
+      history.push('/login?redirect=/profile/myorders')
+
+    } 
+    else{
+        
+       
+        dispatch(getALLorder());
+    }
+
+    return (()=>{
+        dispatch({type:RESET_ORDER})
+    })
+
+ },[dispatch])
+
+   
 
 
 
@@ -29,9 +45,9 @@ const Mybooking = () => {
       {
           loading?<Loader />
           :error?(
-              <indicator message={error} color='alert-danger' />
+              <Indicator message={error} color='alert-danger' />
           ):order?.length === 0?(
-              <h3>No Order</h3>
+              <h3>No Purchase history</h3>
           ):(
 
             <>

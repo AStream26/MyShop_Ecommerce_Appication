@@ -211,7 +211,7 @@ const Placeorder = props => {
 
                            {
                                !currentOrder?.isPaid &&(
-                                   <ListGroupItem className='p-0 mt-2'>
+                                   <ListGroupItem className='p-0 mt-2' style={{zIndex:'1'}} >
                                     {
                                         loadingPay && <Loader />
                                     }

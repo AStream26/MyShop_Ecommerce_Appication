@@ -57,13 +57,16 @@ const Shipping = () => {
               setproceed(true);
           }
         else {
-         //   console.log("going....");
-        history.goBack();
+           console.log("going....");
+        history.push('/');
         }
       }
       else{
-          if(cartItem.length === 0)
-             history.goBack();
+          if(cartItem.length === 0){
+            history.push('/');
+            //console.log('/jhajaj');
+          }
+            
        else{
            dispatch(Addproduct(cartItem));
            setredirect('/payment?ref=fromcart')

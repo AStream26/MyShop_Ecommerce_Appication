@@ -1,7 +1,7 @@
 import {PLACEORDER_FAIL,PLACEORDER_SUCCESS,PLACEORDER_REQUEST,
         GETORDERBYID_FAIL,GETORDERBYID_REQUEST,GETORDERBYID_SUCCESS,
         ORDERPAY_REQUEST, ORDERPAY_SUCCESS, ORDERPAY_RESET, ORDERPAY_FAIL,
-        GET_ALL_ORDER_FAIL,GET_ALL_ORDER_REQUEST,GET_ALL_ORDER_SUCCESS
+        GET_ALL_ORDER_FAIL,GET_ALL_ORDER_REQUEST,GET_ALL_ORDER_SUCCESS,RESET_ORDER 
     } from './constants';
 
 export const OrderReducer = (state={},action)=>{
@@ -101,9 +101,13 @@ export const PayReducer = (state={},action)=>{
  
          case GET_ALL_ORDER_FAIL:
              return {
-                 ...state,
+                
                  loading:false,
                  error:action.payload
+             }
+         case RESET_ORDER :
+             return{
+                 order:[]
              }
          
          default:

@@ -19,7 +19,7 @@ const reducer = combineReducers({
     getAllOrderReducer:GetAllorder
 });
 const cartItem = localStorage.getItem('cartItem')?JSON.parse(localStorage.getItem('cartItem')):[];
-const userData = localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):{};                                                    
+const userData = sessionStorage.getItem('USERDATA_')?JSON.parse(sessionStorage.getItem('USERDATA_')):null;                                                    
 const product  = sessionStorage.getItem('cartItems')?JSON.parse(sessionStorage.getItem('cartItems')):[];  
 const Address  = sessionStorage.getItem('Address')?JSON.parse(sessionStorage.getItem('Address')):{};                                                    
 const Method    =  sessionStorage.getItem('Method')?JSON.parse(sessionStorage.getItem('Method')):null;  

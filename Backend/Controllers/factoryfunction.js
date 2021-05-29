@@ -1,3 +1,4 @@
+const User = require('../Modal/Usermodal');
 const catchAsync = require('./../util/catchAsync');
 const ErrorHandle = require('./../util/Errorhandler');
 
@@ -66,4 +67,17 @@ exports.getALL = (Modal)=>catchAsync(async (req,res,next)=>{
         status:'success',
         doc
     });
+  });
+
+
+
+  exports.deleteAll = (Modal)=>catchAsync(async(req,res,next)=>{
+
+     await Modal.deleteMany();
+
+     res.status(204).json({
+       message:"Operation Successfull",
+
+     });
+
   });

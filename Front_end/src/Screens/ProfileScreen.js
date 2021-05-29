@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Row,Col, ListGroup, ListGroupItem } from 'react-bootstrap'
-import {Link, NavLink, Route, Switch, useLocation} from 'react-router-dom';
+import {Link, NavLink, Route, Switch, useHistory, useLocation} from 'react-router-dom';
 import Basicinfo from '../components/profile/basicinfo';
 import ChangePassword from '../components/profile/changePassword';
 import Review from '../components/profile/myReviews';
@@ -9,9 +9,16 @@ import Classes from './style.module.css';
 import {motion} from 'framer-motion'
 import {ScreenAnimation,PageTransition1} from '../Screens/Animation'
 import { useSelector } from 'react-redux';
+import NotFound from './notfound';
 
 const ProfileScreen = props => {
     let {userData} = useSelector(state=>state.userDetail);
+    let history = useHistory();
+    useEffect(()=>{
+       if(!userData){
+         history.push('/login')
+       } 
+    },[])
    // console.log(props);
    let cl = ['shadow-lg bg-body rounded',Classes.rowup]
    const location = useLocation();
@@ -53,8 +60,12 @@ const ProfileScreen = props => {
                  
 
                  
-                  <NavLink activeClassName={Classes.active} to={props.match.url+'/myreviws'} className={Classes.remove}>
+                  <NavLink activeClassName={Classes.active} to={props.match.url+'/myreview'} className={Classes.remove}>
                      My Reviews  
+                  </NavLink>
+
+                  <NavLink activeClassName={Classes.active} to={props.match.url+'/myaddress'} className={Classes.remove}>
+                     Address 
                   </NavLink>
                   
               </ListGroup>
@@ -63,10 +74,12 @@ const ProfileScreen = props => {
               
            <Switch loaction={location} key={location.pathname} >
            <Route path='/profile/setting' exact component={Basicinfo} />
+         
            <Route path='/profile/changepassword'  exact component={ChangePassword} />
            <Route path='/profile/myorders' exact component={Orders} />
-           <Route path='/profile/myreviws' exact component={Review} />
-           
+           <Route path='/profile/myreview' exact component={Review} />
+          
+          
            </Switch>
            
            </Col>

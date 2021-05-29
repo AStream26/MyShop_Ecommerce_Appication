@@ -61,6 +61,7 @@ exports.Pay  = catchAsync(async(req,res,next)=>{
     return next(new AppError('Invalid Order request !!',400));
 
     if(order){
+        console.log(req.body);
         order.isPaid = true;
         order.paidAt = Date.now();
         order.paymentResults = {
@@ -73,11 +74,27 @@ exports.Pay  = catchAsync(async(req,res,next)=>{
         }
 
         const updatedorder = await order.save();
-
+        res.status(200).json({
+            status:'success',
+            updatedorder
+        });
     }
 
+ 
+});
+
+
+exports.getOrders = catchAsync(async (req,res,next)=>{
+  //  console.log('Reached');
+    const order = await Order.find({user:req.user._id});
+
+    if(!order)
+    return next(new AppError("You have not order any items !! ",404));
+
     res.status(200).json({
-        status:'success',
-        updatedorder
+        message:'success',
+        order
     });
+
+    
 });

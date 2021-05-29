@@ -142,7 +142,7 @@ const ProductScreen = props => {
                       </ListGroupItem>
                       <MyButton  onClick={AddtocardHandler} active={true}> {msg} </MyButton>
                       <br/>
-                      <br/>
+                     
                       <MyButton  active={true} onClick={orderDetailReducer}> Order Now </MyButton>
 
          </>

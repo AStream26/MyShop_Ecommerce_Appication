@@ -11,7 +11,7 @@ export const Navanchors = ({link,text}) => {
       textAlign:"center",
          color: "#000",
          padding: "8px 8px 8px 32px"
-     }} activeClassName="active" to={link}>{text}</NavLink>
+     }} activeClassName="active" to={link} >{text}</NavLink>
 
      </>
 

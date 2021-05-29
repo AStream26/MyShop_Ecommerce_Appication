@@ -44,5 +44,5 @@ export const PageTransition1 = {
   
     type:"tween",
     ease:"anticipate",
-    duration:0.8
+    duration:0.4
 }

@@ -70,6 +70,7 @@ exports.getuser =factory.getOne(User);
 exports. getAllusers =factory.getALL(User);
 exports. updateuser =factory.updateOne(User);
 exports. deleteuser = factory.deleteOne(User);
+exports.deleteAll = factory.deleteAll(User);
 
 exports. newuser = (req,res)=>{
     res.status(500).json({

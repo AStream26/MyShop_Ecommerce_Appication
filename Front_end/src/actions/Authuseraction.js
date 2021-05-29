@@ -18,7 +18,7 @@ export const login = (email,password)=> async(dispatch)=>
                    payload:data});
          dispatch({type:USER_SUCCESS,
                    payload:data.data})
-        localStorage.setItem('userData',JSON.stringify(data.data));
+        sessionStorage.setItem('USERDATA_',JSON.stringify(data.data));
         }catch(error){
          
            dispatch({ type:LOGIN_USER_FAIL,
@@ -41,14 +41,14 @@ export const login = (email,password)=> async(dispatch)=>
 
            
           //  console.log("akaka");
-           window.location.assign('/register');
+           window.location.assign('/login');
             // if(res.data.status==='success'){
             // window.location.assign('/'); //reload from server side not from browser side
             // }
           
             localStorage.removeItem("userInfo");
             localStorage.removeItem("cartItem");
-            localStorage.removeItem("userData");
+            sessionStorage.removeItem("USERDATA_");
             sessionStorage.removeItem('Address');
             sessionStorage.removeItem('Method')
             sessionStorage.removeItem('cartItems')
@@ -76,7 +76,7 @@ export const login = (email,password)=> async(dispatch)=>
             dispatch({type:USER_SUCCESS,
                       payload:data.data});
 
-                // localStorage.setItem("userInfo",JSON.stringify(data));
+        sessionStorage.setItem('USERDATA_',JSON.stringify(data.data));
 
         }catch(error){
             dispatch({ type:LOGIN_USER_FAIL,

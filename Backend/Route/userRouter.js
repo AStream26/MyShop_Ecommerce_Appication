@@ -21,6 +21,7 @@ Router.route('/profile').get(usercontrol.getMe,usercontrol.getuser);
 
 
 Router.use(Authcontroller.validateRole('admin'));
+
 Router.route('/').get(usercontrol.getAllusers).post(usercontrol.newuser);
 Router.route('/:id').get(usercontrol.getuser).patch(usercontrol.updateuser).delete(usercontrol.deleteuser);
 

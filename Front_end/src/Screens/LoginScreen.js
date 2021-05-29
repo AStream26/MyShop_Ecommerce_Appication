@@ -18,12 +18,12 @@ const LoginScreen = () => {
    
      let [email,SetEmail] = useState('');
      let [password,SetPassword] = useState('');
-     let redirect = '/';
+     let redirect    ;
     // let ref = useRe
      if(location.search){
          let query = new URLSearchParams(location.search);
          redirect = query.get('redirect')
-       //  console.log(location.pathname)
+       //  console.log(redirect)
      }
      
      
@@ -33,15 +33,14 @@ const LoginScreen = () => {
      //console.log(UserInfo)
        const {userData,loading,error} = UserInfo;
      useEffect(()=>{
-
-        if(data){
-          history.replace(redirect);
-        }
        if(userData){
            
            history.hash = "#Logined In Successfully !!";
+           if(redirect)
            history.replace(redirect);
-       }
+           else  history.replace('/');
+        }
+      
       
      },[data,userData])
 
@@ -49,6 +48,9 @@ const LoginScreen = () => {
          e.preventDefault();
          
         dispatch(login(email,password));
+
+        
+       
      }
 
 

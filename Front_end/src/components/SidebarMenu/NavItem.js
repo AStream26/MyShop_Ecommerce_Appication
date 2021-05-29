@@ -58,9 +58,10 @@ const Side = forwardRef(({width,height,show1},ref1) => {
                  <>
                 <Navanchors link="/profile/setting" text="Account" />
                 <Navanchors link="/profile/myorders" text="My Order" />
-                <Navanchors link="/profile/review" text="My Review" />
-                <Navanchors link="/profile/shipping" text="MY Address" />
+                <Navanchors link="/profile/myreview" text="My Review" />
+                <Navanchors link="/profile/myaddress" text="MY Address" />
                 <Navanchors link="/profile/changepassword" text="Change Password" />
+                <Navanchors link="/admin" text="Admin" />
               <div style={{textAlign:'center'}}>
               <p onClick={handler}>Logout</p>
               </div>

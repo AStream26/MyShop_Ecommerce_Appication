@@ -35,6 +35,9 @@ app.use('/api/v1/product/',ProductRouter);
 app.use('/api/v1/user/',userRouter);
 app.use('/api/v1/order/',orderRoute);
 
+app.use('/api/config/paypal',(req,res)=>{
+   res.send(process.env.PAYPAL_CLIENT_KEY);
+})
 
 app.all('*',(req,res,next)=>{
     
