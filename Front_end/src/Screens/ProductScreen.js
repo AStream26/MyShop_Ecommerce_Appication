@@ -13,14 +13,16 @@ const ProductScreen = props => {
     const [qty,setQty] = useState(1);
     const dispatch = useDispatch();
     const {userData} = useSelector(state=>state.userDetail);
+
     const {loading,product,error} = useSelector(state=>state.productItem)
     const [msg,setmsg] = useState('Add To cart');
     const history = useHistory();
+    
       useEffect(()=>{
        //  console.log("Dispatching.....");
-          if(Object.keys(product).length===0|| product?._id !==props. match.params.id )
+       if(!loading)
          dispatch(GetProduct(props.match.params.id)); 
-      },[dispatch,props.match.params.id])
+      },[])
 
       
 

@@ -94,14 +94,15 @@ export const PayReducer = (state={},action)=>{
              return{
                  ...state,
                  loading:false,
-                 success:true,
+              
                  order:action.payload
               
                  }
  
          case GET_ALL_ORDER_FAIL:
              return {
-                
+                 ...state,
+               
                  loading:false,
                  error:action.payload
              }

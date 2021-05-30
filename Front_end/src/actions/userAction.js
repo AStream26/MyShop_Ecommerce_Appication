@@ -1,5 +1,10 @@
 import axios from 'axios';
-import {SETBACK, UPDATE_PASSWORD_FAIL, UPDATE_PASSWORD_REQUEST, UPDATE_PASSWORD_SUCCESS, USER_FAIL, USER_LOGOUT, USER_REQUEST, USER_SUCCESS, USER_UPDATE_FAIL,USER_UPDATE_REQUEST,USER_UPDATE_SUCCESS} from '../Reducer/constants';
+import { config } from 'dotenv';
+import {ADMIN_USER_DELETE_FAIL, ADMIN_USER_DELETE_REQUEST, ADMIN_USER_DELETE_SUCCESS,
+     ADMIN_USER_FAIL, ADMIN_USER_GET_FAIL, ADMIN_USER_GET_REQUEST, ADMIN_USER_GET_SUCCESS,
+      ADMIN_USER_REQUEST, ADMIN_USER_SUCCESS, SETBACK, UPDATE_PASSWORD_FAIL, UPDATE_PASSWORD_REQUEST,
+       UPDATE_PASSWORD_SUCCESS, USER_FAIL, USER_LOGOUT, USER_REQUEST, USER_SUCCESS, USER_UPDATE_FAIL,
+       USER_UPDATE_REQUEST,USER_UPDATE_SUCCESS,ADMIN_USER_UPADTE_FAIL,ADMIN_USER_UPADTE_REQUEST,ADMIN_USER_UPADTE_SUCCESS} from '../Reducer/constants';
 
 export const getuserData  = ()=>async(dispatch)=>{
 
@@ -59,6 +64,7 @@ export const upadteuserData  = (data1)=>async(dispatch)=>{
   
    sessionStorage.setItem('USERDATA_',JSON.stringify(Data.doc));
     }catch(error){
+
         //console.log(error.response);
         dispatch({type:USER_UPDATE_FAIL,
                  payload:error.response && error.response.data.message
@@ -104,3 +110,110 @@ export const upadteuserData  = (data1)=>async(dispatch)=>{
          type:SETBACK
      })
  }
+
+
+ export const getAllusers = ()=>async(dispatch)=>{
+
+  try{
+    dispatch({type:ADMIN_USER_REQUEST});
+
+    const {data} = await axios.get('/api/v1/user/');
+
+    dispatch({type:ADMIN_USER_SUCCESS,
+             payload:data.doc});
+
+
+  }catch(error){
+      dispatch({
+          type:ADMIN_USER_FAIL,
+          payload:error.response && error.response.data.message
+          ?error.response.data.message
+          :error.response 
+      })
+
+  }
+
+ }
+
+ export const deleteuser = (id)=>async(dispatch)=>{
+
+    try{
+      dispatch({type:ADMIN_USER_DELETE_REQUEST});
+  
+      const {data} = await axios.delete(`/api/v1/user/${id}`);
+  
+      dispatch({type:ADMIN_USER_DELETE_SUCCESS,
+              });
+  
+  
+    }catch(error){
+        dispatch({
+            type:ADMIN_USER_DELETE_FAIL,
+            payload:error.response && error.response.data.message
+            ?error.response.data.message
+            :error.response 
+        })
+  
+    }
+  
+   }
+
+   export const getuserByID = (id)=>async(dispatch)=>{
+
+    try{
+      dispatch({type:ADMIN_USER_GET_REQUEST});
+  
+      const {data} = await axios.get(`/api/v1/user/${id}`);
+  
+      dispatch({type:ADMIN_USER_GET_SUCCESS,
+                payload:data.doc
+              });
+  
+  
+    }catch(error){
+        dispatch({
+            type:ADMIN_USER_GET_FAIL,
+            payload:error.response && error.response.data.message
+            ?error.response.data.message
+            :error.response 
+        })
+  
+    }
+  
+   }
+
+export const updateuser_admin = (data1,id)=>async(dispatch)=>{
+    
+    
+    
+    try{
+      //  console.log(data);
+
+      dispatch({type:ADMIN_USER_UPADTE_REQUEST});
+      const config = {
+        headers:{
+            'Content-Type':'application/json'
+        }
+    }
+
+  
+      const {data} = await axios.patch(`/api/v1/user/${id}`,data1,config);
+  
+      dispatch({type:ADMIN_USER_UPADTE_SUCCESS,
+                payload:data.doc
+              });
+  
+  
+    }catch(error){
+        dispatch({
+            type:ADMIN_USER_UPADTE_FAIL,
+            payload:error.response && error.response.data.message
+            ?error.response.data.message
+            :error.response 
+        })
+  
+    }
+  
+   }
+
+

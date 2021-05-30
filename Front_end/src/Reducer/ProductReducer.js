@@ -30,11 +30,13 @@ export const productItemReducer = (state={ product:{} },action)=>{
   
     switch(action.type){
         case PRODUCT_ITEM_REQUEST:
-            return {loading:true,product:{}}
+            return {...state,
+                loading:true,
+                }
         case PRODUCT_ITEM_SUCCESS:
-            return {loading:false,product:action.payload}
+            return {...state,loading:false,product:action.payload}
         case PRODUCT_ITEM_FAIL:
-            return {loading:false,error:action.payload}
+            return {...state,loading:false,error:action.payload}
         default: return state;
     }
 };

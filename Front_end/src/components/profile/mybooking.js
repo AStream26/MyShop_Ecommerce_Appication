@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import {motion } from 'framer-motion'
-import {NestedAnimation} from '../../Screens/Animation'
+import {NestedAnimation,PageTransition} from '../../Screens/Animation'
 import { Button, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import {getALLorder} from '../../actions/orderaction'
@@ -15,21 +15,12 @@ const Mybooking = () => {
    let {order,loading,error} = useSelector(state=>state.getAllOrderReducer);
    let {userData} = useSelector(state=>state.userDetail);
    useEffect(()=>{
-    if(!userData){
-      history.push('/login?redirect=/profile/myorders')
-
-    } 
-    else{
-        
-       
-        dispatch(getALLorder());
-    }
-
-    return (()=>{
-        dispatch({type:RESET_ORDER})
-    })
-
- },[dispatch])
+   
+   if(!loading)
+    dispatch(getALLorder());
+  
+   
+ },[])
 
    
 
@@ -37,10 +28,11 @@ const Mybooking = () => {
 
     return (
         <motion.div
-        initial="initial"
+        initial='initial'
         animate="in"
         exit="out"
         variants={NestedAnimation}
+        transition={PageTransition}
         >
       {
           loading?<Loader />

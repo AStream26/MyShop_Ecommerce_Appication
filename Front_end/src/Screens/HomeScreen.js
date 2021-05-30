@@ -25,7 +25,7 @@ useEffect(()=>{
          setInterval(() => {
              history.hash = '';
          }, 1000);    }
-    if(product.length === 0)
+         if(!loading)
      dispatch(listProduct());
      
 
