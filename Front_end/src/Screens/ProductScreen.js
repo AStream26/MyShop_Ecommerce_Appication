@@ -3,7 +3,7 @@ import {useDispatch,useSelector} from 'react-redux';
 import {Link, Redirect, useHistory } from 'react-router-dom';
 import Rating from '../components/Rating';
 import MyButton from '../components/Button';
-import {Row ,Col,ListGroup , Card ,Image ,Form, Button, ListGroupItem} from 'react-bootstrap';
+import {Row ,Col,ListGroup ,Container, Card ,Image ,Form, Button, ListGroupItem} from 'react-bootstrap';
 import Loader from '../components/utilities_/myloader';
 import {GetProduct} from '../actions/productAction';
 import {AddItem,Addproduct} from '../actions/CartAction';
@@ -62,7 +62,7 @@ const ProductScreen = props => {
        error?(
           <Redirect to='/' />
        ): (
-        <>
+        <Container>
           <Link to ='/'>
           <Button className='mt-1'variant='outline-dark' size='md'>Go Back</Button>
           </Link>
@@ -165,7 +165,7 @@ const ProductScreen = props => {
               </Col>
               
           </Row>
-        </>
+        </Container>
     )
 }
 

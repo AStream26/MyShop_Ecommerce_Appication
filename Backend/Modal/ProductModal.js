@@ -6,11 +6,6 @@ const Productschema = new mongoose.Schema({
         unique:true,
         required:[true,'Product must have a name ']
     },
-    company:{
-      type:mongoose.Schema.ObjectId,
-      ref:'User',
-      required:[true,'Product must belong to either admin or comapany']
-    },
     
     image:String,
     description:{
@@ -18,8 +13,13 @@ const Productschema = new mongoose.Schema({
         required:[true,'Product should have a description ']
     },
     category:{
+
         type:String,
         required:[true,'Product should belong to a category']
+    },
+    subcategory:{
+        type:String,
+        required:[true,'Product should have a Subcategory']
     },
     price:{
         type:Number,

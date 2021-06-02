@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
-import { Button } from 'react-bootstrap';
+import { Button,Dropdown } from 'react-bootstrap';
 import {Link,NavLink} from 'react-router-dom';
 import Classes from './sidebar.module.css';
 import Sidebar from './Sidebar';
@@ -61,7 +61,16 @@ const Side = forwardRef(({width,height,show1},ref1) => {
                 <Navanchors link="/profile/myreview" text="My Review" />
                 <Navanchors link="/profile/myaddress" text="MY Address" />
                 <Navanchors link="/profile/changepassword" text="Change Password" />
-                <Navanchors link="/admin" text="Admin" />
+                {
+                    userData.role ==='admin'?(
+                         <>
+                       <Navanchors link="/admin/users" text="Users" />
+                       <Navanchors link="/admin/products" text="Products" />
+                       <Navanchors link="/admin/addproduct" text="Add Products" />
+                       
+                         </>
+                    ):null
+                }
               <div style={{textAlign:'center'}}>
               <p onClick={handler}>Logout</p>
               </div>

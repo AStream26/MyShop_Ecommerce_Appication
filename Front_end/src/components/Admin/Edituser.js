@@ -16,6 +16,8 @@ import {ADMIN_RESET_GET_USER} from '../../Reducer/constants'
 
   const params = useParams();
   const {userbyID,loading,loading1,error,success,success1} = useSelector(state=>state.AdminReducer);
+  const {userData}  = useSelector(state=>state.userDetail);
+
   let [name,Setname] = useState('');
   let [email,SetEmail] = useState('');
   let[isadmin,setisAdmin] = useState(false);
@@ -48,6 +50,10 @@ useEffect(()=>{
     
     if(success1){
         setMessage('Data updated successfully')
+        if(userbyID._id === userData._id){
+            dispatch({type:'USER_SUCCESS',
+                payload:userbyID});
+        }
     }
 },[success1])
  
@@ -62,9 +68,26 @@ useEffect(()=>{
             
        if(window.confirm('Are you sure ??')){
         let role=isadmin?'admin':'user'
-        dispatch(updateuser_admin({
-            name,email,role
-        },userbyID._id));
+        if(userbyID._id === userData._id){
+            if(role === 'user'){
+                if(window.confirm('You are changing Your Role from Admin to User , You Will Loose Admin Power !!!')){
+                    dispatch(updateuser_admin({
+                        name,email,role
+                    },userbyID._id));
+                }
+            }
+            else{
+                dispatch(updateuser_admin({
+                    name,email,role
+                },userbyID._id));
+            }
+        }
+        else{
+            dispatch(updateuser_admin({
+                name,email,role
+            },userbyID._id));
+        }
+       
 
        }
         }
@@ -99,7 +122,7 @@ let handler = ()=>{
 
        <FormContainer active={true} className="border-top" >
 
-           <h3 className="d-flex  text text-dark justify-content-center mb-5">Your Profile</h3>
+           <h3 className="d-flex  text text-dark justify-content-center mb-5">{userbyID?.name } Profile</h3>
         
             
         <Form > 
@@ -130,6 +153,7 @@ let handler = ()=>{
                </MyButton>
           </Row>
             </Form>
+            
 
        </FormContainer>
        </motion.div>

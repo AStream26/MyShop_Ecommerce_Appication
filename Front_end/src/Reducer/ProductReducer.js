@@ -1,5 +1,5 @@
 import  {PRODUCT_LIST_FAIL,PRODUCT_LIST_REQUEST,PRODUCT_LIST_SUCCESS,
-       PRODUCT_ITEM_FAIL,PRODUCT_ITEM_REQUEST,PRODUCT_ITEM_SUCCESS } from './constants';
+       PRODUCT_ITEM_FAIL,PRODUCT_ITEM_REQUEST,PRODUCT_ITEM_SUCCESS, ADMIN_CREATE_PRODUCT_REQUEST, ADMIN_CREATE_PRODUCT_SUCCESS, ADMIN_CREATE_PRODUCT_FAIL, ADMIN_CREATE_PRODUCT_RESET } from './constants';
 
 export const productListReducer = (state={ product:[] },action)=>{
   
@@ -40,6 +40,24 @@ export const productItemReducer = (state={ product:{} },action)=>{
         default: return state;
     }
 };
+
+export const create_Product = (state={},action)=>{
+
+    switch(action.type){
+        case ADMIN_CREATE_PRODUCT_REQUEST:
+            return {...state,
+                loading:true,
+                success:false
+                }
+        case ADMIN_CREATE_PRODUCT_SUCCESS:
+            return {...state,loading:false,success:true}
+        case ADMIN_CREATE_PRODUCT_FAIL:
+            return {...state,loading:false,success:false,error:action.payload}
+        case ADMIN_CREATE_PRODUCT_RESET:
+            return {}
+        default: return state;
+    }
+}
 
 
 

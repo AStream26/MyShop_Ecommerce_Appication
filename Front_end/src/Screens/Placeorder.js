@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Card, Col, ListGroup,ListGroupItem, Row } from 'react-bootstrap';
+import { Card, Col, Container, ListGroup,ListGroupItem, Row } from 'react-bootstrap';
 import {Link,NavLink} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
@@ -48,7 +48,7 @@ const Placeorder = props => {
     //console.log(Item)
 
     return (
-        <>
+        <Container>
         
         <Row className='p-2'>
             <Col md={8}>
@@ -162,7 +162,7 @@ const Placeorder = props => {
                 
             </Col>
         </Row>
-        </>
+        </Container>
     )
 }
 

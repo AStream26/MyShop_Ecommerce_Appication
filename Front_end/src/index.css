@@ -53,6 +53,8 @@ input[type=text] {
 
 input[type=text]:focus{
  outline: none;
+ border-bottom: 2px solid rgb(0, 204, 255);
+ 
 }
 
 input[type=email] {
@@ -66,6 +68,7 @@ input[type=email] {
 
 input[type=email]:focus{
  outline: none;
+ border-bottom: 2px solid rgb(0, 204, 255);
 }
 
 input[type=password] {
@@ -77,14 +80,38 @@ input[type=password] {
   border-bottom: 2px solid rgb(62, 173, 207);
 }
 
+
+textarea{
+
+  border: 2px solid rgb(62, 173, 207);
+  width: 100%;
+  margin-top: 1em;
+}
+textarea:focus{
+  outline: none;
+  border: 2px solid rgb(0, 204, 255);
+}
+
 input[type=password]:focus{
  outline: none;
+ border-bottom: 2px solid rgb(0, 204, 255);
 }
 
 a{
   color:black;
   text-decoration: none;
 
+}
+
+input[type=number]{
+ 
+  padding:0.4em;
+  border: 2px solid rgb(62, 173, 207);
+}
+
+input[type=number]:focus{
+  outline: none;
+  border: 2px solid rgb(0, 204, 255);
 }
 a
 

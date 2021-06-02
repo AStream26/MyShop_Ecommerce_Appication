@@ -1,21 +1,39 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Col, Row,ListGroup } from 'react-bootstrap'
 import { useSelector } from 'react-redux';
 import Classes from '../style.module.css';
 import Allusers from '../../components/Admin/allusers';
 import Edituser from '../../components/Admin/Edituser';
+import AllProducts from '../../components/Admin/AllProducts';
+import EditProduct from '../../components/Admin/EditProduct';
 import { Route, Switch,NavLink, useLocation } from 'react-router-dom';
 import {ScreenAnimation,PageTransition1} from '../Animation'
+import createProduct from '../../components/Admin/createProduct';
+import {greet} from '../../components/utilities_/greet'
+import Indicator from '../../components/Indicator/indicator';
 const AdminScreen = props => {
    const location  = useLocation();
     const {userData}  = useSelector(state=>state.userDetail);
+    const [show,setShow] = useState(false);
 
+    useEffect(()=>{
+      setShow(true);
+    },[userData])
+   const handler = ()=>{
+     setShow(false);
+   }
     return (
         <div>
-             <h3>Hello {userData?.name} </h3>
+             {
+               show?
+               <>
+              <Indicator message={`${greet()} ${userData?.name} 😀😀`} color='alert-success' handler={handler}  />
+              </>
+              :null
+             }
          <Row className={Classes.rowup}>
            
-         <Col className="d-none d-md-block"  md={3} style={{
+         <Col className="d-none d-md-block"  md={2} style={{
             backgroundColor: `#abe9cd`,
             backgroundImage: `linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)`,
             opacity:"1"
@@ -31,8 +49,8 @@ const AdminScreen = props => {
                 
 
                   
-                  <NavLink  activeClassName={Classes.active} to={props.match.url+'/orders'} className={Classes.remove}>
-                     Change Password   
+                  <NavLink  activeClassName={Classes.active} to={props.match.url+'/products'} className={Classes.remove}>
+                     Products   
                   </NavLink>
                
 
@@ -52,13 +70,17 @@ const AdminScreen = props => {
               </ListGroup>
            </Col>
 
-             <Col md={9}>
+             <Col md={10}>
 
              <Switch loaction={location} key={location.pathname} >
            <Route path='/admin/users' exact component={Allusers} />
-         
            <Route path='/admin/user/:id/edit'  exact component={Edituser} />
-           <Route path='/profile/myorders' exact component={Allusers} />
+           <Route path='/admin/products' exact component={AllProducts} />
+           <Route path='/admin/product/:id/edit' exact component={EditProduct} />
+           <Route path='/admin/product/create' exact component={createProduct} />
+           
+
+           
            <Route path='/profile/myreview' exact component={Allusers} />
           
           

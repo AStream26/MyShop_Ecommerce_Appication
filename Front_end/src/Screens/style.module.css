@@ -10,12 +10,12 @@
    
     background-color:white;
     border-radius: 0.2em;
-    height:95vh;
+    height:100vh;
     margin:2px;
     padding:4px;
     position: relative;
     overflow:auto;
-    scrollbar-width: 2px;
+    
 }
 
 

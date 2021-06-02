@@ -24,7 +24,7 @@ const Quantity = props => {
                          
 
                                    {
-                                       userData?(
+                                       !userData?(
                                         <Row   >
                                         <Col xs={12} md={6}className='d-flex justify-content-center my-5'>
                                       

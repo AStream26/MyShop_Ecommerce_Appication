@@ -22,7 +22,7 @@ const indicator = (props)=> {
         top:'0',
         width:"100%"
         }} >
-        <button onClick={props.handler}  className="btn-close mx-3" data-bs-dismiss="alert"></button>
+        <button onClick={props.handler}  className="btn-close btn-sm mx-3" data-bs-dismiss="alert"></button>
         <strong className="d-flex justify-content-center">{props.message}</strong>
       </div>
       )

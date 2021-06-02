@@ -59,7 +59,7 @@ let toggle = ()=>{
      <main  >
    
     
-      <Container style={{position:'relative'}}>
+      <div  style={{position:'relative'}}>
   
          
            <AnimatePresence exitBeforeEnter>
@@ -89,7 +89,7 @@ let toggle = ()=>{
      </AnimatePresence>
     
     
-      </Container>
+      </div>
      
      </main>
     

@@ -57,7 +57,7 @@ const CartScreen = () => {
         transition={PageTransition1}
         
         >
- 
+        <Container>
         <Row >
             <Col  md={12} lg={8}>
             {
@@ -102,7 +102,7 @@ const CartScreen = () => {
            
         </Row>
        
-        
+        </Container>
         </motion.div>
     )
 }

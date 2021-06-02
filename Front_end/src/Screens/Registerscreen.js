@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {Form, Col,Row} from 'react-bootstrap'
+import {Form, Col,Row,Container} from 'react-bootstrap'
 import FormContainer from '../components/Form/formcontainer';
 
 import validator from 'validator';
@@ -60,7 +60,7 @@ const RegisterScreen = () => {
 
 
     return (
-        < div> 
+        < Container> 
         {
             message?(
             <Indicator message={message} handler={handler} color="alert-danger" />
@@ -114,7 +114,7 @@ const RegisterScreen = () => {
                 </Col>
             </Row>
         </FormContainer>
-        </div>
+        </Container>
     )
 }
 

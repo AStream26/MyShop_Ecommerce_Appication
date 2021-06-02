@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {Form,Button, Col,Row} from 'react-bootstrap'
+import {Form,Button, Col,Row, Container} from 'react-bootstrap'
 import FormContainer from '../components/Form/formcontainer';
 import { useHistory ,useLocation, useParams} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -150,7 +150,7 @@ const Shipping = () => {
          setMessage(null);
      }
     return (
-        <>
+        <Container>
         {  
             success?(<Indicator message = {message} handler={myhandler} color='alert-success'/>):null
         }
@@ -275,7 +275,7 @@ const Shipping = () => {
           )
       }
       
-      </>
+      </Container>
     )
 }
 

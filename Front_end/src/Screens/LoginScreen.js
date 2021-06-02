@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {Form,Button, Col,Row} from 'react-bootstrap'
+import {Form,Button, Col,Row, Container} from 'react-bootstrap'
 import FormContainer from '../components/Form/formcontainer';
 import Classes from './style.module.css';
 import validator from 'validator';
@@ -55,7 +55,7 @@ const LoginScreen = () => {
 
 
     return (
-        <div >
+        <Container >
               {
                !error?( <h1 className="d-flex justify-content-center mb-5" > Login</h1>):(
                 <Indicator message={error}  color="alert-danger" />)
@@ -69,7 +69,7 @@ const LoginScreen = () => {
             <Form>
                   <Form.Group  controlId="loginemail">
                     <Form.Label >Email address</Form.Label>
-                    <MyInput controlId="loginemail" type="email" value={email} handler = {(e)=>SetEmail(e.target.value)}  />
+                    <MyInput controlId="loginemail" type="email" value={email} handler = {(e)=>SetEmail(e.target.value)} placeholder="example@gmail.com" />
                     
                     
                 </Form.Group>
@@ -94,7 +94,7 @@ const LoginScreen = () => {
                 </Col>
             </Row>
         </FormContainer>
-        </div>
+        </Container>
     )
 }
 

@@ -60,7 +60,7 @@ const Placeorder = props => {
     //console.log(Item)
     
    return loading?<Loader />:error?<Indicator message={error} color='alert-danger' />:
-   <>
+   <Container>
    <Row>
       <ListGroupItem className=' border-0 border-bottom'> <strong><h4>ORDER ID - {params.id}</h4></strong></ListGroupItem>
         
@@ -232,7 +232,7 @@ const Placeorder = props => {
                 </Col>
              
             </Row>
-   </>
+   </Container>
 }
 
 

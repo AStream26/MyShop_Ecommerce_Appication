@@ -32,7 +32,7 @@ const ProfileScreen = props => {
        <Row className={cl.join(' ')} style={{
            
        }} >
-           <Col className="d-none d-md-block" md={3} style={{
+           <Col className="d-none d-md-block" md={2} style={{
             backgroundColor: `#abe9cd`,
             backgroundImage: `linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)`,
             opacity:"1"
@@ -70,7 +70,7 @@ const ProfileScreen = props => {
                   
               </ListGroup>
            </Col>
-           <Col md={9}   className="m-0">
+           <Col md={10}   className="m-0">
               
            <Switch loaction={location} key={location.pathname} >
            <Route path='/profile/setting' exact component={Basicinfo} />

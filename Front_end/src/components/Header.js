@@ -81,6 +81,17 @@ const Header = (props) => {
                        Profile
                       </NavDropdown.Item>
                    </LinkContainer>
+                   {
+                       userData.role==='admin'?(
+                        <>
+                         <LinkContainer to="/admin/users">
+                      <NavDropdown.Item>
+                       Admin
+                      </NavDropdown.Item>
+                   </LinkContainer>
+                        </>
+                       ):null
+                   }
                    <NavDropdown.Item onClick={logouthandler}>
                        Logout
                    </NavDropdown.Item>

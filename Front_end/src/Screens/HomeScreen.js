@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import {useDispatch,useSelector} from 'react-redux';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import Product from '../components/Product';
 import Loader from '../components/utilities_/myloader';
 import {listProduct} from '../actions/productAction';
@@ -40,7 +40,7 @@ let closehandler = ()=>{
     return(
 
 
-     <>
+     <Container>
      <h1>Latest Products</h1>
      {
          message1?(<>
@@ -70,7 +70,7 @@ let closehandler = ()=>{
         )
      }
 
-     </>
+     </Container>
     )
 }
 
