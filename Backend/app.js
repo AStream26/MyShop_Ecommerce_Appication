@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const ProductRouter = require('./Route/ProductRoute');
@@ -12,6 +13,10 @@ app.set('view engine', 'pug');
 app.enable('trust proxy');
 app.use(cors({ origin: true }));
 app.options('*',cors());
+
+const ___dirname = path.resolve();
+console.log(___dirname);
+app.use('/public',express.static(path.join(___dirname,'/public')));
 
 app.use(function(req, res, next) {
    res.header("Access-Control-Allow-Origin", "*");

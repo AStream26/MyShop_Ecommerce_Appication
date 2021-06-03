@@ -6,8 +6,8 @@ import Button1 from '../Button'
 import Formcontainer from '../Form/formcontainer'
 import {GetProduct,editproduct} from '../../actions/productAction'
 import { useHistory, useParams } from 'react-router'
-import Indicator from '../Indicator/indicator'
-import Loader from '../utilities_/myloader'
+import Indicator from '../Indicator/indicator';
+import Loader from '../utilities_/myloader';
 import { ADMIN_EDIT_PRODUCT_RESET, PRODUCT_ITEM_RESET } from '../../Reducer/constants'
 
 

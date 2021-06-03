@@ -16,7 +16,8 @@ import MyInput from '../myInput';
     let [name,Setname] = useState(userData?.name);
      let [email,SetEmail] = useState(userData?.email);
      let [message,setMessage] = useState(null);
-     
+     let[Image,setImage] = useState(null);
+
  const dispatch = useDispatch();
 
  useEffect(()=>{
@@ -26,19 +27,39 @@ import MyInput from '../myInput';
    return (()=>{
        dispatch(setback());
    })
- },[]);
+ },[success]);
+
+ useEffect(()=>{
+    if(success){
+        //console.log(success);
+        setImage(null);
+    }
+ },[success])
 
      let Submithandler = (e)=>{
         e.preventDefault();
+         
         if(!validator.isEmail(email)){
           setMessage('Enter Valid Email !!')
         }
         else{
+            let formData = new FormData();
+            formData.append('name',name);
+            formData.append('email',email);
+           // console.log(Image)
+            if(Image){
+                formData.append('photo',Image);
+            }
          dispatch(upadteuserData({
-             name,email
+             formData
          }));
         }
 
+    }
+
+    let Imagehandler = (e)=>{
+       const file = e.target.files[0];
+       setImage(file);
     }
 
 let handler = ()=>{
@@ -66,17 +87,24 @@ let handler = ()=>{
          
 
      }
-
+          
+           
        <FormContainer active={true} className="border-top" >
-
-           <h3 className="d-flex  text text-dark justify-content-center mb-5">Your Profile</h3>
-        
-            
+       <h3 className="d-flex  text text-dark justify-content-center mb-5">Your Profile</h3>
+       <div className="d-flex justify-content-center">
+       <img style={{width:"15em",borderRadius:'10em'}}src={`/public/img/users/${userData?.photo}`} className="img-thumbnail" alt="profilepicture" /> 
+         
+       </div>
+      
+          
+          
+           
         <Form > 
+      
         <Form.Group  className="m-2"controlId="formBasicEmail11">
                 <Form.Label  style={{color:"black"}}>Name</Form.Label>
                 <MyInput controlId="formBasicEmail11" type="text" value={name} handler = {(e)=>Setname(e.target.value)} placeholder={`name`} />
-                
+                 
                 
             </Form.Group>
               <Form.Group  className="m-2"controlId="formBasicEmail">
@@ -85,7 +113,8 @@ let handler = ()=>{
       
                 
             </Form.Group>
-
+            <Form.File id="file-image" lable="Choose File" custom onChange={Imagehandler} ></Form.File>
+            <br/>
             <Row className="m-2">
           <MyButton  onClick={Submithandler}   active={!loading}>
             

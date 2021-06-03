@@ -3,7 +3,37 @@ const catchAsync = require('../util/catchAsync');
 const AppError = require('../util/Errorhandler');
 const factory = require('./factoryfunction');
 const Ship = require('../Modal/shipingAddress');
+const multer = require('multer');
 let log = console.log;
+
+const multerStorage = multer.diskStorage({
+  destination:(req,file,cb)=>{
+    cb(null,'public/img/users')
+  },
+  filename:(req,file,cb)=>{
+    const ext = file.mimetype.split('/')[1];
+    cb(null,`user-${req.user._id}-${Date.now()}.${ext}`)
+  }
+});
+
+const multerFilter = (req,file,cb)=>{
+  if(file.mimetype.startsWith('image'))
+  cb(null,true);
+  else{
+    cb(new AppError('Upload Photo only!!',400),false);
+  }
+}
+
+const upload = multer({
+  storage:multerStorage,
+  fileFilter:multerFilter
+});
+
+exports.uploadPhoto =  upload.single('photo');
+
+
+
+
 function filterObject(obj,allowed){
     let newobj = {};
     Object.keys(obj).forEach((el)=>{
@@ -29,6 +59,9 @@ exports.updateMe = catchAsync(async (req,res,next)=>{
     if(req.body.password || req.body.confirmPassword)
     next(new AppError('Password cannot be updated using this route',400));
      const obj = filterObject(req.body,allowedupdate);
+     
+     if(req.file) obj.photo = req.file.filename;
+   //  console.log(req.file.path);
      // console.log(obj);
      let doc;
      if('shippingAddress' in obj){

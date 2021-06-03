@@ -17,7 +17,7 @@ export const getuserData  = ()=>async(dispatch)=>{
     }
     
     const {data} = await axios.get('/api/v1/user/profile',config);
-    console.log(data);
+   // console.log(data);
     dispatch({type:USER_SUCCESS,
              payload:data.doc});
    
@@ -34,7 +34,7 @@ export const getuserData  = ()=>async(dispatch)=>{
 
 
 export const upadteuserData  = (data1)=>async(dispatch)=>{
-
+  //  console.log(data1);
     try{
         
      dispatch({type:USER_UPDATE_REQUEST});
@@ -50,10 +50,12 @@ export const upadteuserData  = (data1)=>async(dispatch)=>{
         },config)
         Data = data;
     }else{
-        const {data} = await axios.patch('/api/v1/user/updateuser',{
-            name:data1.name,
-            email:data1.email
-         },config);
+        const config1 = {
+            headers:{
+                'Content-Type':'multipart/form-data'
+            }
+        }
+        const {data} = await axios.patch('/api/v1/user/updateuser',data1.formData,config1);
          Data = data;
     }
    

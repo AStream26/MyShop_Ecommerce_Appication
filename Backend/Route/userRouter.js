@@ -4,6 +4,7 @@ const Authcontroller = require('../Controllers/Authcontroller');
 const usercontrol = require('./../Controllers/usercontroller');
 
 
+
 Router.post('/signup',Authcontroller.signup);
 Router.post('/login',Authcontroller.login);
 Router.get('/logout',Authcontroller.logout);
@@ -16,7 +17,7 @@ Router.use(Authcontroller.protect);
 
 Router.route('/updatepassword').patch(Authcontroller.updatePassword);
 Router.route('/profile').get(usercontrol.getMe,usercontrol.getuser);
- Router.route('/updateuser').patch(usercontrol.getMe,usercontrol.updateMe);
+ Router.route('/updateuser').patch(usercontrol.getMe,usercontrol.uploadPhoto,usercontrol.updateMe);
 // Router.route('/deleteuser').delete(usercontrol.deleteMe);
 
 
