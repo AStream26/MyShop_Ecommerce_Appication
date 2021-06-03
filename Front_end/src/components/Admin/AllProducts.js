@@ -2,33 +2,40 @@ import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {NestedAnimation,PageTransition} from '../../Screens/Animation'
-import {listProduct} from '../../actions/productAction'
-
-import Loader from '../utilities_/myloader'
+import {deleteproduct, listProduct} from '../../actions/productAction'
 import Indicator from '../Indicator/indicator'
 import { Button, Table } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+import {ADMIN_EDIT_PRODUCT_RESET} from '../../Reducer/constants'
 const AllProducts = () => {
    
     const {product,loading,error} = useSelector(state=>state.productList);
+    const {success,error:error1} = useSelector(state=>state.createProductReducer);
     let[message,setMessage] = useState(null);
 
    const dispatch  = useDispatch();
     useEffect(()=>{
        
-        if(!loading)
+        if(!loading || success)
       dispatch(listProduct());
-    },[dispatch]);
+
+      
+    },[dispatch,success]);
    // console.log(users);
     let deletehandler=(id)=>{
-//if(window.confirm('Are you sure ??'))
-      //  dispatch(deleteuser(id));
+if(window.confirm('Are you sure ??'))
+       dispatch( deleteproduct(id));
     }
+
     useEffect(()=>{
-     if(error){
-         setMessage(error);
+     if(error||error1){
+         setMessage(error?error:error1);
      }
-    },[error])
+     if(success){
+         setMessage('product deleted successfully')
+         dispatch({type:ADMIN_EDIT_PRODUCT_RESET})
+     }
+    },[error,success,error1])
   let handler = ()=>{
       setMessage(null);
   }
@@ -40,9 +47,11 @@ const AllProducts = () => {
         variants={NestedAnimation}
         transition={PageTransition}
         >
-     {
-        loading ?<Loader />:error?<Indicator message={message} handler={handler}color='alert-danger' />
-        :(
+          <>
+          {
+               message?<Indicator message={message} handler={handler}color='alert-danger' /> :null
+          }
+          </>
             <Table striped bordered hover responsive className='table-sm'>
                 <thead>
                     <tr>
@@ -84,8 +93,8 @@ const AllProducts = () => {
                 </tbody>
 
             </Table>
-        )
-     }
+        
+     
         
         </motion.div>
     )

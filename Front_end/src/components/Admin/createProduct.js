@@ -8,7 +8,7 @@ import {CreateProduct} from '../../actions/productAction'
 import { useHistory } from 'react-router'
 import Indicator from '../Indicator/indicator'
 import Loader from '../utilities_/myloader'
-import { ADMIN_CREATE_PRODUCT_RESET } from '../../Reducer/constants'
+import { ADMIN_EDIT_PRODUCT_RESET } from '../../Reducer/constants'
 
 
 const CreateProduct1 = () => {
@@ -28,15 +28,12 @@ const CreateProduct1 = () => {
     useEffect(()=>{
     if(success){
         SetMessage('Product added successfully !!')
+        dispatch({type:ADMIN_EDIT_PRODUCT_RESET});
         history.push('/admin/products')
     }
     else if(error){
         SetMessage(error);
     }
-
-    return(()=>{
-        dispatch({type:ADMIN_CREATE_PRODUCT_RESET});
-    })
 
     },[success])
 
