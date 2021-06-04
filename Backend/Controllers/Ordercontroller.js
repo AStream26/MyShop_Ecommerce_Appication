@@ -42,7 +42,7 @@ exports.getorder  = catchAsync(async(req,res,next)=>{
     // console.log(order.user);
     // console.log(req.user.id);
 
-    if(order.user != req.user.id)
+    if(req.user.role !=='admin' && order.user != req.user.id)
     return next(new AppError('Invalid Order request !!',400));
 
     res.status(200).json({
@@ -54,14 +54,14 @@ exports.getorder  = catchAsync(async(req,res,next)=>{
 exports.Pay  = catchAsync(async(req,res,next)=>{
        
     const order = await Order.findById(req.params.id);
-    // console.log(order.user);
+   //  console.log(order.user);
     // console.log(req.user.id);
 
     if(order.user != req.user.id)
     return next(new AppError('Invalid Order request !!',400));
 
     if(order){
-        console.log(req.body);
+       // console.log(req.body);
         order.isPaid = true;
         order.paidAt = Date.now();
         order.paymentResults = {
@@ -77,6 +77,30 @@ exports.Pay  = catchAsync(async(req,res,next)=>{
         res.status(200).json({
             status:'success',
             updatedorder
+        });
+    }
+
+ 
+});
+
+exports.Delivered  = catchAsync(async(req,res,next)=>{
+       
+    const order = await Order.findById(req.params.id);
+    // console.log(order.user);
+    // console.log(req.user.id);
+
+    if(order.user != req.user.id)
+    return next(new AppError('Invalid Order request !!',400));
+
+    if(order){
+       // console.log(req.body);
+        order.isDeliver = true;
+        order.deliverAt = Date.now();
+
+        const updatedorder = await order.save();
+        res.status(200).json({
+            status:'success',
+            
         });
     }
 

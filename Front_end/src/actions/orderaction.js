@@ -2,7 +2,7 @@ import axios from 'axios';
 import {PLACEORDER_FAIL,PLACEORDER_SUCCESS,PLACEORDER_REQUEST,
      GETORDERBYID_REQUEST, GETORDERBYID_FAIL, GETORDERBYID_SUCCESS,
       ORDERPAY_SUCCESS, ORDERPAY_REQUEST, ORDERPAY_FAIL, 
-      GET_ALL_ORDER_FAIL,GET_ALL_ORDER_REQUEST, GET_ALL_ORDER_SUCCESS} from '../Reducer/constants';
+      GET_ALL_ORDER_FAIL,GET_ALL_ORDER_REQUEST, GET_ALL_ORDER_SUCCESS, DELIVER_REQUEST, DELIVER_SUCCESS, DELIVER_FAIL} from '../Reducer/constants';
 
 export const placeorder = (data1)=>async(dispatch)=>{
     
@@ -97,3 +97,44 @@ export const getOrderById = (id)=>async(dispatch)=>{
         })
      }
  }
+
+ export const getALLorderAdmin = () =>async(dispatch)=>{
+    try{
+        dispatch({type:GET_ALL_ORDER_REQUEST});
+
+        const {data} = await axios.get('/api/v1/order/');
+        dispatch({
+            type:GET_ALL_ORDER_SUCCESS,
+            payload:data.order
+        })
+
+    }catch(error){
+       dispatch({
+           type:GET_ALL_ORDER_FAIL,
+           payload:error.response && error.response.data.message
+           ?error.response.data.message
+           :error.response 
+       })
+    }
+}
+export const deliver = (id)=>async(dispatch)=>{
+
+    try{
+        dispatch({type:DELIVER_REQUEST});
+
+        const {data} = await axios.get(`/api/v1/order/${id}/deliver`);
+        dispatch({
+            type:DELIVER_SUCCESS,
+            
+        })
+
+    }catch(error){
+       dispatch({
+           type:DELIVER_FAIL,
+           payload:error.response && error.response.data.message
+           ?error.response.data.message
+           :error.response 
+       })
+    }
+       
+}

@@ -13,7 +13,9 @@ Router.get('/:id',Ordercontroller.getorder);
 Router.patch('/:id/pay',Ordercontroller.Pay);
 
 Router.use(Authcontroller.validateRole('admin'));
+
 Router.get('/',Ordercontroller.getAllOrder);
+Router.get('/:id/deliver',Ordercontroller.Delivered);
 
 
 

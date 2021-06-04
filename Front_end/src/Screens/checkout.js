@@ -10,7 +10,8 @@ import Indicator from '../components/Indicator/indicator';
 import Loader from '../components/utilities_/myloader';
 import axios from 'axios';
 import {payorder} from '../actions/orderaction'
-import {ORDERPAY_RESET} from '../Reducer/constants'
+import {DELIVER_RESET, GETORDERBYID_RESET, ORDERPAY_RESET} from '../Reducer/constants'
+import { deliver } from '../actions/orderaction';
 const Placeorder = props => {
     let params  = useParams();
      let history = useHistory();
@@ -20,6 +21,13 @@ const Placeorder = props => {
    
      let {loading,currentOrder,error} = useSelector(state=>state?.CurrentPlaceOrder);
      let {success:succesPay,loading:loadingPay} = useSelector(state=>state.PaymentReducer)
+     let {deliverloading,deliversuccess,errordeliver}  = useSelector(state=>state.DeliverReducer);
+
+    //  useEffect(()=>{
+    //   if(!loading){
+    //     dispatch(getOrderById(params.id));
+    //   }
+    //  },[params.id,dispatch])
      useEffect(()=>{
        
         const addPaypalscript = async ()=>{
@@ -34,9 +42,12 @@ const Placeorder = props => {
             document.body.appendChild(script);
         }
 
-       if(!currentOrder || succesPay){
-           dispatch({type:ORDERPAY_RESET});
-        dispatch(getOrderById(params.id));
+       if(!currentOrder || currentOrder.id !== params.id || succesPay || deliversuccess){
+          if(!loading){
+            dispatch({type:ORDERPAY_RESET});
+            dispatch({type:DELIVER_RESET});
+         dispatch(getOrderById(params.id));
+          }
        } else if(!currentOrder.isPaid){
            if(!window.paypal){
                addPaypalscript();
@@ -45,8 +56,17 @@ const Placeorder = props => {
                SetsdkReady(true);
            }
        }
+    //    return (()=>{
+    //             dispatch({type:GETORDERBYID_RESET})
+    //         })
      
-     },[dispatch,params.id,succesPay,currentOrder]);
+     },[dispatch,params.id,succesPay,currentOrder,deliversuccess]);
+
+    //  useEffect(()=>{
+    //     return (()=>{
+    //         dispatch({type:GETORDERBYID_RESET})
+    //     })
+    //  },[])
 
   
   const successhandler = (paymentResult)=>{
@@ -54,7 +74,9 @@ const Placeorder = props => {
        dispatch(payorder(params.id,paymentResult))
   }
     
-    
+   const deliverhandler = ()=>{
+       dispatch(deliver(params.id));
+   } 
     
     
     //console.log(Item)
@@ -224,6 +246,19 @@ const Placeorder = props => {
                                    </ListGroupItem>
                                )
                            }
+                           <>
+                           {
+                            userData && userData.role==='admin' && currentOrder?.isPaid && (
+                                <ListGroupItem className='d-flex justify-content-center'>
+                                    <MyButton active={!deliverloading} onClick = {deliverhandler}>{deliverloading?'Delivering..':'Mark As Deliver'}</MyButton>
+                                    {
+                                        errordeliver && <h1 style={{color:'red'}}>{errordeliver}</h1>
+                                    }
+                                </ListGroupItem>
+                            ) 
+                           }
+                           </>
+                          
     
                         </ListGroup>
                       

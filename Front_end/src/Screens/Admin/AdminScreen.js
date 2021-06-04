@@ -12,6 +12,7 @@ import createProduct from '../../components/Admin/createProduct';
 import {greet} from '../../components/utilities_/greet'
 import Indicator from '../../components/Indicator/indicator';
 import Addimages from '../../components/Admin/addimages';
+import GetAllorder from '../../components/Admin/GetAllorder';
 const AdminScreen = props => {
    const location  = useLocation();
     const {userData}  = useSelector(state=>state.userDetail);
@@ -28,7 +29,7 @@ const AdminScreen = props => {
              {
                show?
                <>
-              <Indicator message={`${greet()} ${userData?.name} 😀😀`} color='alert-success' handler={handler}  />
+              {/* <Indicator message={`${greet()} ${userData?.name} 😀😀`} color='alert-success' handler={handler}  /> */}
               </>
               :null
              }
@@ -56,8 +57,8 @@ const AdminScreen = props => {
                
 
                   
-                  <NavLink activeClassName={Classes.active} to={props.match.url+'/product'} className={Classes.remove}>
-                    Products   
+                  <NavLink activeClassName={Classes.active} to={props.match.url+'/orders'} className={Classes.remove}>
+                    orders   
                   </NavLink>
                  
 
@@ -77,9 +78,10 @@ const AdminScreen = props => {
            <Route path='/admin/users' exact component={Allusers} />
            <Route path='/admin/user/:id/edit'  exact component={Edituser} />
            <Route path='/admin/products' exact component={AllProducts} />
-           <Route path = '/admin/products/:id/images' component={Addimages} />
+           <Route path='/admin/products/:id/images' component={Addimages} />
            <Route path='/admin/product/:id/edit' exact component={EditProduct} />
            <Route path='/admin/product/create' exact component={createProduct} />
+           <Route path='/admin/orders' exact component={GetAllorder} />
          
 
            
