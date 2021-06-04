@@ -27,7 +27,7 @@ import MyInput from '../myInput';
    return (()=>{
        dispatch(setback());
    })
- },[success]);
+ },[]);
 
  useEffect(()=>{
     if(success){

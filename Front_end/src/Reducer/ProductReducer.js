@@ -2,7 +2,7 @@ import  {PRODUCT_LIST_FAIL,PRODUCT_LIST_REQUEST,PRODUCT_LIST_SUCCESS,
        PRODUCT_ITEM_FAIL,PRODUCT_ITEM_REQUEST,PRODUCT_ITEM_SUCCESS,
         ADMIN_EDIT_PRODUCT_REQUEST, ADMIN_EDIT_PRODUCT_SUCCESS, ADMIN_EDIT_PRODUCT_FAIL, 
         ADMIN_EDIT_PRODUCT_RESET, 
-        PRODUCT_ITEM_RESET} from './constants';
+        PRODUCT_ITEM_RESET,ADMIN_UPLOAD_PHOTO_FAIL,ADMIN_UPLOAD_PHOTO_REQUEST,ADMIN_UPLOAD_PHOTO_SUCCESS, ADMIN_USER_DELETE_REQUEST} from './constants';
 
 export const productListReducer = (state={ product:[] },action)=>{
   
@@ -55,7 +55,31 @@ export const create_Product = (state={},action)=>{
                 success:false
                 }
         case ADMIN_EDIT_PRODUCT_SUCCESS:
-            return {...state,loading:false,success:true}
+            return {...state,loading:false
+                ,success:true,
+                id:action?.payload
+            }
+        case ADMIN_EDIT_PRODUCT_FAIL:
+            return {...state,loading:false,success:false,error:action.payload}
+        case ADMIN_EDIT_PRODUCT_RESET:
+            return {}
+        default: return state;
+    }
+}
+
+export const uploadPhoto = (state={},action)=>{
+   
+    switch(action.type){
+        case  ADMIN_USER_DELETE_REQUEST :
+            return {...state,
+                loading:true,
+                success:false
+                }
+        case ADMIN_UPLOAD_PHOTO_SUCCESS:
+            return {...state,loading:false
+                ,success:true,
+                
+            }
         case ADMIN_EDIT_PRODUCT_FAIL:
             return {...state,loading:false,success:false,error:action.payload}
         case ADMIN_EDIT_PRODUCT_RESET:

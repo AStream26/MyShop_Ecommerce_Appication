@@ -11,6 +11,7 @@ import {ScreenAnimation,PageTransition1} from '../Animation'
 import createProduct from '../../components/Admin/createProduct';
 import {greet} from '../../components/utilities_/greet'
 import Indicator from '../../components/Indicator/indicator';
+import Addimages from '../../components/Admin/addimages';
 const AdminScreen = props => {
    const location  = useLocation();
     const {userData}  = useSelector(state=>state.userDetail);
@@ -76,9 +77,10 @@ const AdminScreen = props => {
            <Route path='/admin/users' exact component={Allusers} />
            <Route path='/admin/user/:id/edit'  exact component={Edituser} />
            <Route path='/admin/products' exact component={AllProducts} />
+           <Route path = '/admin/products/:id/images' component={Addimages} />
            <Route path='/admin/product/:id/edit' exact component={EditProduct} />
            <Route path='/admin/product/create' exact component={createProduct} />
-           
+         
 
            
            <Route path='/profile/myreview' exact component={Allusers} />

@@ -1,7 +1,7 @@
 import {createStore,combineReducers,applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
-import {productListReducer,productItemReducer,create_Product} from './Reducer/ProductReducer';
+import {productListReducer,productItemReducer,create_Product, uploadPhoto} from './Reducer/ProductReducer';
 import {CartReducer,orderDetailReducer} from './Reducer/CartReducer';
 import {UserLoginReducer} from './Reducer/AuthReducer';
 import {UserReducer,AdminReducer} from './Reducer/userReducer';
@@ -19,7 +19,8 @@ const reducer = combineReducers({
     PaymentReducer:PayReducer,
     getAllOrderReducer:GetAllorder,
     AdminReducer:AdminReducer,
-    createProductReducer:create_Product
+    createProductReducer:create_Product,
+    uploadPhotoReduces:uploadPhoto
 
 });
 const cartItem = localStorage.getItem('cartItem')?JSON.parse(localStorage.getItem('cartItem')):[];

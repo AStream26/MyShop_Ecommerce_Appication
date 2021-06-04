@@ -12,7 +12,7 @@ Router.use(Authcontroller.protect);
 Router.use(Authcontroller.validateRole('admin'));
 
 Router.route('/').post(Productcontroller.addProduct);
-Router.patch('/:id',Productcontroller.editProduct);
+Router.patch('/:id',Productcontroller.uploadProductPhoto,Productcontroller.resizeProductImage,Productcontroller.editProduct);
 Router.route('/:id').delete(Productcontroller.delete);
 
 

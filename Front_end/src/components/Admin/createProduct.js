@@ -22,14 +22,14 @@ const CreateProduct1 = () => {
     const countInStock = useRef();
     const [message,SetMessage] = useState(null);
     const dispatch = useDispatch();
-    const {success,loading,error} = useSelector(state=>state.createProductReducer);
+    const {success,loading,error,id} = useSelector(state=>state.createProductReducer);
     const history =useHistory();
 
     useEffect(()=>{
     if(success){
         SetMessage('Product added successfully !!')
         dispatch({type:ADMIN_EDIT_PRODUCT_RESET});
-        history.push('/admin/products')
+        history.push(`/admin/products/${id}/images`)
     }
     else if(error){
         SetMessage(error);
@@ -48,7 +48,7 @@ const CreateProduct1 = () => {
         let product = {
             name:name.current.value,
             price:price.current.value,
-            image:image.current.value,
+           
             brand:brand.current.value,
             category:category.current.value,
             subcategory:subcategory.current.value,
@@ -90,9 +90,7 @@ const CreateProduct1 = () => {
                   <Form.Group  controlId="Product Price">
                     <input required type='text' placeholder='Product Price' ref={price}   />
                   </Form.Group>
-                  <Form.Group  controlId="Product Image">
-                    <input required type='text' placeholder='Product Image' ref={image}   />
-                  </Form.Group>
+                 
                   <Form.Group  controlId="Product Brand">
                     <input required type='text' placeholder='Product Brand' ref={brand}   />
                   </Form.Group>

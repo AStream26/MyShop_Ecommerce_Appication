@@ -104,7 +104,7 @@ const EditProduct1 = () => {
             
             <Col className='d-flex justify-content-center'>
              
-                  <h3 ><strong>Add Product</strong> 😋😋</h3>
+                  <h3 ><strong>Edit Product</strong> 😋😋</h3>
 
             </Col>
             <Col sm={12} >

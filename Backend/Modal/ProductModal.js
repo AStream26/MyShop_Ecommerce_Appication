@@ -7,7 +7,7 @@ const Productschema = new mongoose.Schema({
         required:[true,'Product must have a name ']
     },
     
-    image:String,
+    image:[String],
     description:{
         type:String,
         required:[true,'Product should have a description ']
