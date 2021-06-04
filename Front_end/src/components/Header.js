@@ -2,6 +2,7 @@ import React from 'react'
 import {Container,Nav,Navbar, NavDropdown} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {LinkContainer} from 'react-router-bootstrap';
+import { Link } from 'react-router-dom';
 import {logout} from '../actions/Authuseraction';
 const Header = (props) => {
    
@@ -74,7 +75,19 @@ const Header = (props) => {
             </LinkContainer>
             </>
            ):( <>
-                 
+              
+              <Link to="/profile/setting">
+              <img className='shadow' style={{
+                     verticalAlign: 'middle',
+                     width: '40px',
+                     height: '40px',
+                     borderRadius: '50%',
+                     zIndex:'2',
+                     border:'2px solid #89d8d3 '
+
+                }} src={`/public/img/users/${userData.photo}`} alt='dp'/>
+              </Link>
+               
                <NavDropdown title={`${userData.name}`.split(' ')[0]} id="profile">
                    <LinkContainer to="/profile/setting">
                       <NavDropdown.Item>

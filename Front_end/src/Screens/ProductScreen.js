@@ -8,6 +8,7 @@ import Loader from '../components/utilities_/myloader';
 import {GetProduct} from '../actions/productAction';
 import {AddItem,Addproduct} from '../actions/CartAction';
 import Indicator from './../components/Indicator/indicator'
+import Carosal1 from '../components/Carosal/carosal';
 
 const ProductScreen = props => {
     const [qty,setQty] = useState(1);
@@ -67,32 +68,45 @@ const ProductScreen = props => {
           <Button className='mt-1'variant='outline-dark' size='md'>Go Back</Button>
           </Link>
           <Row className="mt-4">
-              <Col  lg={6}>
-              <Image  src={product.image} alt={product.name} fluid />    
+              <Col  lg={5} className="mb-1">
+           {
+               product?.image?   <Carosal1  product={product.image} />:null
+           }
               </Col>
-              <Col  lg={3} >
-                  <ListGroup variant='flush' >
-                      <ListGroup.Item className="my-4" style={{borderBottom:'1px solid #D5D3DA'}}>
-                          <h2>{product.name}</h2>
+              <Col  lg={3} className="mb-1" >
+                  <ListGroup  >
+                      <ListGroup.Item  >
+                          <h3>{product.name}</h3>
                       </ListGroup.Item>
-                      <ListGroup.Item  style={{borderBottom:'1px solid #D5D3DA'}}>
+                      <ListGroup.Item  >
                          <Rating rating={product.rating} text={`${product.numReviews} Reviews`}  />
                       </ListGroup.Item>
-                      <ListGroup.Item  style={{borderBottom:'1px solid #D5D3DA'}} > 
-                        <p> <strong>Price: ₹ {product.price}</strong></p>
+                      <ListGroup.Item   > 
+                       <Row>
+                           <Col>Brand</Col>
+                           <Col>{product.brand} </Col>
+                       </Row>
                       </ListGroup.Item>
-                      <ListGroup.Item style={{borderBottom:'1px solid #D5D3DA'}}>
-                          <strong>Description:</strong> 
-                          {product.description}
+                      <ListGroup.Item   > 
+                       <Row>
+                           <Col>Category</Col>
+                           <Col> {product.category}</Col>
+                       </Row>
+                      </ListGroup.Item>
+                      <ListGroup.Item   > 
+                       <Row>
+                           <Col>Subcategory</Col>
+                           <Col>{product.subcategory} </Col>
+                       </Row>
                       </ListGroup.Item>
 
-                      
-                  </ListGroup>
+
+                       </ListGroup>
               </Col>
 
               <Col md={12} lg={3} >
                   <Card>
-                      <ListGroup variant='flush'>
+                      <ListGroup variant='flush' >
                        <ListGroupItem>
                            <Row >
                                <Col>
@@ -113,6 +127,18 @@ const ProductScreen = props => {
                                </Col>
                            </Row>
                        </ListGroupItem>
+                       <Row className="mt-4 d-block d-md-none">
+              <Col>
+              <ListGroup variant='flush'>
+              <ListGroup.Item style={{borderBottom:'1px solid #D5D3DA'}}>
+                          <strong>Description:</strong> 
+                        <p>  {product.description}</p>
+              </ListGroup.Item>
+              </ListGroup>
+             
+              </Col>
+          </Row>
+         
 
 
                      {
@@ -142,6 +168,7 @@ const ProductScreen = props => {
                          
                     
                       </ListGroupItem>
+
                       <MyButton  onClick={AddtocardHandler} active={true}> {msg} </MyButton>
                       <br/>
                      
@@ -165,6 +192,19 @@ const ProductScreen = props => {
               </Col>
               
           </Row>
+          <Row className="mt-4 d-none d-md-block">
+              <Col>
+              <ListGroup variant='flush'>
+              <ListGroup.Item style={{borderBottom:'1px solid #D5D3DA'}}>
+                          <strong>Description:</strong> 
+                        <p>  {product.description}</p>
+              </ListGroup.Item>
+              </ListGroup>
+             
+              </Col>
+          </Row>
+         
+
         </Container>
     )
 }

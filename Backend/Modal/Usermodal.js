@@ -55,12 +55,6 @@ const UserSchema = mongoose.Schema({
         toObject:{virtuals:true}
 });
 
-UserSchema.virtual('shippingAddress',{
-    ref:'Shipping',
-    foreignField:'user',
-    localField:'_id'
-})
-
 
 
 UserSchema.pre('save',async function(next){

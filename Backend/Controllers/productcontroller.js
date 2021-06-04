@@ -29,8 +29,12 @@ exports.resizeProductImage = catchAsync(async (req,res,next)=>{
     req.body.image = [];
     
     await Promise.all(req.files.map(async (file,i)=>{
+        
         const filename= `product-${req.params.id}-${Date.now()}-${i+1}.jpeg`;
-        await sharp(file.buffer).resize(2000,1333)
+        await sharp(file.buffer).resize(2000,1333,{
+          fit: 'contain',
+          background: '#ffffff'
+        })
         .toFormat('jpeg')
         .jpeg({quality:90})
         .toFile(`public/img/Product/${filename}`);

@@ -98,3 +98,15 @@ exports.getOrders = catchAsync(async (req,res,next)=>{
 
     
 });
+
+exports.getAllOrder = catchAsync(async (req,res,next)=>{
+
+    const order = await Order.find().populate({
+        path:'user',
+        select:'id name email'
+    });
+    res.status(200).json({
+        status:'success',
+        order
+    });
+})

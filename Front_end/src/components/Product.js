@@ -13,7 +13,7 @@ const Product = ({product,loading}) => {
                 <div>
                 <Card className='my-3 p-3 rounded'>
                  <Link to={`/product/${product._id}`} >
-                  <Card.Img src={product.image}/>
+                  <Card.Img src={`/public/img/Product/${product.image[0]}`}/>
                  </Link>
                 
                      
@@ -23,7 +23,7 @@ const Product = ({product,loading}) => {
                  </Link>
                 <Card.Text>
                     <span className='my-3'>
-                        <Rating rating={ +product.rating} text={`${product.numReviews} Reviews`}  />
+                        <Rating rating={ +product.rating}  text={`${product.numReviews} Reviews`}  />
                        
                     </span>
                 </Card.Text>

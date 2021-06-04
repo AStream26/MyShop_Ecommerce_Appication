@@ -8,6 +8,7 @@ import MyAddress from '../components/Address/address';
 import Indicator from '../components/Indicator/indicator';
 import {upadteuserData,setback} from '../actions/userAction';
 import {Addaddress, AddItem, Addproduct} from '../actions/CartAction';
+import { getShippingAddress } from '../actions/shipingAction';
 
 const Shipping = () => {
     let history  = useHistory();
@@ -15,9 +16,10 @@ const Shipping = () => {
     let params = useParams();
 
     let {userData,loading,success} = useSelector(state=>state.userDetail);
+    let {Address:shippingAddress,loading:loading1,error} =  useSelector(state=>state.shipppingReducer);
     let orderDetail = useSelector(state=>state.OrderDetail);
     let {cartItem}  = useSelector(state=>state.cart);
-    let {shippingAddress} = userData;
+  
     let dispatch = useDispatch();
     let orderItems = orderDetail.orderItems;
     //------------------------------------------------------------------------------
@@ -46,18 +48,19 @@ const Shipping = () => {
         setChooseAddress({});
         SetnewAddress(!newaddress);
     }
-  
+    useEffect(()=>{
+      if(!loading1){
+          dispatch(getShippingAddress());
+      }
+    },[])
 
     useEffect(()=>{
       if(params?.id){
-       //   console.log(params.id);
-         // console.log(orderItems[0]);
-          //console.log(orderItems.length)
           if((orderItems.length===1) && (orderItems[0].product === params.id)){
               setproceed(true);
           }
         else {
-           console.log("going....");
+          // console.log("going....");
         history.push('/');
         }
       }
@@ -93,8 +96,7 @@ const Shipping = () => {
     },[success])
    
     let radiohandler = (value)=>{
-       // console.log(e.checked);
-      ///  e.checked = false;
+      
         setChooseAddress(value);
        // console.log(value);
        SetnewAddress(false);
@@ -110,7 +112,7 @@ const Shipping = () => {
            City,
            Pincode
        }
-       //console.log(c)
+      
        let local ='';
        Object.keys(c).forEach((el)=>{
            if(c[el]==='')
@@ -163,7 +165,7 @@ const Shipping = () => {
          
         {
             !newaddress?(
-                <Row style={{transition:'1s'}} >
+                <Row  >
                 <Col >
                 { 
                    shippingAddress?.length>0?(

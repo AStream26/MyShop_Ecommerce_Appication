@@ -48,7 +48,7 @@ const EditProduct1 = () => {
   else if(success){
     name.current.value = product.name;
     price.current.value= product.price;
-    image.current.value = product.image;
+  
     brand.current.value = product.brand;
     category.current.value = product.category;
     subcategory.current.value = product?.subcategory?product.subcategory:''
@@ -63,18 +63,13 @@ const EditProduct1 = () => {
 
     const Submithandler = (e)=>{
        e.preventDefault();
-       if(description.current.value.length <50)
-         SetMessage('description must be of atleast 50 characters!!')
-      else if(countInStock.current.value<0)
-      SetMessage('countInStock must be greater than 0')
-      else if(image.current.value === '')
-      SetMessage('Insert an Image !!')
+     
          
-       else{
+     
         let product = {
             name:name.current.value,
             price:price.current.value,
-            image:image.current.value,
+          
             brand:brand.current.value,
             category:category.current.value,
             subcategory:subcategory.current.value,
@@ -83,7 +78,7 @@ const EditProduct1 = () => {
         }
        dispatch(editproduct(product,params.id));
 
-       }
+       
       
 
 
@@ -100,11 +95,14 @@ const EditProduct1 = () => {
          <LinkContainer to='/admin/products' >
          <button className="btn btn-outline-dark">Go Back</button>
          </LinkContainer>
+        
             <Row>
             
             <Col className='d-flex justify-content-center'>
              
-                  <h3 ><strong>Edit Product</strong> 😋😋</h3>
+                  <h3 ><strong>Edit Product</strong> 😋😋  <LinkContainer to={`/admin/products/${params.id}/images`} >
+         <button className="btn btn-outline-warning">Edit Photos</button>
+         </LinkContainer></h3>
 
             </Col>
             <Col sm={12} >
@@ -116,9 +114,7 @@ const EditProduct1 = () => {
                   <Form.Group  controlId="Product Price">
                     <input required type='text' placeholder='Product Price' ref={price}   />
                   </Form.Group>
-                  <Form.Group  controlId="Product Image">
-                    <input required type='text' placeholder='Product Image' ref={image}   />
-                  </Form.Group>
+                 
                   <Form.Group  controlId="Product Brand">
                     <input required type='text' placeholder='Product Brand' ref={brand}   />
                   </Form.Group>
@@ -137,9 +133,10 @@ const EditProduct1 = () => {
                   </Form.Group>
                   <br/>
                   <Button1  type='submit'active={!loading1} >{loading1?'updating...':'Update'}</Button1>
-
+                
+                
             </Form>
-          
+           
             </Formcontainer>
            
             </Col>

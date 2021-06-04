@@ -12,6 +12,9 @@ Router.post('/placeorder',Ordercontroller.orderrequest);
 Router.get('/:id',Ordercontroller.getorder);
 Router.patch('/:id/pay',Ordercontroller.Pay);
 
+Router.use(Authcontroller.validateRole('admin'));
+Router.get('/',Ordercontroller.getAllOrder);
+
 
 
 module.exports = Router;
