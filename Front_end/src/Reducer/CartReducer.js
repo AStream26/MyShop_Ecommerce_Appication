@@ -6,13 +6,13 @@ export const CartReducer = (state={cartItem:[]},action)=>{
         case ADD_CART_ITEM:
             const item = action.payload;
           //  console.log(item);
-            const existitem = state.cartItem.find(x=>x.product_id === item.product_id );
+            const existitem = state.cartItem.find(x=>x.product === item.product );
            
             if(existitem){
              // console.log(exist);
                 return {
                     ...state,
-                    cartItem:state.cartItem.map(item1=>item1.product_id === existitem.product_id ?item:item1)
+                    cartItem:state.cartItem.map(item1=>item1.product === existitem.product ?item:item1)
                 }
 
             }else{

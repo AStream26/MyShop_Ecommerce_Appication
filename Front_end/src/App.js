@@ -70,7 +70,7 @@ let toggle = ()=>{
           {!userData &&  <Route path='/login'   exact  component={LoginScreen}/>}
           {!userData && <Route path='/register'exact    component={Registerscreen}/>}
           { userData &&   <Route path='/profile'  component={profileScreen} />}
-          { userData &&    <Route path='/:id/shipping' exact  component={Shipping} />}
+          { userData &&    <Route path='/:id?/shipping' exact  component={Shipping} />}
           { userData  &&   <Route path='/payment'exact  component={PaymentScreen} />}
           { userData  &&     <Route path='/placeorder' exact component={Placeorder} />}
           { userData  &&     <Route path='/checkout/:id' exact  component={Checkout} />}

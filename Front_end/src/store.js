@@ -28,17 +28,13 @@ const reducer = combineReducers({
 });
 const cartItem = localStorage.getItem('cartItem')?JSON.parse(localStorage.getItem('cartItem')):[];
 const userData = sessionStorage.getItem('USERDATA_')?JSON.parse(sessionStorage.getItem('USERDATA_')):null;                                                    
-const product  = sessionStorage.getItem('cartItems')?JSON.parse(sessionStorage.getItem('cartItems')):[];  
-const Address  = sessionStorage.getItem('Address')?JSON.parse(sessionStorage.getItem('Address')):{};                                                    
-const Method    =  sessionStorage.getItem('Method')?JSON.parse(sessionStorage.getItem('Method')):null;  
+// const product  = sessionStorage.getItem('cartItems')?JSON.parse(sessionStorage.getItem('cartItems')):[];  
+// const Address  = sessionStorage.getItem('Address')?JSON.parse(sessionStorage.getItem('Address')):{};                                                    
+// const Method    =  sessionStorage.getItem('Method')?JSON.parse(sessionStorage.getItem('Method')):null;  
 
 const intialstate = {
     cart:{cartItem:cartItem},
-    userDetail:{userData:userData},
-    OrderDetail:{orderItems:product,
-                 shippingAddress:Address,
-                 paymentMethod: Method
-                }
+    userDetail:{userData:userData}
    
 };
 const middleware = [thunk];

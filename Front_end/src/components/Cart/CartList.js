@@ -1,13 +1,31 @@
 // eslint-disable-next-line
 import React from 'react'
-import {Link} from 'react-router-dom';
-import {AddItem} from '../../actions/CartAction';
+import {Link, useHistory} from 'react-router-dom';
+import {AddItem, Addproduct} from '../../actions/CartAction';
 import {Button,Card,Form, Col,Row, ListGroupItem,Image} from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 
 
 const CartList = ({product,changeHandler,deleteHandler}) => {
+  let active = product.countInStock>0?true:false;
+     const dispatch = useDispatch();
+     let history = useHistory();
+      
+      
+        let CheckouHandler = ()=>{
+          dispatch(Addproduct([
+            {
+               name:product.name,
+               image:product.image,
+               quantity:product.quantity,
+               price:product.price,
+               product:product.product
+            }
+          ]));
+          history.push(`/${product.product}/shipping`);
+      }
+   
 
-        let active = product.countInStock>0?true:false;
     return (
         <ListGroupItem className="rounded" >
           < Card className="border-0">
@@ -17,7 +35,7 @@ const CartList = ({product,changeHandler,deleteHandler}) => {
 
                    <Col lg={4}  >
                   <Link to={`/product/${product.product}`}>
-                  <Image style={{height:"90%",width:"90%"}}src={product.image} alt={product.name} fluid  />
+                  <Image style={{height:"90%",width:"90%"}}src={`/public/img/Product/${product.image[0]}`} alt={product.name} fluid  />
                   </Link>
                    </Col>
                    <Col lg={8} >
@@ -77,13 +95,15 @@ const CartList = ({product,changeHandler,deleteHandler}) => {
 
                   <Row >
                  <Col xs={4} >
-                 <Button className="btn  btn-dark"  onClick ={()=>deleteHandler(product.product_id)}>Delete</Button>
+                 <Button className="btn  btn-dark"  onClick ={()=>deleteHandler(product.product)}>Delete</Button>
                  </Col>
                
                  <Col xs={8} md={6} className="d-grid gap-2">
                  {
                           active?(
-                            <Button className="btn btn-lg " style={{backgroundColor:"#ffbf00"}}>Order Now</Button>
+                         
+                            <Button onClick={CheckouHandler} className="btn btn-lg " style={{backgroundColor:"#ffbf00"}}>Order Now</Button>
+                          
                             
                           ):(
                             <Button className="btn btn-lg " >Out Of Stock</Button>

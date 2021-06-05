@@ -1,7 +1,7 @@
 const Order = require('../Modal/Ordermodal');
 const catchAsync= require('../util/catchAsync');
 const AppError = require('../util/Errorhandler');
-
+const Product  =require('../Modal/ProductModal');
 
 exports.orderrequest = catchAsync(async (req,res,next)=>{
    
@@ -56,12 +56,18 @@ exports.Pay  = catchAsync(async(req,res,next)=>{
     const order = await Order.findById(req.params.id);
    //  console.log(order.user);
     // console.log(req.user.id);
-
+    
     if(order.user != req.user.id)
     return next(new AppError('Invalid Order request !!',400));
 
     if(order){
        // console.log(req.body);
+  await  Promise.all( order.orderItems.map(async (el,i)=>{
+    const product = await Product.findById(el.product);
+    product.countInStock = product.countInStock - el.quantity;
+    await product.save();
+    
+}))
         order.isPaid = true;
         order.paidAt = Date.now();
         order.paymentResults = {
