@@ -70,7 +70,6 @@ exports.getALL = (Modal)=>catchAsync(async (req,res,next)=>{
   });
 
 
-
   exports.deleteAll = (Modal)=>catchAsync(async(req,res,next)=>{
 
      await Modal.deleteMany();
@@ -81,3 +80,4 @@ exports.getALL = (Modal)=>catchAsync(async (req,res,next)=>{
      });
 
   });
+

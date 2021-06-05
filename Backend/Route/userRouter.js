@@ -3,7 +3,7 @@ const Router = express.Router();
 const Authcontroller = require('../Controllers/Authcontroller');
 const usercontrol = require('./../Controllers/usercontroller');
 const shippingRoute = require('./shippingRoute');
-
+const cartRouter  = require('./cartRoute');
 
 Router.post('/signup',Authcontroller.signup);
 Router.post('/login',Authcontroller.login);
@@ -16,6 +16,7 @@ Router.route('/resetpassword/:token').post(Authcontroller.resetPassword);
 Router.use(Authcontroller.protect);
 
 Router.use('/shipping',shippingRoute);
+Router.use('/cart',cartRouter);
 
 Router.route('/updatepassword').patch(Authcontroller.updatePassword);
 Router.route('/profile').get(usercontrol.getMe,usercontrol.getuser);

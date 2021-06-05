@@ -11,6 +11,7 @@ exports.orderrequest = catchAsync(async (req,res,next)=>{
    // console.log(OrderDetail);
     const {orderItems,shippingAddress,paymentMethod,shippingPrice,totalPrice,taxPrice} = OrderDetail;
   let log = console.log;
+     
   
     if(!OrderDetail || orderItems.length === 0 || !paymentMethod || !shippingAddress  )
     return next(new AppError('Order cannot be Placed !!!',400));
@@ -67,7 +68,7 @@ exports.Pay  = catchAsync(async(req,res,next)=>{
     product.countInStock = product.countInStock - el.quantity;
     await product.save();
     
-}))
+}));
         order.isPaid = true;
         order.paidAt = Date.now();
         order.paymentResults = {
