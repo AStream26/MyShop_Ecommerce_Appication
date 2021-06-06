@@ -45,7 +45,7 @@ const Mybooking = () => {
             <>
             <table className="table table-hover" >
       <thead>
-          <tr style={{transform:'scale(0.9)'}} >
+          <tr key='01jjaha' style={{transform:'scale(0.9)'}} >
           <th scope="col">S.NO</th>
           <th scope="col">DATE</th>
           <th scope="col">TOTAL</th>
@@ -59,7 +59,7 @@ const Mybooking = () => {
          {
              order?.map((el,index)=>{
                  return (
-                    <tr className={el.isPaid?`table-info`:'table-danger'}>
+                    <tr key={index+1} className={el.isPaid?`table-info`:'table-danger'}>
                     <th scope="row">{index+1}</th>
                     <td>{`${el.createdAt}`.substring(0,10)}</td>
                     <td>{el.totalPrice}</td>
