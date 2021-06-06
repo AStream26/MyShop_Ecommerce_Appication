@@ -35,7 +35,7 @@ const PaymentScreen = props => {
                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
                 checked  onChange={(e)=>setChange(e.target.value)}/>
 
-               <label className="form-check-label" for="flexRadioDefault2">
+               <label className="form-check-label" htmlfor="flexRadioDefault2">
                   <p> <strong>Paypal or credit card</strong></p>
                </label>
                </div>

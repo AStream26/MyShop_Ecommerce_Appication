@@ -14,22 +14,13 @@ const jsonexpireerror  = (error) => new ApiError(`your token has been expired.Lo
 
 const sendErrordevelopment = (err,req,res)=>{
     //API
-  if(req.originalUrl.startsWith('/api')){
+
     res.status(err.statusCode).json({
         status:err.status,
         message:err.message,
         error:err,
         stack:err.stack
     });
-  }
-  else{
-      //Rendering
-      res.status(err.statusCode).render('error',{
-          title:"Something Went wrong",
-          msg:err.message
-
-      });
-  }
 }
 const sendErrorProduction = (err,req,res,message)=>{
          

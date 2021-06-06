@@ -9,11 +9,13 @@ import {GetProduct} from '../actions/productAction';
 import {AddItem,Addproduct} from '../actions/CartAction';
 import Indicator from './../components/Indicator/indicator'
 import Carosal1 from '../components/Carosal/carosal';
+import CartLoader from '../components/utilities_/cartloader';
 
 const ProductScreen = props => {
     const [qty,setQty] = useState(1);
     const dispatch = useDispatch();
     const {userData} = useSelector(state=>state.userDetail);
+    const {success,loading:cartloading,error:carterror} = useSelector(state=>state.cart);
 
     const {loading,product,error} = useSelector(state=>state.productItem)
     const [msg,setmsg] = useState('Add To cart');
@@ -32,34 +34,48 @@ const ProductScreen = props => {
       },[msg,qty])
 
       useEffect(()=>{
-        setmsg('Add To Cart');
-      },[])
+       if(success){
+        setmsg('Added to Cart');
+       }
+      },[success])
 
       let AddtocardHandler = ()=>{
+         
+         if(!userData){
+             history.push(`/login?redirect=/product/${product._id}`)
+         }
+         else{
+            
+                dispatch(AddItem({
+                    product:product._id,
+                    quantity:qty
+                }))
 
-          dispatch(AddItem(props.match.params.id,qty));
-         setmsg('Item Added To Cart')
+                history.push('/cart');
+             
+           
+         }
       }
-      let orderDetailReducer= ()=>{
+    //   let orderDetailReducer= ()=>{
 
-           dispatch(Addproduct([{
-            name:product.name,
-            image:product.image,
-            quantity:qty,
-            price:product.price,
-            product:product._id
-      }]));
+    //        dispatch(Addproduct([{
+    //         name:product.name,
+    //         image:product.image,
+    //         quantity:qty,
+    //         price:product.price,
+    //         product:product._id
+    //   }]));
 
-           if(userData){
-               history.push(`/${product._id}/shipping`);
-           }else{
-               history.push(`/login?redirect=/${product._id}/shipping`);
-           }
-      }
+    //        if(userData){
+    //            history.push(`/${product._id}/shipping`);
+    //        }else{
+    //            history.push(`/login?redirect=/${product._id}/shipping`);
+    //        }
+    //   }
 
 
     //nsole.log(product);
-    return loading?<Loader center={true} />:
+    return loading?<CartLoader />:
        error?(
           <Redirect to='/' />
        ): (
@@ -169,10 +185,10 @@ const ProductScreen = props => {
                     
                       </ListGroupItem>
 
-                      <MyButton  onClick={AddtocardHandler} active={true}> {msg} </MyButton>
+                      <MyButton  onClick={AddtocardHandler} active={true}> {cartloading?'Adding...':msg} </MyButton>
                       <br/>
                      
-                      <MyButton  active={true} onClick={orderDetailReducer}> Order Now </MyButton>
+                     
 
          </>
                          ):(<>

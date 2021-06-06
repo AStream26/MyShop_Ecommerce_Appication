@@ -2,7 +2,7 @@ import {createStore,combineReducers,applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {productListReducer,productItemReducer,create_Product, uploadPhoto} from './Reducer/ProductReducer';
-import {CartReducer,orderDetailReducer} from './Reducer/CartReducer';
+import {CartReducer,getCartItem,orderDetailReducer, removeItemCart} from './Reducer/CartReducer';
 import {UserLoginReducer} from './Reducer/AuthReducer';
 import {UserReducer,AdminReducer} from './Reducer/userReducer';
 import {OrderReducer,PayReducer,GetAllorder, Deliver} from './Reducer/Orderreducer'
@@ -23,18 +23,20 @@ const reducer = combineReducers({
     createProductReducer:create_Product,
     uploadPhotoReduces:uploadPhoto,
     shipppingReducer:shippingReducer,
-    DeliverReducer:Deliver
+    DeliverReducer:Deliver,
+    cartItemReducer:getCartItem,
+    removeItemCartReducer:removeItemCart
 
 });
-const cartItem = localStorage.getItem('cartItem')?JSON.parse(localStorage.getItem('cartItem')):[];
-const userData = sessionStorage.getItem('USERDATA_')?JSON.parse(sessionStorage.getItem('USERDATA_')):null;                                                    
+// const cartItem = localStorage.getItem('cartItem')?JSON.parse(localStorage.getItem('cartItem')):[];
+// const userData = sessionStorage.getItem('USERDATA_')?JSON.parse(sessionStorage.getItem('USERDATA_')):null;                                                    
 // const product  = sessionStorage.getItem('cartItems')?JSON.parse(sessionStorage.getItem('cartItems')):[];  
 // const Address  = sessionStorage.getItem('Address')?JSON.parse(sessionStorage.getItem('Address')):{};                                                    
 // const Method    =  sessionStorage.getItem('Method')?JSON.parse(sessionStorage.getItem('Method')):null;  
 
 const intialstate = {
-    cart:{cartItem:cartItem},
-    userDetail:{userData:userData}
+      
+    
    
 };
 const middleware = [thunk];

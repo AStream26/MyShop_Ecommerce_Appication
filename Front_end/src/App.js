@@ -23,6 +23,7 @@ import AdminScreen from './Screens/Admin/AdminScreen';
 import Indicator from './components/Indicator/indicator';
 import Loader from './components/utilities_/myloader';
 import NotFound from './Screens/notfound';
+import CartLoader from './components/utilities_/cartloader';
 
 function App() {
   let [show,setShow] = useState(false);
@@ -35,7 +36,7 @@ useEffect(()=>{
   if(!userData || (Object.keys(userData).length === 0))
  // console.log('dispatch........');
 dispatch(getuserData());
-},[])
+},[dispatch])
 
 const ref = useRef(null);
 //console.log(ref.current);
@@ -44,7 +45,7 @@ let toggle = ()=>{
   setShow(!show);
 }
 
-  return (
+  return loading?<CartLoader color='grey' opacity='0.6'/> :(
  <> 
    
   
@@ -66,14 +67,18 @@ let toggle = ()=>{
           <Switch loaction = {location} key={location.pathname}>
           <Route path='/' exact  component={HomeScreen}/>
           <Route path='/product/:id' exact  component={ProductScreen}/>
-          <Route path='/cart/:id?' exact component={CartScreen}/>
-          {!userData &&  <Route path='/login'   exact  component={LoginScreen}/>}
-          {!userData && <Route path='/register'exact    component={Registerscreen}/>}
+          <Route path='/cart' exact render = {(props)=>(
+            <CartScreen {...props} userData={userData} />
+          )}/>
+        
+           <Route path='/login'   exact  component={LoginScreen}/>
+          <Route path='/register'exact    component={Registerscreen}/>
           { userData &&   <Route path='/profile'  component={profileScreen} />}
           { userData &&    <Route path='/:id?/shipping' exact  component={Shipping} />}
           { userData  &&   <Route path='/payment'exact  component={PaymentScreen} />}
           { userData  &&     <Route path='/placeorder' exact component={Placeorder} />}
           { userData  &&     <Route path='/checkout/:id' exact  component={Checkout} />}
+         
           {
             userData && userData.role ==='admin' &&    <Route path='/admin'  component={AdminScreen} />
           }

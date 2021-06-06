@@ -18,7 +18,7 @@ const Shipping = () => {
     let {userData,loading,success} = useSelector(state=>state.userDetail);
     let {Address:shippingAddress,loading:loading1,error} =  useSelector(state=>state.shipppingReducer);
     let orderDetail = useSelector(state=>state.OrderDetail);
-    let {cartItem}  = useSelector(state=>state.cart);
+    
   
     let dispatch = useDispatch();
     let orderItems = orderDetail.orderItems;
@@ -30,10 +30,10 @@ const Shipping = () => {
     let [City,SetCity] = useState('');
     let [Pincode,SetPincode] = useState('');
     let [ChooseAddress,setChooseAddress] = useState({});
-    let [newaddress,SetnewAddress] = useState(!('shippingAddress' in userData && shippingAddress?.length!==0));
+    let [newaddress,SetnewAddress] = useState(!( shippingAddress?.length!==0));
     let [message,setMessage] = useState(null);
     let [redirect,setredirect] = useState('/payment')
-    //let id = params?.id;
+  
 
     let [proceed,setproceed] = useState(false);
     
@@ -60,18 +60,18 @@ const Shipping = () => {
               setproceed(true);
           }
         else {
-          // console.log("going....");
+        
         history.push('/');
         }
       }
       else{
-          if(cartItem.length === 0){
-            history.push('/');
-            //console.log('/jhajaj');
+          if(orderDetail.orderItems.length === 0){
+            history.push('/cart');
+
           }
             
        else{
-           dispatch(Addproduct(cartItem));
+           
            setredirect('/payment?ref=fromcart')
        }
       }
@@ -129,8 +129,6 @@ const Shipping = () => {
               dispatch(upadteuserData( {shippingAddress:{Address,State,City,MobileNo,Pincode,Country}}));
              
           }
-          
-     //history.push('/payment');
      
       
     }

@@ -20,6 +20,7 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "framer-motion": "^4.1.17",
+    "handlebars": "^4.7.7",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.9",
     "morgan": "^1.10.0",

@@ -1,14 +1,18 @@
 // eslint-disable-next-line
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {Link, useHistory} from 'react-router-dom';
-import {AddItem, Addproduct} from '../../actions/CartAction';
+import {AddItem, Addproduct, getCartList, RemoveItem} from '../../actions/CartAction';
 import {Button,Card,Form, Col,Row, ListGroupItem,Image} from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
-const CartList = ({product,changeHandler,deleteHandler}) => {
+const CartList = ({product,quantity,changeHandler,loading,deleteHandler}) => {
+    
+    const dispatch = useDispatch();
+    let [qtyq,seqty] = useState(product.countInStock<quantity?product.countInStock:quantity);
   let active = product.countInStock>0?true:false;
-     const dispatch = useDispatch();
+
+
      let history = useHistory();
       
       
@@ -17,14 +21,14 @@ const CartList = ({product,changeHandler,deleteHandler}) => {
             {
                name:product.name,
                image:product.image,
-               quantity:product.quantity,
+               quantity:quantity,
                price:product.price,
-               product:product.product
+               product:product._id
             }
           ]));
-          history.push(`/${product.product}/shipping`);
+          history.push(`/${product._id}/shipping`);
       }
-   
+ 
 
     return (
         <ListGroupItem className="rounded" >
@@ -34,7 +38,7 @@ const CartList = ({product,changeHandler,deleteHandler}) => {
                <Row>
 
                    <Col lg={4}  >
-                  <Link to={`/product/${product.product}`}>
+                  <Link to={`/product/${product._id}`}>
                   <Image style={{height:"90%",width:"90%"}}src={`/public/img/Product/${product.image[0]}`} alt={product.name} fluid  />
                   </Link>
                    </Col>
@@ -76,7 +80,7 @@ const CartList = ({product,changeHandler,deleteHandler}) => {
                                  <Col >
                                  <Form.Group >
                                
-                               <Form.Control as="select"  value={product.quantity} onChange={(e)=>changeHandler(AddItem(product.product,Number(e.target.value)))}  >
+                               <Form.Control as="select"  value={qtyq} onChange={(e)=>changeHandler(product._id,Number(e.target.value),seqty)}  >
                                   {
                                   [...new Array(product.countInStock).keys()].map(el=>(
                                  <option key={el+1} value={el+1}>{el+1}</option>
@@ -95,7 +99,7 @@ const CartList = ({product,changeHandler,deleteHandler}) => {
 
                   <Row >
                  <Col xs={4} >
-                 <Button className="btn  btn-dark"  onClick ={()=>deleteHandler(product.product)}>Delete</Button>
+                 <Button className="btn  btn-dark"  onClick ={()=>deleteHandler(product._id)}>{'Delete'}</Button>
                  </Col>
                
                  <Col xs={8} md={6} className="d-grid gap-2">

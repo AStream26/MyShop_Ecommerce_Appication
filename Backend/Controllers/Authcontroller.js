@@ -129,41 +129,41 @@ exports.forgetPassword = catchAsync(async(req,res,next)=>{
 })
 
 
-exports.isLogined=     async (req,res,next)=>{
+// exports.isLogined=     async (req,res,next)=>{
 
-     //1) Getting token from cookies
+//      //1) Getting token from cookies
 
-     if(req.cookies.jwt){
+//      if(req.cookies.jwt){
 
-    try{
-         //2) verification of the token
-     const decoded =  await promisify(jwt.verify)(req.cookies.jwt,process.env.JWT_SECRET);
+//     try{
+//          //2) verification of the token
+//      const decoded =  await promisify(jwt.verify)(req.cookies.jwt,process.env.JWT_SECRET);
  
  
-     //checking if user exists or not
-     const currentuser = await User.findById(decoded.id);
-     if(!currentuser){
-         return next();
-     }
+//      //checking if user exists or not
+//      const currentuser = await User.findById(decoded.id);
+//      if(!currentuser){
+//          return next();
+//      }
  
-     //check if user has changed the password after the token was issued 
-     if(currentuser.passwordChange(decoded.iat)){
-         return next();
-     }
+//      //check if user has changed the password after the token was issued 
+//      if(currentuser.passwordChange(decoded.iat)){
+//          return next();
+//      }
      
      
-     res.status(200).json({
-          currentuser
-     });
-       return next();
-    }catch(err){
-       return  next();
-    }
+//      res.status(200).json({
+//           currentuser
+//      });
+//        return next();
+//     }catch(err){
+//        return  next();
+//     }
  
      
- }
-next();
-};
+//  }
+// next();
+// };
 
 
 exports.updatePassword = catchAsync(async (req,res,next)=>{
@@ -181,7 +181,7 @@ exports.updatePassword = catchAsync(async (req,res,next)=>{
      if(!a)
      return next(new AppError('Incorrect Password !!!',403));
      
-     console.log("Procesdding..")
+    // console.log("Procesdding..")
      
      
      user.password = newPassword;

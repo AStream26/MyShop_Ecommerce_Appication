@@ -10,6 +10,15 @@ exports.orderrequest = catchAsync(async (req,res,next)=>{
     const {OrderDetail} = req.body;
    // console.log(OrderDetail);
     const {orderItems,shippingAddress,paymentMethod,shippingPrice,totalPrice,taxPrice} = OrderDetail;
+
+ await Promise.all(   orderItems.map(async (el)=>{
+    const product = await Product.findById(el.product);
+    if(el.quantity >product.countInStock){
+        return next(new AppError(`Sorry But ${product.name} Item Quantity has changed`,404));
+    }
+}));
+
+    
   let log = console.log;
      
   
@@ -66,6 +75,8 @@ exports.Pay  = catchAsync(async(req,res,next)=>{
   await  Promise.all( order.orderItems.map(async (el,i)=>{
     const product = await Product.findById(el.product);
     product.countInStock = product.countInStock - el.quantity;
+   
+
     await product.save();
     
 }));

@@ -8,6 +8,7 @@ import Indicator from '../components/Indicator/indicator';
 import { useHistory, useLocation } from 'react-router';
 import {ScreenAnimation} from './Animation';
 import {motion} from 'framer-motion';
+import CartLoader from '../components/utilities_/cartloader';
 
 const HomeScreen = (props)=>{
     const history = useHistory();
@@ -49,7 +50,7 @@ let closehandler = ()=>{
      }
 
      {
-         loading?<Loader center={true}/>:error?(<h1>{error}</h1>):
+         loading?<CartLoader />:error?(<h1>{error}</h1>):
         (
             <Row>
          {

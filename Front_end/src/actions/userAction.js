@@ -26,7 +26,7 @@ export const getuserData  = ()=>async(dispatch)=>{
        dispatch({type:USER_FAIL,
                 payload:error.response && error.response.data.message
                 ?error.response.data.message
-                :'Server Error'
+                :`${error}`
             })
 
    }

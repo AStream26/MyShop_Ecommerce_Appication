@@ -148,7 +148,7 @@ const Placeorder = props => {
                 
                   <table className="table table-hover " >
                     <thead >
-                        <tr>
+                        <tr key={'a9a'}>
                         <th scope="col" className='d-none d-sm-block' style={{border:'none',height:'100%'}}>S.NO</th>
                         <th scope="col">Product</th>
                         <th scope="col"> Quantity</th>

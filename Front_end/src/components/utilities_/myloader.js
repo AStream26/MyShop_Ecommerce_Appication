@@ -1,7 +1,7 @@
 import React from 'react';
-import Classes from './myloader.module.css';
+import Classes from './style1.module.css';
 
-const loader = (props) => {
+const Loader = (props) => {
 
    let cl = [Classes.loader,'mx-auto']
     return props.center?
@@ -19,4 +19,6 @@ const loader = (props) => {
     )
 }
 
-export default loader;
+export default Loader;
+
+
