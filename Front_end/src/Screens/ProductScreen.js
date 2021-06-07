@@ -3,6 +3,7 @@ import {useDispatch,useSelector} from 'react-redux';
 import {Link, Redirect, useHistory } from 'react-router-dom';
 import Rating from '../components/Rating';
 import MyButton from '../components/Button';
+
 import {Row ,Col,ListGroup ,Container, Card ,Image ,Form, Button, ListGroupItem} from 'react-bootstrap';
 import Loader from '../components/utilities_/myloader';
 import {GetProduct} from '../actions/productAction';
@@ -10,6 +11,8 @@ import {AddItem,Addproduct} from '../actions/CartAction';
 import Indicator from './../components/Indicator/indicator'
 import Carosal1 from '../components/Carosal/carosal';
 import CartLoader from '../components/utilities_/cartloader';
+import Review from '../components/Reviews/ReviewScreen';
+import Directbtn from '../components/utilities_/directbtn';
 
 const ProductScreen = props => {
     const [qty,setQty] = useState(1);
@@ -64,6 +67,7 @@ const ProductScreen = props => {
        error?(
           <Redirect to='/' />
        ): (
+           <>
         <Container>
           <Link to ='/'>
           <Button className='mt-1'variant='outline-dark' size='md'>Go Back</Button>
@@ -204,9 +208,38 @@ const ProductScreen = props => {
              
               </Col>
           </Row>
-         
+    
+          <br/>
+
 
         </Container>
+        <div className='border-top'>
+       <Container>
+       {
+      product?.reviews?.length>0?<Review review={product.reviews} rating={product.rating} quantity={product.numReviews} id={product._id} />:(
+          <>
+          <ListGroup className='mt-2'>
+              <ListGroupItem>
+              <h3>No Review Yet</h3>
+        
+              </ListGroupItem>
+              <ListGroupItem>
+              <Link to={`/product/${product._id}/review`}>
+                  <Directbtn text={`write a review`} />
+                   </Link> 
+              </ListGroupItem>
+          </ListGroup>
+          </>
+      )
+}
+
+               
+              
+       </Container>
+      
+        </div>
+
+    </>
     )
 }
 

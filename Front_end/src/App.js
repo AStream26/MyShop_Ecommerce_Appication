@@ -24,6 +24,7 @@ import Indicator from './components/Indicator/indicator';
 import Loader from './components/utilities_/myloader';
 import NotFound from './Screens/notfound';
 import CartLoader from './components/utilities_/cartloader';
+import ReviewScreen from './Screens/ReviewScreen';
 
 function App() {
   let [show,setShow] = useState(false);
@@ -67,6 +68,7 @@ let toggle = ()=>{
           <Switch loaction = {location} key={location.pathname}>
           <Route path='/' exact  component={HomeScreen}/>
           <Route path='/product/:id' exact  component={ProductScreen}/>
+          <Route path='/product/:id/review' component={ReviewScreen} />
           <Route path='/cart' exact render = {(props)=>(
             <CartScreen {...props} userData={userData} />
           )}/>
