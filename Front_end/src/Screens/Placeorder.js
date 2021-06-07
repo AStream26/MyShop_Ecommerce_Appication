@@ -40,7 +40,8 @@ const Placeorder = props => {
     OrderDetail.shippingPrice = (OrderDetail.itemsPrice < 500) ? 100:0;
 
     OrderDetail.taxPrice  = Number(Number((0.15 *  OrderDetail.itemsPrice )).toFixed(1));
-    OrderDetail.totalPrice = ( OrderDetail.itemsPrice + OrderDetail.shippingPrice +  OrderDetail.taxPrice)
+    OrderDetail.totalPrice = ( OrderDetail.itemsPrice + OrderDetail.shippingPrice +  OrderDetail.taxPrice).toFixed(2);
+
     
    let handler = ()=>{
       dispatch(placeorder(OrderDetail));

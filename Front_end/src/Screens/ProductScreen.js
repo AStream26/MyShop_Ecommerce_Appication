@@ -56,26 +56,11 @@ const ProductScreen = props => {
            
          }
       }
-    //   let orderDetailReducer= ()=>{
-
-    //        dispatch(Addproduct([{
-    //         name:product.name,
-    //         image:product.image,
-    //         quantity:qty,
-    //         price:product.price,
-    //         product:product._id
-    //   }]));
-
-    //        if(userData){
-    //            history.push(`/${product._id}/shipping`);
-    //        }else{
-    //            history.push(`/login?redirect=/${product._id}/shipping`);
-    //        }
-    //   }
+ 
 
 
     //nsole.log(product);
-    return loading?<CartLoader />:
+    return loading?<CartLoader color='grey'  opacity='0.7' />:
        error?(
           <Redirect to='/' />
        ): (

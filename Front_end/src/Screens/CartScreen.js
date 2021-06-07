@@ -82,7 +82,7 @@ const CartScreen = ({userData}) => {
 
     
 
-    return loading?<CartLoader  opacity='0.6' />:(
+    return loading?<CartLoader color='black'  opacity='0.5' />:(
         <>
        {
           !cartList ||(cartList && cartList.products==0)?<EmptyCart userData={userData} />:(

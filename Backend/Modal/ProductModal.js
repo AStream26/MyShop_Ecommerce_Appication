@@ -31,7 +31,8 @@ const Productschema = new mongoose.Schema({
     },
     rating:{
         type:Number,
-        default:0
+        default:4.5,
+        set:val=>Math.round(val*10)/10
     },
     numReviews:{
         type:Number,
@@ -41,7 +42,19 @@ const Productschema = new mongoose.Schema({
         type:Number,
         default:1
     }
+},{
+    toJSON:{virtuals:true},
+    toObject:{virtuals:true},
+    
 });
+
+Productschema.virtual('reviews',{
+    ref:'Review',
+    foreignField:'product',
+    localField:'_id'
+});
+
+
 
 
 const Product = mongoose.model('Product',Productschema);

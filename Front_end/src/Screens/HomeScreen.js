@@ -50,7 +50,7 @@ let closehandler = ()=>{
      }
 
      {
-         loading?<CartLoader />:error?(<h1>{error}</h1>):
+         loading?<CartLoader color='black'  opacity='0.5' />:error?(<h1>{error}</h1>):
         (
             <Row>
          {

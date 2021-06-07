@@ -12,6 +12,7 @@ import axios from 'axios';
 import {payorder} from '../actions/orderaction'
 import {DELIVER_RESET, GETORDERBYID_RESET, ORDERPAY_RESET} from '../Reducer/constants'
 import { deliver } from '../actions/orderaction';
+import CartLoader from '../components/utilities_/cartloader';
 const Placeorder = props => {
     let params  = useParams();
      let history = useHistory();
@@ -23,11 +24,6 @@ const Placeorder = props => {
      let {success:succesPay,loading:loadingPay} = useSelector(state=>state.PaymentReducer)
      let {deliverloading,deliversuccess,errordeliver}  = useSelector(state=>state.DeliverReducer);
 
-    //  useEffect(()=>{
-    //   if(!loading){
-    //     dispatch(getOrderById(params.id));
-    //   }
-    //  },[params.id,dispatch])
      useEffect(()=>{
        
         const addPaypalscript = async ()=>{
@@ -81,7 +77,7 @@ const Placeorder = props => {
     
     //console.log(Item)
     
-   return loading?<Loader />:error?<Indicator message={error} color='alert-danger' />:
+   return loading?<CartLoader color='black'  opacity='0.5' />:error?<Indicator message={error} color='alert-danger' />:
    <Container>
    <Row>
       <ListGroupItem className=' border-0 border-bottom'> <strong><h4>ORDER ID - {params.id}</h4></strong></ListGroupItem>

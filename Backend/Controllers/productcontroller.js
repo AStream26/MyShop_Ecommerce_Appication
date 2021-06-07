@@ -55,7 +55,7 @@ exports.resizeProductImage = catchAsync(async (req,res,next)=>{
 
 exports.getALLProduct = factoryFunction.getALL(ProductModal);
 
-exports.GetProductByid =factoryFunction.getOne(ProductModal);
+exports.GetProductByid =factoryFunction.getOne(ProductModal,{path:'reviews'});
 
 exports.addProduct = factoryFunction.createOne(ProductModal);
 exports.delete     = factoryFunction.deleteOne(ProductModal);

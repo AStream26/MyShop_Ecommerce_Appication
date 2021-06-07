@@ -2,7 +2,9 @@ const express  = require('express');
 const Router  = express.Router();
 const Productcontroller  = require('../Controllers/productcontroller');
 const Authcontroller = require('../Controllers/Authcontroller');
+const reviewRouter = require('./reviewRouter')
 
+Router.use('/:productid/review',reviewRouter);
 
 Router.route('/').get(Productcontroller.getALLProduct);
 Router.route('/:id').get(Productcontroller.GetProductByid);
