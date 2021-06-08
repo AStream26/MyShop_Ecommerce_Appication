@@ -216,7 +216,7 @@ const ProductScreen = props => {
         <div className='border-top'>
        <Container>
        {
-      product?.reviews?.length>0?<Review review={product.reviews} rating={product.rating} quantity={product.numReviews} id={product._id} />:(
+      product?.reviews?.length>0?<Review product={product} limit={3} />:(
           <>
           <ListGroup className='mt-2'>
               <ListGroupItem>
@@ -224,7 +224,7 @@ const ProductScreen = props => {
         
               </ListGroupItem>
               <ListGroupItem>
-              <Link to={`/product/${product._id}/review`}>
+              <Link to={`/login?redirect=/product/${product._id}/writereview`}>
                   <Directbtn text={`write a review`} />
                    </Link> 
               </ListGroupItem>

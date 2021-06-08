@@ -25,7 +25,7 @@ import Loader from './components/utilities_/myloader';
 import NotFound from './Screens/notfound';
 import CartLoader from './components/utilities_/cartloader';
 import ReviewScreen from './Screens/ReviewScreen';
-
+import WriteReview from './components/Reviews/Review/Writereview';
 function App() {
   let [show,setShow] = useState(false);
 
@@ -75,11 +75,13 @@ let toggle = ()=>{
         
            <Route path='/login'   exact  component={LoginScreen}/>
           <Route path='/register'exact    component={Registerscreen}/>
+          { userData  &&     <Route path='/product/:id/writereview' exact  component={WriteReview} />}
           { userData &&   <Route path='/profile'  component={profileScreen} />}
           { userData &&    <Route path='/:id?/shipping' exact  component={Shipping} />}
           { userData  &&   <Route path='/payment'exact  component={PaymentScreen} />}
           { userData  &&     <Route path='/placeorder' exact component={Placeorder} />}
           { userData  &&     <Route path='/checkout/:id' exact  component={Checkout} />}
+          
          
           {
             userData && userData.role ==='admin' &&    <Route path='/admin'  component={AdminScreen} />

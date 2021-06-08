@@ -21,7 +21,7 @@ const ReviewScreen = (props) => {
           {
               product?<>
                  {
-                product?.reviews?.length>0?<Review review={product.reviews} rating={product.rating} quantity={product.numReviews}  />
+                product?.reviews?.length>0?<Review product={product}  />
                                           :<h3>No Review Yet</h3>
         }
               </>:null

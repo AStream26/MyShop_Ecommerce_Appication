@@ -2,7 +2,7 @@ import  {PRODUCT_LIST_FAIL,PRODUCT_LIST_REQUEST,PRODUCT_LIST_SUCCESS,
        PRODUCT_ITEM_FAIL,PRODUCT_ITEM_REQUEST,PRODUCT_ITEM_SUCCESS,
         ADMIN_EDIT_PRODUCT_REQUEST, ADMIN_EDIT_PRODUCT_SUCCESS, ADMIN_EDIT_PRODUCT_FAIL, 
         ADMIN_EDIT_PRODUCT_RESET, 
-        PRODUCT_ITEM_RESET,ADMIN_UPLOAD_PHOTO_FAIL,ADMIN_UPLOAD_PHOTO_REQUEST,ADMIN_UPLOAD_PHOTO_SUCCESS, ADMIN_USER_DELETE_REQUEST} from './constants';
+        PRODUCT_ITEM_RESET,ADMIN_UPLOAD_PHOTO_FAIL,ADMIN_UPLOAD_PHOTO_REQUEST,ADMIN_UPLOAD_PHOTO_SUCCESS, ADMIN_USER_DELETE_REQUEST, CREATE_REVIEW_SUCCESS, CREATE_REVIEW_FAIL, CREATE_REVIEW_RESET, CREATE_REVIEW_REQUEST} from './constants';
 
 export const productListReducer = (state={ product:[] },action)=>{
   
@@ -85,6 +85,33 @@ export const uploadPhoto = (state={},action)=>{
         case ADMIN_EDIT_PRODUCT_RESET:
             return {}
         default: return state;
+    }
+}
+
+
+export const createReview = (state={},action)=>{
+   
+    switch(action.type){
+        case CREATE_REVIEW_REQUEST:
+            return{
+                ...state,
+                loading:true
+            }
+        case CREATE_REVIEW_SUCCESS:
+            return{
+                ...state,
+                loading:false,
+                success:true
+            }
+       case  CREATE_REVIEW_FAIL:
+        return{
+            ...state,loading:false,success:false,error:action.payload
+        }
+        case CREATE_REVIEW_RESET:
+            return {
+                
+            }
+            default: return state;
     }
 }
 

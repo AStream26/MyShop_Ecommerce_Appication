@@ -4,7 +4,10 @@ PRODUCT_ITEM_SUCCESS,PRODUCT_ITEM_REQUEST,PRODUCT_ITEM_FAIL,
  ADMIN_EDIT_PRODUCT_FAIL,
  ADMIN_UPLOAD_PHOTO_REQUEST,
  ADMIN_UPLOAD_PHOTO_FAIL,
- ADMIN_UPLOAD_PHOTO_SUCCESS} from '../Reducer/constants';
+ ADMIN_UPLOAD_PHOTO_SUCCESS,
+ CREATE_REVIEW_REQUEST,
+ CREATE_REVIEW_SUCCESS,
+ CREATE_REVIEW_FAIL} from '../Reducer/constants';
 import axios from 'axios';
 export const listProduct = ()=> async (dispatch)=>{
     try{
@@ -97,6 +100,31 @@ export const uploadPhoto = (data1,id)=>async (dispatch)=>{
         dispatch({type:ADMIN_UPLOAD_PHOTO_SUCCESS});
     }catch(error){
         dispatch({type:ADMIN_UPLOAD_PHOTO_FAIL,
+            payload:error.response && error.response.data.message
+            ?error.response.data.message
+            :`Server Error`
+            });
+
+    }
+}
+
+
+export const createReview = (data1)=>async(dispatch)=>{
+    let {title,comment,recommend,rating,id} = data1;
+    console.log(data1);
+    try{
+        dispatch({type:CREATE_REVIEW_REQUEST});
+        let config = {
+            headers:{
+                'Content-Type':'application/json'
+            }
+        }
+        const {data} = await axios.post(`/api/v1/product/${id}/review`,{
+            title,comment,recommend,rating
+        },config);
+        dispatch({type:CREATE_REVIEW_SUCCESS});
+    }catch(error){
+        dispatch({type:CREATE_REVIEW_FAIL,
             payload:error.response && error.response.data.message
             ?error.response.data.message
             :`Server Error`
