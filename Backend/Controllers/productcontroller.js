@@ -50,8 +50,13 @@ exports.resizeProductImage = catchAsync(async (req,res,next)=>{
 })
 
 
+exports.aliasing = (req,res,next)=>{
 
-
+  req.query.limit = '5';
+  req.query.sort = '-rating,price';
+  req.query.fields = 'name,price,rating,image';
+  next();
+}
 
 exports.getALLProduct = factoryFunction.getALL(ProductModal);
 

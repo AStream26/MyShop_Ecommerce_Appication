@@ -9,6 +9,8 @@ import { useHistory, useLocation, useParams } from 'react-router';
 import {ScreenAnimation} from './Animation';
 import {motion} from 'framer-motion';
 import CartLoader from '../components/utilities_/cartloader';
+import Directbtn from '../components/utilities_/directbtn';
+import TopProduct from './TopProduct';
 
 const HomeScreen = (props)=>{
     const history = useHistory();
@@ -21,7 +23,15 @@ const HomeScreen = (props)=>{
    const {userLogin} = useSelector(state=>state.userLogin)
    const {loading,product,error} = productlist;
    const [message1,setMessage] = useState(null);
+   const [page,setPage] = useState(1);
 
+   let previoushandler = ()=>{
+       setPage(page-1);
+   }
+   let nexthandler = ()=>{
+    setPage(page+1);
+}
+  
 useEffect(()=>{
      if(history.hash){
          setMessage(history.hash);
@@ -29,10 +39,10 @@ useEffect(()=>{
              history.hash = '';
          }, 1000);    }
          if(!loading)
-     dispatch(listProduct(search));
+     dispatch(listProduct(search,page));
      
 
-},[dispatch,setMessage,history,userLogin,search]);
+},[dispatch,setMessage,history,userLogin,search,page]);
 
 
 let closehandler = ()=>{
@@ -44,11 +54,14 @@ let closehandler = ()=>{
 
 
      <Container>
-      
+     
      {
          message1?(<>
          <Indicator  handler = {closehandler}message={message1} alert="alert-primary" />
          </>):null
+     }
+     {
+         !search && <TopProduct />
      }
 
      {
@@ -68,11 +81,23 @@ let closehandler = ()=>{
                  )
              })
          }
+        
+    <Row className='d-flex justify-content-center' style={{transform:'scale(0.8)'}}>
+        {
+         <Col  xs={6} md={2}><button style={{width:'100%',padding:'10px', border:'1px solid black'}} disabled={page==1} onClick={previoushandler} >Previous</button></Col>
+        }
+         {
+      <Col  xs={6} md={2}><button style={{width:'100%',padding:'10px', border:'1px solid black'}} disabled={product?.length<9} onClick={nexthandler} >Next</button></Col>
+         }
+     </Row> 
+   
+
+
      </Row>
 
         )
      }
-
+   
      </Container>
     )
 }

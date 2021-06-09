@@ -8,7 +8,7 @@ class APIFeatures{
 
     search(){
      
-      if(this.querystring.search!=''){
+      if(this.querystring.search && this.querystring.search !=''){
         const q = {
            name:{
                $regex:this.querystring.search,
@@ -44,7 +44,7 @@ class APIFeatures{
             const sortby = this.querystring.sort.split(',').join(' ');
             this.query = this.query.sort(sortby);
         }else{
-            this.query.sort('-createdAt');
+            // this.query.sort('-createdAt');
         }
         return this;
       }
@@ -63,8 +63,8 @@ class APIFeatures{
       }
 
       pagitaion(){
-        const page = + this.querystring.page || 1;
-        const limit = + this.querystring.limit || 100;
+        const page = this.querystring.page*1 || 1;
+        const limit = +this.querystring.limit*1  || 9;
         const skipvalue = (page-1)*limit;
         this.query = this.query.skip(skipvalue).limit(limit);
         

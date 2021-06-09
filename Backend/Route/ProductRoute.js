@@ -4,8 +4,10 @@ const Productcontroller  = require('../Controllers/productcontroller');
 const Authcontroller = require('../Controllers/Authcontroller');
 const reviewRouter = require('./reviewRouter')
 
-Router.use('/:productid/review',reviewRouter);
 
+
+Router.use('/:productid/review',reviewRouter);
+Router.get('/getTopProducts',Productcontroller.aliasing,Productcontroller.getALLProduct);
 Router.route('/').get(Productcontroller.getALLProduct);
 Router.route('/:id').get(Productcontroller.GetProductByid);
 

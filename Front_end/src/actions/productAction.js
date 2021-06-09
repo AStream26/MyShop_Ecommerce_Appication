@@ -7,13 +7,16 @@ PRODUCT_ITEM_SUCCESS,PRODUCT_ITEM_REQUEST,PRODUCT_ITEM_FAIL,
  ADMIN_UPLOAD_PHOTO_SUCCESS,
  CREATE_REVIEW_REQUEST,
  CREATE_REVIEW_SUCCESS,
- CREATE_REVIEW_FAIL} from '../Reducer/constants';
+ CREATE_REVIEW_FAIL,
+ GET_TOP_PRODUCT_REQUEST,
+ GET_TOP_PRODUCT_SUCCESS,
+ GET_TOP_PRODUCT_FAIL} from '../Reducer/constants';
 import axios from 'axios';
-export const listProduct = (keyword='',page=1,limit=3)=> async (dispatch)=>{
+export const listProduct = (keyword='',page=1,limit=9)=> async (dispatch)=>{
     try{
         dispatch({type:PRODUCT_LIST_REQUEST});
-       
-        const {data} = await axios.get(`/api/v1/product?search=${keyword}&page=${page}&limit=${limit}`);
+        let url = `/api/v1/product?search=${keyword}&page=${page}&limit=${limit}`;
+        const {data} = await axios.get(url);
         dispatch({type:PRODUCT_LIST_SUCCESS,payload:data.doc});  
  
     }catch(error){
@@ -130,5 +133,22 @@ export const createReview = (data1)=>async(dispatch)=>{
             :`Server Error`
             });
 
+    }
+}
+
+export const GetTopProduct = ()=> async (dispatch)=>{
+    try{
+        dispatch({type:GET_TOP_PRODUCT_REQUEST});
+        let url = `/api/v1/product/getTopProducts`;
+        const {data} = await axios.get(url);
+        dispatch({type:GET_TOP_PRODUCT_SUCCESS,payload:data.doc});  
+ 
+    }catch(error){
+       
+        dispatch({type:GET_TOP_PRODUCT_FAIL,
+        payload:error.response && error.response.data.message
+        ?error.response.data.message
+        :`${JSON.stringify(error.response)}`
+        });
     }
 }

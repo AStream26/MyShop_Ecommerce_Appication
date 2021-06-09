@@ -2,9 +2,22 @@ import React from 'react';
 import { UncontrolledCarousel } from 'reactstrap';
 
 
-const Example = ({product}) =>{
+const Example = ({product,top}) =>{
   let items = [];
 
+  if(top){
+    product.forEach((item,i)=>{
+      let it = {
+        src:`/public/img/Product/${item.image[0]}`,
+        altText: `Image`,
+        caption: `${item.name}`,
+        header: `${item.price}`,
+        key: `${i+1}`
+      }
+      items.push(it);
+    })
+  }
+else{
   product.forEach((item,i)=>{
     let it = {
       src:`/public/img/Product/${item}`,
@@ -15,12 +28,14 @@ const Example = ({product}) =>{
     }
     items.push(it);
   });
+}
+ 
 
 
   return(
-    <div >
-      <UncontrolledCarousel items={items} />
-    </div>
+   
+      <UncontrolledCarousel className='bg-dark'items={items} />
+   
   )
 
 }

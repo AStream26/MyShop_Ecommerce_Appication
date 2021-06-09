@@ -2,7 +2,7 @@ import  {PRODUCT_LIST_FAIL,PRODUCT_LIST_REQUEST,PRODUCT_LIST_SUCCESS,
        PRODUCT_ITEM_FAIL,PRODUCT_ITEM_REQUEST,PRODUCT_ITEM_SUCCESS,
         ADMIN_EDIT_PRODUCT_REQUEST, ADMIN_EDIT_PRODUCT_SUCCESS, ADMIN_EDIT_PRODUCT_FAIL, 
         ADMIN_EDIT_PRODUCT_RESET, 
-        PRODUCT_ITEM_RESET,ADMIN_UPLOAD_PHOTO_FAIL,ADMIN_UPLOAD_PHOTO_REQUEST,ADMIN_UPLOAD_PHOTO_SUCCESS, ADMIN_USER_DELETE_REQUEST, CREATE_REVIEW_SUCCESS, CREATE_REVIEW_FAIL, CREATE_REVIEW_RESET, CREATE_REVIEW_REQUEST} from './constants';
+        PRODUCT_ITEM_RESET,ADMIN_UPLOAD_PHOTO_FAIL,ADMIN_UPLOAD_PHOTO_REQUEST,ADMIN_UPLOAD_PHOTO_SUCCESS, ADMIN_USER_DELETE_REQUEST, CREATE_REVIEW_SUCCESS, CREATE_REVIEW_FAIL, CREATE_REVIEW_RESET, CREATE_REVIEW_REQUEST, GET_TOP_PRODUCT_REQUEST, GET_TOP_PRODUCT_SUCCESS, GET_TOP_PRODUCT_FAIL} from './constants';
 
 export const productListReducer = (state={ product:[] },action)=>{
   
@@ -112,6 +112,28 @@ export const createReview = (state={},action)=>{
                 
             }
             default: return state;
+    }
+}
+
+export const  TopProduct  =  (state={product:[]},action)=>{
+    switch(action.type){
+        case GET_TOP_PRODUCT_REQUEST:
+            return{
+                loading:true,
+                product:[]
+            }
+        case GET_TOP_PRODUCT_SUCCESS:
+            return{
+                loading:false,
+                product:action.payload
+            }
+        case GET_TOP_PRODUCT_FAIL:
+            return{
+                loading:false,
+                product:[],
+                error:action.payload
+            }
+        default :return state
     }
 }
 

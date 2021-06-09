@@ -9,11 +9,13 @@ exports.getALL = (Modal)=>catchAsync(async (req,res,next)=>{
   if(req.params.productid)fi = {
       tour:req.params.productid
   }
-  const filter = new APIFeatures(Modal.find(fi),req.query).search().filter().sort().limitFeild().pagitaion();
+ let page = req.query.page || 1;
+  const filter = new APIFeatures(Modal.find(fi),req.query).search().filter().limitFeild().pagitaion().sort();
   const doc = await filter.query;
     res.status(200).json({
      status:'success',
-     doc
+     doc,
+     page
   });
   });
   

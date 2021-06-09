@@ -75,7 +75,7 @@ const ProductScreen = props => {
           <Row className="mt-4">
               <Col  lg={5} className="mb-1">
            {
-               product?.image?   <Carosal1  product={product.image} />:null
+               product?.image?   <Carosal1   product={product.image} />:null
            }
               </Col>
               <Col  lg={3} className="mb-1" >
