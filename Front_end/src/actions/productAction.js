@@ -9,11 +9,11 @@ PRODUCT_ITEM_SUCCESS,PRODUCT_ITEM_REQUEST,PRODUCT_ITEM_FAIL,
  CREATE_REVIEW_SUCCESS,
  CREATE_REVIEW_FAIL} from '../Reducer/constants';
 import axios from 'axios';
-export const listProduct = ()=> async (dispatch)=>{
+export const listProduct = (keyword='',page=1,limit=3)=> async (dispatch)=>{
     try{
         dispatch({type:PRODUCT_LIST_REQUEST});
        
-        const {data} = await axios.get('/api/v1/product');
+        const {data} = await axios.get(`/api/v1/product?search=${keyword}&page=${page}&limit=${limit}`);
         dispatch({type:PRODUCT_LIST_SUCCESS,payload:data.doc});  
  
     }catch(error){

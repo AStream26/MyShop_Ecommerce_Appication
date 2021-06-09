@@ -1,13 +1,16 @@
-const User = require('../Modal/Usermodal');
+const APIFeatures = require('../util/apiFeatures');
 const catchAsync = require('./../util/catchAsync');
 const ErrorHandle = require('./../util/Errorhandler');
 
 exports.getALL = (Modal)=>catchAsync(async (req,res,next)=>{
-    // const filter = new APIFeatures(Modal.find(fi),req.query).filter().sort().limitFeild().pagitaion();
-    // console.log(filter);
-    //console.log("reggggg");
-    const doc = await Modal.find();
-   // console.log(doc);
+
+
+  let fi  = {};//for nested review route
+  if(req.params.productid)fi = {
+      tour:req.params.productid
+  }
+  const filter = new APIFeatures(Modal.find(fi),req.query).search().filter().sort().limitFeild().pagitaion();
+  const doc = await filter.query;
     res.status(200).json({
      status:'success',
      doc

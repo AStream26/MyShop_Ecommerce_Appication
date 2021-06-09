@@ -4,8 +4,9 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 
 dotenv.config();
-if(process.env.NODE_ENV == 'DEVELOPMENT')
-app.use(morgan('dev'));
+// console.log(process.env.Node_ENV)
+// if(process.env.Node_ENV == 'DEVELOPMENT')
+// app.use(morgan('dev'));
 process.on('uncaughtException',err=>{
   //console.log(err.name,err.message);
   process.exit(1);//unhadled exception

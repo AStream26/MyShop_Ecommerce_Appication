@@ -37,8 +37,8 @@ const Review = ({review}) => {
 
                   <strong>
                   {
-                        review.recommend=='Yes'?<><i class="far fa-thumbs-up"></i> {` ${review.user.name.split(' ')[0]} recommend this product`}</>
-                                               :<><i class="far fa-thumbs-down"></i> {` ${review.user.name.split(' ')[0]} not recommend this product`}</>
+                        review.recommend=='Yes'?<><i className="far fa-thumbs-up"></i> {` ${review.user.name.split(' ')[0]} recommend this product`}</>
+                                               :<><i className="far fa-thumbs-down"></i> {` ${review.user.name.split(' ')[0]} not recommend this product`}</>
                     }
                   </strong>
                     </Col>

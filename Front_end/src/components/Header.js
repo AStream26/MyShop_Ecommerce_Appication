@@ -1,14 +1,15 @@
 import React from 'react'
-import {Container,Nav,Navbar, NavDropdown} from 'react-bootstrap';
+import {Container,Nav,Navbar, NavDropdown,Badge} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {LinkContainer} from 'react-router-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import {logout} from '../actions/Authuseraction';
+import Searchbox from './searchbox';
 const Header = (props) => {
    
     const dispatch = useDispatch();
     const {userData}= useSelector(state=>state.userDetail);
-    
+     const {cartList}  = useSelector(state=>state.cartItemReducer)
     //console.log(userInfo);
  
     
@@ -17,10 +18,7 @@ const Header = (props) => {
     let logouthandler = ()=>{
     
         dispatch(logout());
-     
-     //   window.location.assign('/login');
     }
-  //  console.log(props.toggle)
     return (
       
           <header style={{
@@ -36,7 +34,7 @@ const Header = (props) => {
 <Navbar   style={{
      backgroundImage: `linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%)`,
      backgroundColor: `#89d8d3`,
-}} className="navbar-dark bg-primary  " expand="md" collapseOnSelect   >
+}} className="navbar-dark bg-primary p-0" expand="md" collapseOnSelect   >
     
   
    
@@ -45,23 +43,35 @@ const Header = (props) => {
    
    
    <i style={{ color:"white",Zindex:"200",marginLeft:"0.2em",position:"absolute"} } onClick={props.toggler} className="fas fa-bars fa-2x"></i>
-   <Container >
+   <LinkContainer to='/'>
+   <Navbar.Brand  ><strong style={{ color:"white",Zindex:"200",marginLeft:"2.5em" ,position:"absolute"} }className="d-sm-block d-md-none mt-3">MyShop</strong></Navbar.Brand>
+    
+   </LinkContainer>
+   <Container className='my-0' >
    <LinkContainer to='/'>
    <Navbar.Brand   ><strong  className="d-none d-xl-block">MyShop</strong></Navbar.Brand>
     
    </LinkContainer>
-      <Navbar.Toggle style={{opacity:"0"}} />
-      <LinkContainer to='/'>
-   <Navbar.Brand  ><strong style={{opacity:"1"}} className="d-sm-block d-md-none">MyShop</strong></Navbar.Brand>
+   
+    
+
+   <LinkContainer  to='/cart'>
+   <Navbar.Brand  className="d-sm-block d-md-none"  >
+       <i className='fas fa-shopping-cart my-2'></i>
+       { cartList?.products.length && cartList?.products.length>0? `${cartList?.products.length}`:''}
+       </Navbar.Brand>
     
    </LinkContainer>
+  
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end d-none d-xl-block">
-          
+      <span>
+  <Route render={({history})=><Searchbox history={history}  />} />
+  </span>
        <Nav   >
      
         <LinkContainer to='/cart'>
         
-        <Nav.Link ><i className='fas fa-shopping-cart mx-3'></i><strong>Cart</strong></Nav.Link>
+        <Nav.Link ><i className='fas fa-shopping-cart fa-2x mx-1'></i>{ cartList?.products.length && cartList?.products.length>0? `${cartList?.products.length}`:''}</Nav.Link>
         </LinkContainer>
        {
            !userData?(
@@ -118,6 +128,13 @@ const Header = (props) => {
       </Navbar.Collapse>
   
       </Container>
+</Navbar>
+<Navbar  style={{
+     backgroundImage: `linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%)`,
+     backgroundColor: `#89d8d7`
+   
+}} className="navbar-dark bg-primary p-0 m-0 d-block d-md-none" expand="md" collapseOnSelect>
+    <Route render={({history})=><Searchbox history={history}  />} />
 </Navbar>
 </>
         </header>

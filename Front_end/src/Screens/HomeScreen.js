@@ -5,7 +5,7 @@ import Product from '../components/Product';
 import Loader from '../components/utilities_/myloader';
 import {listProduct} from '../actions/productAction';
 import Indicator from '../components/Indicator/indicator';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory, useLocation, useParams } from 'react-router';
 import {ScreenAnimation} from './Animation';
 import {motion} from 'framer-motion';
 import CartLoader from '../components/utilities_/cartloader';
@@ -13,6 +13,8 @@ import CartLoader from '../components/utilities_/cartloader';
 const HomeScreen = (props)=>{
     const history = useHistory();
     const location = useLocation();
+    const params = useParams();
+    const search = params.search
   
    const dispatch = useDispatch();
    const productlist = useSelector(state=>state.productList );
@@ -27,10 +29,10 @@ useEffect(()=>{
              history.hash = '';
          }, 1000);    }
          if(!loading)
-     dispatch(listProduct());
+     dispatch(listProduct(search));
      
 
-},[dispatch,setMessage,history,userLogin]);
+},[dispatch,setMessage,history,userLogin,search]);
 
 
 let closehandler = ()=>{
@@ -42,7 +44,7 @@ let closehandler = ()=>{
 
 
      <Container>
-     <h1>Latest Products</h1>
+      
      {
          message1?(<>
          <Indicator  handler = {closehandler}message={message1} alert="alert-primary" />

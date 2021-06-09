@@ -26,6 +26,7 @@ import NotFound from './Screens/notfound';
 import CartLoader from './components/utilities_/cartloader';
 import ReviewScreen from './Screens/ReviewScreen';
 import WriteReview from './components/Reviews/Review/Writereview';
+import Searchbox from './components/searchbox';
 function App() {
   let [show,setShow] = useState(false);
 
@@ -46,13 +47,16 @@ let toggle = ()=>{
   setShow(!show);
 }
 
-  return loading?<CartLoader color='grey' opacity='0.6'/> :(
+  return loading?<CartLoader color='grey' opacity='0.6'/> 
+  :
+  (
  <> 
    
   
   
   
        <Header  toggler = {toggle}  />
+     
     
     <SideBar show1={show} ref={ref}  width ="300" height="100vh" /> 
     
@@ -67,8 +71,11 @@ let toggle = ()=>{
            <AnimatePresence exitBeforeEnter>
           <Switch loaction = {location} key={location.pathname}>
           <Route path='/' exact  component={HomeScreen}/>
+          <Route path='/search/:search' exact  component={HomeScreen}/>
+          
           <Route path='/product/:id' exact  component={ProductScreen}/>
           <Route path='/product/:id/review' component={ReviewScreen} />
+          <Route path='/search/:keyword' component={Searchbox} />
           <Route path='/cart' exact render = {(props)=>(
             <CartScreen {...props} userData={userData} />
           )}/>

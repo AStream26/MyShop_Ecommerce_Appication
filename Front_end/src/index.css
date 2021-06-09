@@ -66,6 +66,20 @@ input[type=email] {
   border-bottom: 2px solid rgb(62, 173, 207);
 }
 
+input[type=search] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 5px;
+  box-sizing: border-box;
+  border: none;
+  height: 80%;
+ 
+}
+
+input[type=search]:focus{
+  outline:none
+ }
+
 input[type=email]:focus{
  outline: none;
  border-bottom: 2px solid rgb(0, 204, 255);

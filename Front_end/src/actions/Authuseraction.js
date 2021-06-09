@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {LOGIN_USER_FAIL, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS,USER_LOGOUT, USER_REQUEST, USER_SUCCESS} from '../Reducer/constants';
+import {LOGIN_USER_FAIL, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS,USER_FAIL,USER_LOGOUT, USER_REQUEST, USER_SUCCESS} from '../Reducer/constants';
 export const login = (email,password)=> async(dispatch)=>
     {
         try{
@@ -18,8 +18,13 @@ export const login = (email,password)=> async(dispatch)=>
                    payload:data});
          dispatch({type:USER_SUCCESS,
                    payload:data.data})
-        sessionStorage.setItem('USERDATA_',JSON.stringify(data.data));
+      
         }catch(error){
+            dispatch({ type:USER_FAIL,
+                payload:(error.response && error.response.data.message)
+                ?error.response.data.message
+                :(error.response)?error.response:JSON.stringify(error) 
+            })
          
            dispatch({ type:LOGIN_USER_FAIL,
                         payload:(error.response && error.response.data.message)
@@ -41,7 +46,7 @@ export const login = (email,password)=> async(dispatch)=>
 
            
           //  console.log("akaka");
-           window.location.assign('/login');
+           window.location.assign('/');
             // if(res.data.status==='success'){
             // window.location.assign('/'); //reload from server side not from browser side
             // }

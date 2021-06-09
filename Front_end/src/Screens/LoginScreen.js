@@ -12,18 +12,17 @@ import Indicator from './../components/Indicator/indicator'
 const LoginScreen = () => {
     const location = useLocation();
     const history = useHistory();
-    const classes = [Classes.btncolor,'btn-block mt-3'];
     const userDetail = useSelector(state=>state.userDetail);
+    let [login,setLogin] = useState(false);
     const data = userDetail?.userData;
-   
+    const [message,setMessage] = useState(null);
      let [email,SetEmail] = useState('');
      let [password,SetPassword] = useState('');
      let redirect    ;
-    // let ref = useRe
+  
      if(location.search){
          let query = new URLSearchParams(location.search);
          redirect = query.get('redirect')
-       //  console.log(redirect)
      }
      
      
@@ -33,12 +32,19 @@ const LoginScreen = () => {
      //console.log(UserInfo)
        const {userData,loading,error} = UserInfo;
      useEffect(()=>{
+       if(!login && userDetail?.userData){
+         history.push(redirect);
+       }
+       else
        if(userData){
            
            history.hash = "#Logined In Successfully !!";
            if(redirect)
-           history.replace(redirect);
+           history.psuh(redirect);
            else  history.replace('/');
+        }
+        else if(error){
+          setMessage(error);
         }
       
       
@@ -46,26 +52,25 @@ const LoginScreen = () => {
 
      let Submithandler = (e)=>{
          e.preventDefault();
-         
+         setLogin(true);
         dispatch(login(email,password));
 
         
        
      }
+     let handler= ()=>setMessage(null);
 
 
     return (
         <Container >
-              {
-               !error?( <h1 className="d-flex justify-content-center mb-5" > Login</h1>):(
-                <Indicator message={error}  color="alert-danger" />)
-               }
-           
-        <FormContainer style={{
-           
-        }} >
+              
+          {
+            message && <Indicator  message={error} handler={handler} color='alert-danger'/>
+          }    
+              
+        <FormContainer >
 
-         
+        <h1 className="d-flex justify-content-center mt-4" > Login</h1>
             <Form>
                   <Form.Group  controlId="loginemail">
                     <Form.Label >Email address</Form.Label>

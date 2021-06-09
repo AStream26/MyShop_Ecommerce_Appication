@@ -73,7 +73,9 @@ const CartList = ({product,quantity,changeHandler,loading,deleteHandler}) => {
                                  </Col>
                              </Row>
 
-                             <Row  className="p-1"> 
+                            {
+                              product.countInStock>0?<>
+                               <Row  className="p-1"> 
                                  <Col >
                                  <strong>Quantity</strong>
                                  </Col>
@@ -92,6 +94,8 @@ const CartList = ({product,quantity,changeHandler,loading,deleteHandler}) => {
                                  
                                  </Col>
                              </Row>
+                              </>:null
+                            }
                            
                       </Col>
         
@@ -110,7 +114,7 @@ const CartList = ({product,quantity,changeHandler,loading,deleteHandler}) => {
                           
                             
                           ):(
-                            <Button className="btn btn-lg " >Out Of Stock</Button>
+                            <Button style={{backgroundColor:"#ffbf00"}} disabled className="btn btn-lg" >Out Of Stock</Button>
                           )
                       }
                  </Col>

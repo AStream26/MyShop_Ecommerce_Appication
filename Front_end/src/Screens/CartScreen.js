@@ -23,7 +23,7 @@ const CartScreen = ({userData}) => {
       dispatch(getCartList());
 
      
-    },[])
+    },[dispatch])
     let redirect = userData?'/shipping':'/login?redirect=shipping';
     let {success,loading:loadingremove}  = useSelector(state=>state.removeItemCartReducer);
     useEffect(()=>{
@@ -118,7 +118,13 @@ const CartScreen = ({userData}) => {
                 </ListGroup>
                  <ListGroup variant="flush">
                  <span  className="d-grid gap-2 m-1" >
-                    <Button className="btn  btn-block " style={{backgroundColor:"black",height:"130%"}} onClick={CheckouHandler} >Checkout</Button>
+                     {
+                         cartList.products.every((item)=>item.product.countInStock>0 && item.quantity <= item.product.countInStock)
+                         ? <Button className="btn  btn-block " style={{backgroundColor:"black",height:"130%"}} onClick={CheckouHandler} >Checkout</Button>
+                         : <Button className="btn  btn-block " disabled style={{backgroundColor:"black",height:"130%"}} onClick={CheckouHandler} >Checkout</Button>
+
+                     }
+                   
                     </span>
                  </ListGroup>
                
