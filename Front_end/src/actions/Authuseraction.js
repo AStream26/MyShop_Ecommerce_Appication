@@ -39,14 +39,10 @@ export const login = (email,password)=> async(dispatch)=>
            
             dispatch({type:USER_LOGOUT});
     
-            const res = await axios({
-                method:'GET',
-                url:'/api/v1/user/logout'
-            });
-
+            const res = await axios.get('/api/v1/user/logout');
            
           //  console.log("akaka");
-           window.location.assign('/');
+           window.location.assign('/login');
             // if(res.data.status==='success'){
             // window.location.assign('/'); //reload from server side not from browser side
             // }

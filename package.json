@@ -4,10 +4,11 @@
   "description": "\"Ecommerce Application\"",
   "main": "server.js",
   "scripts": {
+    "start": "node Backend/server.js",
     "back": "nodemon Backend/server.js",
-    "prod": "node Backend/server.js",
     "client": "npm start --prefix front_end",
-    "dev": "concurrently \"npm run back\" \"npm run client\""
+    "dev": "concurrently \"npm run back\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix Front_end && npm run build --prefix Front_end"
   },
   "author": "AStream26",
   "license": "ISC",

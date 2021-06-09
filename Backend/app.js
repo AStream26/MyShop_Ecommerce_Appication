@@ -21,12 +21,6 @@ const ___dirname = path.resolve();
 //console.log(___dirname);
 app.use('/public',express.static(path.join(___dirname,'/public')));
 
-// app.use(function(req, res, next) {
-//    res.header("Access-Control-Allow-Origin", "*");
-//    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//    next();
-//  });
-
 
 
 
@@ -49,6 +43,20 @@ app.use('/api/v1/order/',orderRoute);
 app.use('/api/config/paypal',(req,res)=>{
    res.send(process.env.PAYPAL_CLIENT_KEY);
 })
+//console.log('a')
+if(process.env.Node_ENV == 'production'){
+  // console.log(path.join(path.resolve(),'Front_end','build','index.html'))
+   app.use(express.static(path.join(path.resolve(),'Front_end','build')))
+   app.get('*', (req, res) => {
+       res.sendFile((path.join(path.resolve(),'Front_end','build','index.html')))
+   })
+}else{
+   app.get('/',(req,res)=>{
+      res.send('Api running .....');
+   })
+}
+
+
 
 app.all('*',(req,res,next)=>{
     
