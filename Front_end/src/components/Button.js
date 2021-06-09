@@ -5,7 +5,7 @@ import {Button} from 'react-bootstrap';
 const Button1 = props => {
    // console.log("clicked")
     return(
-        <Button className="btn btn-lg"
+        <Button  className="btn btn-lg"
         disabled={!props.active}
         onClick = { props.onClick } type={props.type?props.type:'button'} style={{
             backgroundImage: `linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%)`,

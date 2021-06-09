@@ -5,19 +5,28 @@ import {NestedAnimation,PageTransition} from '../../Screens/Animation'
 import {getAllusers,deleteuser} from '../../actions/userAction'
 import Loader from '../utilities_/myloader'
 import Indicator from '../Indicator/indicator'
-import { Button, Table } from 'react-bootstrap'
+import { Button, Table,Row,Col } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 const Allusers = () => {
    
     const {users,loading,error,success} = useSelector(state=>state.AdminReducer);
     let[message,setMessage] = useState(null);
 
+    const [page,setPage] = useState(1);
+
+    let previoushandler = ()=>{
+        setPage(page-1);
+    }
+    let nexthandler = ()=>{
+     setPage(page+1);
+ }
+
    const dispatch  = useDispatch();
     useEffect(()=>{
        
         if(!loading)
-      dispatch(getAllusers());
-    },[dispatch,success]);
+      dispatch(getAllusers(page,3));
+    },[dispatch,success,page]);
    // console.log(users);
     let deletehandler=(id)=>{
         if(window.confirm('Are you sure ??'))
@@ -42,7 +51,7 @@ const Allusers = () => {
         >
      {
         loading ?<Loader />:error?<Indicator message={message} handler={handler}color='alert-danger' />
-        :(
+        :( <>
             <Table striped bordered hover responsive className='table-sm'>
                 <thead>
                     <tr>
@@ -83,6 +92,15 @@ const Allusers = () => {
                 </tbody>
 
             </Table>
+            <Row className='d-flex justify-content-center' style={{transform:'scale(0.8)'}}>
+        {
+         <Col  xs={6} md={2}><button style={{width:'100%',padding:'10px', border:'1px solid black'}} disabled={page==1} onClick={previoushandler} >Previous</button></Col>
+        }
+         {
+      <Col  xs={6} md={2}><button style={{width:'100%',padding:'10px', border:'1px solid black'}} disabled={users?.length<3} onClick={nexthandler} >Next</button></Col>
+         }
+     </Row> 
+            </>
         )
      }
         

@@ -1,40 +1,26 @@
 import React from 'react';
-import { UncontrolledCarousel } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import {Image,Carousel} from 'react-bootstrap'
 
 
 const Example = ({product,top}) =>{
-  let items = [];
 
-  if(top){
-    product.forEach((item,i)=>{
-      let it = {
-        src:`/public/img/Product/${item.image[0]}`,
-        altText: `Image`,
-        caption: `${item.name}`,
-        header: `${item.price}`,
-        key: `${i+1}`
-      }
-      items.push(it);
-    })
-  }
-else{
-  product.forEach((item,i)=>{
-    let it = {
-      src:`/public/img/Product/${item}`,
-      altText: `Image`,
-      caption: '',
-      header: '',
-      key: `${i+1}`
-    }
-    items.push(it);
-  });
-}
- 
+
 
 
   return(
    
-      <UncontrolledCarousel className='bg-dark'items={items} />
+    <Carousel pause='hover'>
+    {
+        product.map((image,i)=>(
+            <Carousel.Item key={i+1} className='bg-dark'>
+          
+            <Image style={{borderRadius:'0px',width:'100%',height:'100%',margin:'0px',padding:'0px'}} src={`/public/img/Product/${image}`} alt={product.name} />
+          
+            </Carousel.Item>
+        ))
+    }
+  </Carousel>
    
   )
 

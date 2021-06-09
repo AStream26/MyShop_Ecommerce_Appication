@@ -114,12 +114,12 @@ export const upadteuserData  = (data1)=>async(dispatch)=>{
  }
 
 
- export const getAllusers = ()=>async(dispatch)=>{
+ export const getAllusers = (page =1,limit=10)=>async(dispatch)=>{
 
   try{
     dispatch({type:ADMIN_USER_REQUEST});
 
-    const {data} = await axios.get('/api/v1/user/');
+    const {data} = await axios.get(`/api/v1/user/?page=${page}&limit=${limit}`);
 
     dispatch({type:ADMIN_USER_SUCCESS,
              payload:data.doc});

@@ -18,6 +18,7 @@ const RegisterScreen = () => {
      let [confirmPassword,SetconformPassword] = useState('');
      let [message,SetMessage] = useState(null);
      let redirect  ;
+     let[reg,setreg] = useState(false);
      if(location.search){
          let query = new URLSearchParams(location.search);
          redirect = query.get('redirect');
@@ -31,9 +32,10 @@ const RegisterScreen = () => {
      useEffect(()=>{
        if(userData){
            
-           history.state = {messageFrom:"Successfully created Account !!"}
+         if(reg)  history.hash = "Successfully created Account !!";
            
-           history.push(redirect);
+         if(redirect)  history.push(redirect);
+         else   history.push('/');
        }
        SetMessage(error);
      },[history,userData,error])
@@ -49,7 +51,9 @@ const RegisterScreen = () => {
          else if(password !== confirmPassword)
            SetMessage('Password and Confirm Password must match ')
            else 
+       { setreg(true);
         dispatch(Register(name,email,password,confirmPassword));
+       }
       //  console.log(redirect);
         history.push(redirect);
      }

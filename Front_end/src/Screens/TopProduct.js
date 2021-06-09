@@ -11,6 +11,7 @@ const TopProduct = () => {
 
     let {product,error,loading} = useSelector(state=>state.TopProduct);
     useEffect(()=>{
+      if(!loading)
       dispatch(GetTopProduct())
     },[])
     return loading?<CartLoader  />
@@ -23,7 +24,7 @@ const TopProduct = () => {
                        <Link to={`/product/${product._id}`}>
                        <Image src={`/public/img/Product/${product.image[0]}`} alt={product.name} />
                        <Carousel.Caption>
-                           <h2>{product.name}({product.price})</h2>
+                           <h2>{product.name}(₹{product.price})</h2>
                        </Carousel.Caption>
                        </Link>
                        </Carousel.Item>

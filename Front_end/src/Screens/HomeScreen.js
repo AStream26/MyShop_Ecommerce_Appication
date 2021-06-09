@@ -82,7 +82,9 @@ let closehandler = ()=>{
              })
          }
         
-    <Row className='d-flex justify-content-center' style={{transform:'scale(0.8)'}}>
+{
+    search?<>
+     <Row className='d-flex justify-content-center' style={{transform:'scale(0.8)'}}>
         {
          <Col  xs={6} md={2}><button style={{width:'100%',padding:'10px', border:'1px solid black'}} disabled={page==1} onClick={previoushandler} >Previous</button></Col>
         }
@@ -90,6 +92,8 @@ let closehandler = ()=>{
       <Col  xs={6} md={2}><button style={{width:'100%',padding:'10px', border:'1px solid black'}} disabled={product?.length<9} onClick={nexthandler} >Next</button></Col>
          }
      </Row> 
+    </>:null
+}
    
 
 

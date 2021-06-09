@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import {motion } from 'framer-motion'
 import {NestedAnimation,PageTransition} from '../../Screens/Animation'
-import { Button, Table } from 'react-bootstrap'
+import { Button, Table,Row,Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getALLorderAdmin} from '../../actions/orderaction'
 import Loader from '../utilities_/myloader'
@@ -12,8 +12,19 @@ import {RESET_ORDER} from '../../Reducer/constants'
 const Mybooking = () => {
     const dispatch = useDispatch();
     let history = useHistory();
+
+    const [page,setPage] = useState(1);
+
+    let previoushandler = ()=>{
+        setPage(page-1);
+    }
+    let nexthandler = ()=>{
+     setPage(page+1);
+ }
    let {order,loading,error} = useSelector(state=>state.getAllOrderReducer);
    let {userData} = useSelector(state=>state.userDetail);
+
+
    useEffect(()=>{
    
    if(!loading)
@@ -83,6 +94,14 @@ const Mybooking = () => {
       
       </tbody>
       </table>
+      <Row className='d-flex justify-content-center' style={{transform:'scale(0.8)'}}>
+        {
+         <Col  xs={6} md={2}><button style={{width:'100%',padding:'10px', border:'1px solid black'}} disabled={page==1} onClick={previoushandler} >Previous</button></Col>
+        }
+         {
+      <Col  xs={6} md={2}><button style={{width:'100%',padding:'10px', border:'1px solid black'}} disabled={order?.length<9} onClick={nexthandler} >Next</button></Col>
+         }
+     </Row> 
     </>
           )
 }

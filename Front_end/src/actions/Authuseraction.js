@@ -4,7 +4,7 @@ export const login = (email,password)=> async(dispatch)=>
     {
         try{
             dispatch({type:LOGIN_USER_REQUEST});
-            dispatch({type:USER_REQUEST});
+         //   dispatch({type:USER_REQUEST});
 
             const config = {
                 headers:{
@@ -81,7 +81,7 @@ export const login = (email,password)=> async(dispatch)=>
             dispatch({type:USER_SUCCESS,
                       payload:data.data});
 
-        sessionStorage.setItem('USERDATA_',JSON.stringify(data.data));
+      //  sessionStorage.setItem('USERDATA_',JSON.stringify(data.data));
 
         }catch(error){
             dispatch({ type:LOGIN_USER_FAIL,

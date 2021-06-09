@@ -77,7 +77,9 @@ const ProfileScreen = props => {
          
            <Route path='/profile/changepassword'  exact component={ChangePassword} />
            <Route path='/profile/myorders' exact component={Orders} />
-           <Route path='/profile/myreview' exact component={Review} />
+           <Route path='/profile/myreview' exact  render={()=><h1>Will Be Implemented Soon</h1>} />
+           <Route path='/profile/myaddress' exact render={()=><h1>Will Be Implemented Soon</h1>} />
+           
           
           
            </Switch>

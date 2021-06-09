@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {Form,Button, Col,Row, Container} from 'react-bootstrap'
 import FormContainer from '../components/Form/formcontainer';
-import Classes from './style.module.css';
-import validator from 'validator';
 import { Link,useHistory ,useLocation} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {login} from '../actions/Authuseraction';
@@ -12,8 +10,9 @@ import Indicator from './../components/Indicator/indicator'
 const LoginScreen = () => {
     const location = useLocation();
     const history = useHistory();
+    const dispatch = useDispatch();
     const userDetail = useSelector(state=>state.userDetail);
-    let [login,setLogin] = useState(false);
+    let [login1,setLogin] = useState(false);
     const data = userDetail?.userData;
     const [message,setMessage] = useState(null);
      let [email,SetEmail] = useState('');
@@ -27,20 +26,18 @@ const LoginScreen = () => {
      
      
     
-     const dispatch = useDispatch();
+  
      const UserInfo = useSelector(state=>state.userLogin);
      //console.log(UserInfo)
        const {userData,loading,error} = UserInfo;
      useEffect(()=>{
-       if(!login && userDetail?.userData){
-         history.push(redirect);
-       }
-       else
+      
+    
        if(userData){
            
-           history.hash = "#Logined In Successfully !!";
+         if(login1)  history.hash = "#Logined In Successfully !!";
            if(redirect)
-           history.psuh(redirect);
+           history.push(redirect);
            else  history.replace('/');
         }
         else if(error){
@@ -53,7 +50,7 @@ const LoginScreen = () => {
      let Submithandler = (e)=>{
          e.preventDefault();
          setLogin(true);
-        dispatch(login(email,password));
+    dispatch(login(email,password));
 
         
        
@@ -63,9 +60,12 @@ const LoginScreen = () => {
 
     return (
         <Container >
+           {
+            message && error &&<Indicator  message={error} handler={handler} color='alert-danger'/>
+          } 
               
           {
-            message && <Indicator  message={error} handler={handler} color='alert-danger'/>
+            message && !error && <Indicator  message={message} handler={handler} color='alert-danger'/>
           }    
               
         <FormContainer >
@@ -87,7 +87,7 @@ const LoginScreen = () => {
                   
             
           <Row className="m-2">
-          <MyButton onClick={Submithandler}  active={!loading}>
+          <MyButton type='submit' onClick={Submithandler}  active={!loading}>
                <strong>{loading?'Logining....':'Log in'}</strong>
                
             </MyButton>

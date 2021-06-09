@@ -56,17 +56,26 @@ const Side = forwardRef(({width,height,show1},ref1) => {
          {
              userData?(
                  <>
-                <Navanchors link="/profile/setting" text="Account" />
+                <div className='d-block d-md-none' >
+                <Navanchors link="/profile/panel" text="Profile" />
+                </div>
+
+                <div className='d-none d-md-block'>
+                <Navanchors link="/profile/setting" text="Profile" /> 
+                </div>
                 <Navanchors link="/profile/myorders" text="My Order" />
-                <Navanchors link="/profile/myreview" text="My Review" />
-                <Navanchors link="/profile/myaddress" text="MY Address" />
+                <div className='d-none d-md-block'>
                 <Navanchors link="/profile/changepassword" text="Change Password" />
+                </div>
                 {
                     userData.role ==='admin'?(
                          <>
-                       <Navanchors link="/admin/users" text="Users" />
-                       <Navanchors link="/admin/products" text="Products" />
-                       <Navanchors link="/admin/addproduct" text="Add Products" />
+                      <div className='d-block d-md-none'>
+                      <Navanchors link="/admin/panel" text="Admin" />
+                      </div>
+                     <div className='d-none d-md-block'>
+                     <Navanchors link="/admin/users" text="Admin" />
+                     </div>
                        
                          </>
                     ):null
