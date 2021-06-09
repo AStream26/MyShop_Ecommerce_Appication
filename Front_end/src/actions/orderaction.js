@@ -98,11 +98,11 @@ export const getOrderById = (id)=>async(dispatch)=>{
      }
  }
 
- export const getALLorderAdmin = () =>async(dispatch)=>{
+ export const getALLorderAdmin = (search='',page=1,limit=10) =>async(dispatch)=>{
     try{
         dispatch({type:GET_ALL_ORDER_REQUEST});
 
-        const {data} = await axios.get('/api/v1/order/');
+        const {data} = await axios.get(`/api/v1/order/?page=${page}&limit=${limit}`);
         dispatch({
             type:GET_ALL_ORDER_SUCCESS,
             payload:data.order

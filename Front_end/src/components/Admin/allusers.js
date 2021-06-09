@@ -25,7 +25,7 @@ const Allusers = () => {
     useEffect(()=>{
        
         if(!loading)
-      dispatch(getAllusers(page,3));
+      dispatch(getAllusers(page,10));
     },[dispatch,success,page]);
    // console.log(users);
     let deletehandler=(id)=>{
@@ -97,7 +97,7 @@ const Allusers = () => {
          <Col  xs={6} md={2}><button style={{width:'100%',padding:'10px', border:'1px solid black'}} disabled={page==1} onClick={previoushandler} >Previous</button></Col>
         }
          {
-      <Col  xs={6} md={2}><button style={{width:'100%',padding:'10px', border:'1px solid black'}} disabled={users?.length<3} onClick={nexthandler} >Next</button></Col>
+      <Col  xs={6} md={2}><button style={{width:'100%',padding:'10px', border:'1px solid black'}} disabled={users?.length<10} onClick={nexthandler} >Next</button></Col>
          }
      </Row> 
             </>

@@ -28,10 +28,10 @@ const Mybooking = () => {
    useEffect(()=>{
    
    if(!loading)
-    dispatch(getALLorderAdmin());
+    dispatch(getALLorderAdmin(page,9));
   
    
- },[])
+ },[page])
 
    
 

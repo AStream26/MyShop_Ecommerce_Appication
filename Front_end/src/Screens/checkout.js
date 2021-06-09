@@ -24,6 +24,8 @@ const Placeorder = props => {
      let {success:succesPay,loading:loadingPay} = useSelector(state=>state.PaymentReducer)
      let {deliverloading,deliversuccess,errordeliver}  = useSelector(state=>state.DeliverReducer);
 
+   
+
      useEffect(()=>{
        
         const addPaypalscript = async ()=>{
@@ -38,7 +40,8 @@ const Placeorder = props => {
             document.body.appendChild(script);
         }
 
-       if(!currentOrder || currentOrder.id !== params.id || succesPay || deliversuccess){
+       if(!currentOrder || (currentOrder.id !== params.id) || succesPay || deliversuccess){
+
           if(!loading){
             dispatch({type:ORDERPAY_RESET});
             dispatch({type:DELIVER_RESET});

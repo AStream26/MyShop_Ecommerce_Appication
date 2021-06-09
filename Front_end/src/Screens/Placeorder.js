@@ -6,6 +6,7 @@ import { useHistory } from 'react-router'
 import MyButton from '../components/Button';
 import {placeorder} from '../actions/orderaction'
 import Indicator from '../components/Indicator/indicator';
+import { GETORDERBYID_RESET } from '../Reducer/constants';
 
 const Placeorder = props => {
      let history = useHistory();
@@ -14,6 +15,7 @@ const Placeorder = props => {
 
      useEffect(()=>{
          if(success){
+             dispatch({type:GETORDERBYID_RESET})
              history.push(`/checkout/${orderid}`);
          }
      },[success]);

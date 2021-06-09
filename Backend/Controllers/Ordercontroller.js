@@ -8,12 +8,12 @@ exports.orderrequest = catchAsync(async (req,res,next)=>{
   
 
     const {OrderDetail} = req.body;
-   // console.log(OrderDetail);
+  
     const {orderItems,shippingAddress,paymentMethod,shippingPrice,totalPrice,taxPrice} = OrderDetail;
     
     if(!OrderDetail || orderItems.length === 0 || !paymentMethod || !shippingAddress  )
     return next(new AppError('Order cannot be Placed !!!',400));
-
+    
  await Promise.all(   orderItems.map(async (el)=>{
     const product = await Product.findById(el.product);
     if(el.quantity >product.countInStock){
@@ -35,7 +35,7 @@ const order = await Order.create({
 });
 
 if(order){
-    // console.log(req.body);
+    //console.log(req.body);
      
 if(order.orderItems.length==1){
  
@@ -44,6 +44,8 @@ if(order.orderItems.length==1){
  const data = await Cart.updateOne(query,{$pull:{products:product}});
 }
 else{
+   // console.log(OrderDetail);
+   let query = {_id:req.user.cartID};
  const data = await Cart.updateOne(query,{$set:{products:[]}});
 
 }
