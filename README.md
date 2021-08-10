@@ -3,7 +3,7 @@
 
 ### This application is deployed on Heroku. Please check it out :smile: [Live Site](https://myshop-mern-ecommerce.herokuapp.com/)
 
-<a href="https://imgbox.com/1ISGULNN" target="_blank"><img src="https://images2.imgbox.com/07/62/1ISGULNN_o.png" alt="image host"/></a>
+<img src="https://images2.imgbox.com/07/62/1ISGULNN_o.png" alt="image host"/>
 
 ## Description
 
